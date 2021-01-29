@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "439433452872",
+    "firebase_url": "https://happy-pet-35734-default-rtdb.firebaseio.com",
+    "project_id": "happy-pet-35734",
+    "storage_bucket": "happy-pet-35734.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:439433452872:android:c8d24774fb6e3134c9277d",
+        "android_client_info": {
+          "package_name": "com.adj.happypet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "439433452872-mm2gsq9ats0kk0dpktgpa8te2805cns3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adj.happypet",
+            "certificate_hash": "44f272ebfca49440bb29065ef13d4b8d594fc74c"
+          }
+        },
+        {
+          "client_id": "439433452872-sbept0ilp0goer7do0c21oo48s76atqe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrMuNDu0qkmtZZfo1drVUgZ_edxlezlKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "439433452872-sbept0ilp0goer7do0c21oo48s76atqe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
