@@ -1,21 +1,29 @@
-package com.adj.happypet;
+package com.adj.happypet.Model;
 
 public class User {
-    String fullName,age,email,password;
+    //String fullName,age,email,password;
+
+    String fullName,age,email;
 
     // empty constructor for firebase
-    public User(String fullname, String email, String password) {
+    public User() {
     }
 
 
     //constructor
+//    public User(String fullName, String age, String email, String password) {
+//        this.fullName = fullName;
+//        this.age = age;
+//        this.email = email;
+//        this.password = password;
+//    }
 
-    public User(String fullName, String age, String email, String password) {
+    public User(String fullName, String age, String email) {
         this.fullName = fullName;
         this.age = age;
         this.email = email;
-        this.password = password;
     }
+
 
     // Getter and Setter
 
@@ -44,11 +52,11 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 }

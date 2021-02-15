@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adj.happypet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -113,21 +114,49 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         //firebase create account by email and password
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                fireDatabase = FirebaseDatabase.getInstance();
+//                databaseReference = fireDatabase.getReference("users");
+//                User user = new User(fullname,age,email,password);
+//
+//                databaseReference.child(fullname).setValue(user);
+//                if(task.isSuccessful()){
+//                    Toast.makeText(RegisterActivity.this,"Berhasil mendaftarkan akun anda!",Toast.LENGTH_LONG).show();
+//                    progressBar.setVisibility(View.GONE);
+//                    Intent keLogin = new Intent(RegisterActivity.this,LoginActivity.class);
+//                    startActivity(keLogin);
+//                }else{
+//                    Toast.makeText(RegisterActivity.this,"Failed to register , Try Again !",Toast.LENGTH_LONG).show();
+//                    progressBar.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+
+        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                fireDatabase = FirebaseDatabase.getInstance();
-                databaseReference = fireDatabase.getReference("users");
-                User user = new User(fullname,age,email,password);
+                if (task.isSuccessful()) {
 
-                databaseReference.child(fullname).setValue(user);
-                if(task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this,"Berhasil mendaftarkan akun anda!",Toast.LENGTH_LONG).show();
-                    progressBar.setVisibility(View.GONE);
-                    Intent keLogin = new Intent(RegisterActivity.this,LoginActivity.class);
-                    startActivity(keLogin);
+                    //user object realtime database
+                    User user = new User(fullname,age,email);
+                    FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(RegisterActivity.this, "User Register", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }else{
+                                Toast.makeText(RegisterActivity.this, "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        }
+                    });
+
                 }else{
-                    Toast.makeText(RegisterActivity.this,"Failed to register , Try Again !",Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
             }
