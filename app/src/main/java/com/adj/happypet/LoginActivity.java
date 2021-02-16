@@ -60,6 +60,14 @@ public class LoginActivity extends AppCompatActivity {
                 userLogin();
             }
         });
+
+        forgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent keForget = new Intent(LoginActivity.this,ForgetPassword.class);
+                startActivity(keForget);
+            }
+        });
     }
 
     private void userLogin() {
