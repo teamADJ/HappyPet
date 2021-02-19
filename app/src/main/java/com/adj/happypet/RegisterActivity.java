@@ -148,6 +148,8 @@ public class RegisterActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 Toast.makeText(RegisterActivity.this, "User Register", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
+                                Intent move = new Intent(RegisterActivity.this,LoginActivity.class);
+                                startActivity(move);
                             }else{
                                 Toast.makeText(RegisterActivity.this, "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);

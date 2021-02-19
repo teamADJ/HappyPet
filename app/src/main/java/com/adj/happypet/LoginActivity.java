@@ -4,9 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -19,17 +17,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
     private TextView register_link;
+    private TextView register_admin_link;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
     private Button btn_login;
+    private Button btn_login_admin;
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
@@ -53,6 +50,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        register_admin_link.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent move = new Intent(LoginActivity.this, AdminRegisterActivity.class);
+                startActivity(move);
+            }
+        });
+
         //button login
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,11 +66,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent keForget = new Intent(LoginActivity.this,ForgetPassword.class);
-                startActivity(keForget);
+                Intent move = new Intent(LoginActivity.this,ForgetPassword.class);
+                startActivity(move);
             }
         });
     }
@@ -132,7 +139,9 @@ public class LoginActivity extends AppCompatActivity {
         edt_email_login = findViewById(R.id.edt_email);
         edt_pass_login = findViewById(R.id.edt_pass);
         btn_login = findViewById(R.id.btn_login);
-        progressBar = findViewById(R.id.progressBar);
+        progressBar = findViewById(R.id.progressBar_login);
         forgetPass = findViewById(R.id.forget_pass);
+        register_admin_link = findViewById(R.id.register_admin_link);
+        btn_login_admin = findViewById(R.id.btn_admin_login);
     }
 }
