@@ -104,7 +104,7 @@ public class UpdateActivity extends AppCompatActivity {
     }
     private void findId() {
         et_update_name = findViewById(R.id.et_update_name);
-        et_update_password = findViewById(R.id.et_update_password);
+//        et_update_password = findViewById(R.id.et_update_password);
         et_update_age = findViewById(R.id.et_update_age);
         btn_update = findViewById(R.id.btn_update);
     }
