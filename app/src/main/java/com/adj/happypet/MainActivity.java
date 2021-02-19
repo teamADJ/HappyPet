@@ -1,18 +1,16 @@
 package com.adj.happypet;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adj.happypet.Adapter.ListAdapterUser;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.adj.happypet.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,14 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
 
 
     private Button btn_logout;
     private ProgressBar progressBar;
+    private Button btn_update;
 
     // Firebase
     private FirebaseUser fUser;
@@ -47,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         userDBRef = FirebaseDatabase.getInstance().getReference("Member");
         userID = fUser.getUid();
 
+        btn_update = findViewById(R.id.btn_update);
         btn_logout = findViewById(R.id.btn_logout);
         progressBar = findViewById(R.id.progressBar);
         final TextView tv_nama = findViewById(R.id.tv_fName_home);
@@ -91,6 +88,14 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 Intent keLogin = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(keLogin);
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent moveToUpdate = new Intent(MainActivity.this,UpdateActivity.class);
+                startActivity(moveToUpdate);
             }
         });
 
