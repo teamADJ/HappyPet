@@ -2,8 +2,10 @@ package com.adj.happypet;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -13,9 +15,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.adj.happypet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +66,40 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(move);
             }
         });
+
+
+//        tab register
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("User"));
+        tabLayout.addTab(tabLayout.newTab().setText("PetShop Owner"));
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor("#FFD85F"));
+        tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
+        tabLayout.setTabTextColors(Color.parseColor("#AAAAAA"), Color.parseColor("#FFD85F"));
+
+        final ViewPager viewPager =(ViewPager)findViewById(R.id.view_pager);
+
+        TabRegisterAdapter tabRegisterAdapter = new TabRegisterAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(tabRegisterAdapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+
+
     }
 
     private void createUser() {
@@ -190,4 +228,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
     }
+
+
 }
