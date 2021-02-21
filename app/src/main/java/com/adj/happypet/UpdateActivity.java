@@ -36,7 +36,6 @@ public class UpdateActivity extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference database;
     private Button btn_update;
-
     private FirebaseUser fUser;
     private DatabaseReference userDBRef;
     private String userID;

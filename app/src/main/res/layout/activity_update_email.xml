@@ -12,6 +12,7 @@
         android:id="@+id/et_update_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:hint="Email" />
 
 <!--    <Button-->

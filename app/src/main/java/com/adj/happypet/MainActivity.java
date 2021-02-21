@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Button btn_logout;
     private ProgressBar progressBar;
-    private Button btn_update;
+    private Button btn_update, btn_updateProfile;
 
     // Firebase
     private FirebaseUser fUser;
@@ -107,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, UpdateActivity.class);
+                startActivity(i);
+            }
+        });
+
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
                             }
-                        }).setNegativeButton("Cacel",null).setView(view).create().show();
+                        }).setNegativeButton("Cancel",null).setView(view).create().show();
 
             }
         });
@@ -164,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
         btn_update = findViewById(R.id.btn_update);
         btn_logout = findViewById(R.id.btn_logout);
         progressBar = findViewById(R.id.progressBar);
+        btn_updateProfile = findViewById(R.id.btn_updateProfile);
 
     }
 

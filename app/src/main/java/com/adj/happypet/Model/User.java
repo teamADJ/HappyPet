@@ -3,7 +3,7 @@ package com.adj.happypet.Model;
 public class User {
     //String fullName,age,email,password;
 
-    String fullName,age,email;
+    String fullName,age,email, password;
 
     // empty constructor for firebase
     public User() {
@@ -18,10 +18,11 @@ public class User {
 //        this.password = password;
 //    }
 
-    public User(String fullName, String age, String email) {
+    public User(String fullName, String age, String email, String password) {
         this.fullName = fullName;
         this.age = age;
         this.email = email;
+        this.password = password;
     }
 
 
@@ -52,7 +53,15 @@ public class User {
         this.email = email;
     }
 
-//    public String getPassword() {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    //    public String getPassword() {
 //        return password;
 //    }
 //

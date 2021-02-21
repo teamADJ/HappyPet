@@ -178,13 +178,13 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email);
+                    User user = new User(fullname,age,email, password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(RegisterActivity.this, "User Register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "User Registered", Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 Intent move = new Intent(RegisterActivity.this,LoginActivity.class);
                                 startActivity(move);
