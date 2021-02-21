@@ -116,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     if(firebaseUser.isEmailVerified()){
                         //redirect ke home
-                        Intent moveHome = new Intent(LoginActivity.this,MainActivity.class);
+                        Intent moveHome = new Intent(LoginActivity.this,BottomNavigationActivity.class);
                         startActivity(moveHome);
                     }else{
                         firebaseUser.sendEmailVerification();

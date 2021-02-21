@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UpdateEmail"></activity>
         <activity android:name=".AdminHome" />
+        <activity android:name=".BottomNavigationActivity" />
         <activity android:name=".ForgetPasswordAdmin" />
         <activity android:name=".AdminLoginActivity" />
         <activity android:name=".AdminRegisterActivity" />
