@@ -97,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
+
+
             }
         });
 
@@ -180,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email);
+                    User user = new User(fullname,age,email,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -217,7 +219,6 @@ public class RegisterActivity extends AppCompatActivity {
         pass_regis = findViewById(R.id.pass_edt_regis);
         progressBar = findViewById(R.id.progressBar_regis);
         regis_btn = findViewById(R.id.btn_regis);
-
 
 
     }
