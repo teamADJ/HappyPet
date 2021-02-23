@@ -180,7 +180,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email);
+                    User user = new User(fullname,age,email,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
