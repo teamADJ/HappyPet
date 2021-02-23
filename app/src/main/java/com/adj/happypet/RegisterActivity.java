@@ -220,8 +220,6 @@ public class RegisterActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar_regis);
         regis_btn = findViewById(R.id.btn_regis);
 
-
-
     }
 
     @Override
