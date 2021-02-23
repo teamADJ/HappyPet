@@ -184,6 +184,7 @@ public class RegisterUserFragment extends Fragment {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
 
+
         }
     }
 }
