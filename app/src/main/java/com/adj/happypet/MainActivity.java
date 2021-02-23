@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog.Builder email_dialog;
     LayoutInflater inflater;
 
+    private String getEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         //initialize Firebase ,Database Ref, get UserID
         mAuth = FirebaseAuth.getInstance();
-        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        fUser = mAuth.getCurrentUser();
         userDBRef = FirebaseDatabase.getInstance().getReference("Member");
         userID = fUser.getUid();
 
@@ -103,9 +105,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent keLogin = new Intent(MainActivity.this,LoginActivity.class);
+                finish();
                 startActivity(keLogin);
+
             }
         });
+
+
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,10 +143,12 @@ public class MainActivity extends AppCompatActivity {
 //                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
 //                                    }
 //                                });
+
+                                getEmail = email.getText().toString().trim();
 //
                                 //send reset link udah tpi DB belum ke update
-                                fUser = mAuth.getCurrentUser();
-                                fUser.updateEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(MainActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
@@ -153,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
                             }
-                        }).setNegativeButton("Cacel",null).setView(view).create().show();
+                        }).setNegativeButton("Cancel",null).setView(view).create().show();
 
             }
         });
