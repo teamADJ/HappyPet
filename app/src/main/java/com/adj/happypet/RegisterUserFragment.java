@@ -150,7 +150,7 @@ public class RegisterUserFragment extends Fragment {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email);
+                    User user = new User(fullname,age,email,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -183,6 +183,9 @@ public class RegisterUserFragment extends Fragment {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
+
+
+
 
         }
     }
