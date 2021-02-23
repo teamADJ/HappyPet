@@ -185,8 +185,6 @@ public class RegisterUserFragment extends Fragment {
         if(currentUser != null){
 
 
-
-
         }
     }
 }

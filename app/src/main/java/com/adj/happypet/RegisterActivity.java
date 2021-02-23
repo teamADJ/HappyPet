@@ -221,7 +221,6 @@ public class RegisterActivity extends AppCompatActivity {
         regis_btn = findViewById(R.id.btn_regis);
 
 
-
     }
 
     @Override
