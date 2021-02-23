@@ -34,5 +34,7 @@ public class ProfileFragment extends Fragment {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_bottom_user, viewGroup, false);
+
+        
     }
 }
