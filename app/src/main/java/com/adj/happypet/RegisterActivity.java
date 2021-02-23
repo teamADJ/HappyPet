@@ -78,7 +78,7 @@ public class RegisterActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorHeight((int) (3 * getResources().getDisplayMetrics().density));
         tabLayout.setTabTextColors(Color.parseColor("#AAAAAA"), Color.parseColor("#FFD85F"));
 
-        final ViewPager viewPager =(ViewPager)findViewById(R.id.view_pager);   
+        final ViewPager viewPager =(ViewPager)findViewById(R.id.view_pager);
 
         TabRegisterAdapter tabRegisterAdapter = new TabRegisterAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(tabRegisterAdapter);
@@ -96,6 +96,8 @@ public class RegisterActivity extends AppCompatActivity {
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
+
+
 
             }
         });
