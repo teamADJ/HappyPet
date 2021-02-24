@@ -51,6 +51,8 @@ public class HomeFragment extends Fragment {
     private AlertDialog.Builder email_dialog;
     LayoutInflater inflater;
 
+    private String getEmail;
+
 
     public static Fragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -130,6 +132,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 Intent keLogin = new Intent(getActivity(),LoginActivity.class);
+                keLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(keLogin);
             }
         });
@@ -174,9 +177,10 @@ public class HomeFragment extends Fragment {
 //                                    }
 //                                });
 //
+                                getEmail = email.getText().toString().trim();
                                 //send reset link udah tpi DB belum ke update
                                 fUser = mAuth.getCurrentUser();
-                                fUser.updateEmail(email.getText().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
@@ -189,7 +193,7 @@ public class HomeFragment extends Fragment {
                                 });
 
                             }
-                        }).setNegativeButton("Cacel",null).setView(view).create().show();
+                        }).setNegativeButton("Cancel",null).setView(view).create().show();
 
             }
         });
