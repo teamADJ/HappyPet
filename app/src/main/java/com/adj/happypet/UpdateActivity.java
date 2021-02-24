@@ -63,12 +63,12 @@ public class UpdateActivity extends AppCompatActivity {
 
 
                     final String fullname = userPofile.getFullName();
-                    final String age = userPofile.getAge();
+                 //   final String age = userPofile.getAge();
                     final String email = userPofile.getEmail();
 
 
                     et_update_name.setText(fullname);
-                    et_update_age.setText(age);
+                //    et_update_age.setText(age);
                     et_update_email.setText(email);
 
                 et_update_name.addTextChangedListener(new TextWatcher() {
@@ -128,34 +128,34 @@ public class UpdateActivity extends AppCompatActivity {
 
                     }
                 });
-                et_update_age.addTextChangedListener(new TextWatcher() {
-
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before,
-                                              int count) {
-                        // TODO Auto-generated method stub
-
-                        if (et_update_age.getText().toString() == age) {
-                            btn_update.setEnabled(false);
-                        } else {
-                            btn_update.setEnabled(true);
-                        }
-                    }
-
-
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count,
-                                                  int after) {
-                        // TODO Auto-generated method stub
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                        // TODO Auto-generated method stub
-
-                    }
-                });
+//                et_update_age.addTextChangedListener(new TextWatcher() {
+//
+//                    @Override
+//                    public void onTextChanged(CharSequence s, int start, int before,
+//                                              int count) {
+//                        // TODO Auto-generated method stub
+//
+//                        if (et_update_age.getText().toString() == age) {
+//                            btn_update.setEnabled(false);
+//                        } else {
+//                            btn_update.setEnabled(true);
+//                        }
+//                    }
+//
+//
+//                    @Override
+//                    public void beforeTextChanged(CharSequence s, int start, int count,
+//                                                  int after) {
+//                        // TODO Auto-generated method stub
+//
+//                    }
+//
+//                    @Override
+//                    public void afterTextChanged(Editable s) {
+//                        // TODO Auto-generated method stub
+//
+//                    }
+//                });
 
             }
 
@@ -175,7 +175,7 @@ public class UpdateActivity extends AppCompatActivity {
                     user.setFullName(et_update_name.getText().toString());
                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     user.setEmail(et_update_email.getText().toString());
-                    user.setAge(et_update_age.getText().toString());
+             //       user.setAge(et_update_age.getText().toString());
                     updateData(user);
                 }
             }

@@ -81,12 +81,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if(userPofile != null){
                     String fullname = userPofile.getFullName();
-                    String age = userPofile.getAge();
+                //    String age = userPofile.getAge();
                     String email = userPofile.getEmail();
 
                     banner.setText("Welcome " + fullname + "!");
                     tv_nama.setText(fullname);
-                    tv_age.setText(age);
+           //         tv_age.setText(age);
                     tv_email.setText(email);
 
                 }

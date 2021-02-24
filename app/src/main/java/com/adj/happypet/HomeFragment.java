@@ -39,6 +39,7 @@ public class HomeFragment extends Fragment {
     private Button btn_logout;
     private ProgressBar progressBar;
     private Button btn_update;
+    private Button btn_updateProfile;
 
     private TextView tv_nama, tv_age, tv_email, banner ;
 
@@ -91,17 +92,13 @@ public class HomeFragment extends Fragment {
 
         btn_update = v.findViewById(R.id.btn_update);
         btn_logout = v.findViewById(R.id.btn_logout);
+        btn_updateProfile = v.findViewById(R.id.btn_update_profile);
 
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
-        tv_age = v.findViewById(R.id.tv_age_home);
+      //  tv_age = v.findViewById(R.id.tv_age_home);
         tv_email = v.findViewById(R.id.tv_email_home);
         banner = v.findViewById(R.id.happy_pet_banner);
-
-
-
-
-
 
         userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -112,12 +109,12 @@ public class HomeFragment extends Fragment {
 
                 if(userPofile != null){
                     String fullname = userPofile.getFullName();
-                    String age = userPofile.getAge();
+                   // String age = userPofile.getAge();
                     String email = userPofile.getEmail();
 
                     banner.setText("Welcome " + fullname + "!");
                     tv_nama.setText(fullname);
-                    tv_age.setText(age);
+                  //  tv_age.setText(age);
                     tv_email.setText(email);
 
                 }
@@ -139,6 +136,15 @@ public class HomeFragment extends Fragment {
                 startActivity(keLogin);
             }
         });
+
+
+//        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getActivity(),UpdateProfileActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,6 +197,8 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
 
 
         return v;
