@@ -72,7 +72,6 @@ public class RegisterOwnerFragment extends Fragment {
         }
 
 
-
         if (email.isEmpty()) {
             edt_email.setError("Email must be Required!");
             edt_email.requestFocus();
