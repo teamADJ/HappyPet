@@ -93,7 +93,7 @@ public class RegisterUserFragment extends Fragment {
             return;
         }
 
-     
+
 
         if (email.isEmpty()) {
             email_regis.setError("Email must be Required!");
