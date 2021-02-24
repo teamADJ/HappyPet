@@ -42,6 +42,7 @@
             android:textCursorDrawable="@drawable/color_cursor"
 
             />
+
         <TextView
             android:id="@+id/register_age_tv"
             android:layout_width="wrap_content"
@@ -71,6 +72,33 @@
             android:backgroundTint="#FFD85F"
             android:textCursorDrawable="@drawable/color_cursor"
             />
+
+<!--        <TextView-->
+<!--            android:id="@+id/register_age_tv"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Age "-->
+<!--            android:textSize="16sp"-->
+<!--            android:textStyle="bold"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/fName_edt_regis"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"/>-->
+<!--        <EditText-->
+<!--            android:id="@+id/age_edt_regis"-->
+<!--            android:layout_width="240dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="30dp"-->
+<!--            android:layout_marginTop="2dp"-->
+<!--            android:layout_marginRight="30dp"-->
+<!--            android:ems="10"-->
+<!--            android:inputType="number"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.495"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/register_age_tv" />-->
+
         <TextView
             android:id="@+id/register_email_tv"
             android:layout_width="wrap_content"

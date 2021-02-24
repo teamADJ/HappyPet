@@ -93,11 +93,11 @@ public class RegisterUserFragment extends Fragment {
             return;
         }
 
-//        if (age.isEmpty()) {
-//            edt_age.setError("Age must be Required!");
-//            edt_age.requestFocus();
-//            return;
-//        }
+        if (age.isEmpty()) {
+            edt_age.setError("Age must be Required!");
+            edt_age.requestFocus();
+            return;
+        }
 
         if (email.isEmpty()) {
             email_regis.setError("Email must be Required!");
@@ -154,7 +154,7 @@ public class RegisterUserFragment extends Fragment {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email,password);
+                    User user = new User(fullname,email,age,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
