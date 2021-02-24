@@ -1,9 +1,9 @@
 package com.adj.happypet.Model;
 
 public class User {
-    String fullName,age,email,password;
+    String fullName,email,password;
 
-//    String fullName,age,email;
+
 
     // empty constructor for firebase
     public User() {
@@ -11,12 +11,14 @@ public class User {
 
 
     //constructor
-    public User(String fullName, String age, String email, String password) {
+    public User(String fullName, String email, String password) {
         this.fullName = fullName;
-        this.age = age;
+        //this.age = age;
         this.email = email;
         this.password = password;
     }
+
+
 
 //    public User(String fullName, String age, String email) {
 //        this.fullName = fullName;
@@ -36,13 +38,13 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
+//    public String getAge() {
+//        return age;
+//    }
+//
+//    public void setAge(String age) {
+//        this.age = age;
+//    }
 
     public String getEmail() {
         return email;

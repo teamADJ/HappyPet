@@ -34,7 +34,7 @@ public class RegisterUserFragment extends Fragment {
 
     private TextView bannerHP;
     private EditText edt_fullName;
-    private EditText edt_age;
+   // private EditText edt_age;
     private EditText email_regis;
     private EditText pass_regis;
     private ProgressBar progressBar;
@@ -47,7 +47,7 @@ public class RegisterUserFragment extends Fragment {
         btnSubmitUser = v.findViewById(R.id.btn_submit_user);
 //        bannerHP = v.findViewById(R.id.happy_pet_banner);
         edt_fullName = v.findViewById(R.id.fName_edt_regis);
-        edt_age = v.findViewById(R.id.age_edt_regis);
+//        edt_age = v.findViewById(R.id.age_edt_regis);
         email_regis = v.findViewById(R.id.email_edt_regis);
         pass_regis = v.findViewById(R.id.pass_edt_regis);
 //        progressBar = v.findViewById(R.id.progressBar_regis);
@@ -79,7 +79,7 @@ public class RegisterUserFragment extends Fragment {
         final String email = email_regis.getText().toString().trim();
         final String password = pass_regis.getText().toString().trim();
         final String fullname = edt_fullName.getText().toString().trim();
-        final String age = edt_age.getText().toString().trim();
+   //     final String age = edt_age.getText().toString().trim();
 
         // all field must required
 
@@ -89,11 +89,11 @@ public class RegisterUserFragment extends Fragment {
             return;
         }
 
-        if (age.isEmpty()) {
-            edt_age.setError("Age must be Required!");
-            edt_age.requestFocus();
-            return;
-        }
+//        if (age.isEmpty()) {
+//            edt_age.setError("Age must be Required!");
+//            edt_age.requestFocus();
+//            return;
+//        }
 
         if (email.isEmpty()) {
             email_regis.setError("Email must be Required!");
@@ -150,7 +150,7 @@ public class RegisterUserFragment extends Fragment {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,age,email,password);
+                    User user = new User(fullname,email,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
