@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText email_regis;
     private EditText pass_regis;
     private ProgressBar progressBar;
-    private Button regis_btn;
+//    private Button regis_btn;
 
 
     @Override
@@ -53,13 +53,13 @@ public class RegisterActivity extends AppCompatActivity {
 
         findId();
 
-        regis_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createUser();
-
-            }
-        });
+//        regis_btn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                createUser();
+//
+//            }
+//        });
 
         bannerHP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,7 +182,7 @@ public class RegisterActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     //user object realtime database
-                    User user = new User(fullname,email,password);
+                    User user = new User(fullname,email,age,password);
                     FirebaseDatabase.getInstance().getReference("Member").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
@@ -218,7 +218,7 @@ public class RegisterActivity extends AppCompatActivity {
         email_regis = findViewById(R.id.email_edt_regis);
         pass_regis = findViewById(R.id.pass_edt_regis);
         progressBar = findViewById(R.id.progressBar_regis);
-        regis_btn = findViewById(R.id.btn_regis);
+//        regis_btn = findViewById(R.id.btn_regis);
 
 
     }

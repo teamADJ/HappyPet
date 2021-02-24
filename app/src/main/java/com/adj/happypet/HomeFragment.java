@@ -135,13 +135,13 @@ public class HomeFragment extends Fragment {
         });
 
 
-        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(),UpdateProfileActivity.class);
-                startActivity(i);
-            }
-        });
+//        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i = new Intent(getActivity(),UpdateProfileActivity.class);
+//                startActivity(i);
+//            }
+//        });
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
