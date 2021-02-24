@@ -40,7 +40,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:backgroundTint="#FFD85F"
                 android:textCursorDrawable="@drawable/color_cursor"
-
                 />
             <TextView
                 android:id="@+id/register_age_tv_owner"

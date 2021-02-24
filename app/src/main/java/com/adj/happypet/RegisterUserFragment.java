@@ -156,7 +156,7 @@ public class RegisterUserFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "User Register", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "User Registered", Toast.LENGTH_SHORT).show();
 //                                progressBar.setVisibility(View.GONE);
                                 Intent move = new Intent(getActivity(),LoginActivity.class);
                                 startActivity(move);
