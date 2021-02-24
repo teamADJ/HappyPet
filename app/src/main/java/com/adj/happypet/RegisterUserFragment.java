@@ -93,11 +93,7 @@ public class RegisterUserFragment extends Fragment {
             return;
         }
 
-        if (age.isEmpty()) {
-            edt_age.setError("Age must be Required!");
-            edt_age.requestFocus();
-            return;
-        }
+     
 
         if (email.isEmpty()) {
             email_regis.setError("Email must be Required!");
