@@ -14,7 +14,7 @@ public class Owner {
         this.password = password;
         this.age = age;
     }
-    
+
     public String getFullName() {
         return fullName;
     }
