@@ -125,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
 
                 }else{
-                    Toast.makeText(LoginActivity.this,"Gagal login , cek lagi!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Gagal login, cek lagi!",Toast.LENGTH_LONG).show();
                 }
 
             }
