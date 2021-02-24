@@ -15,7 +15,7 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     public static Fragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
+        ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -35,6 +35,6 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         return inflater.inflate(R.layout.fragment_bottom_user, viewGroup, false);
 
-        
+
     }
 }

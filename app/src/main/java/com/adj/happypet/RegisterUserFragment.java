@@ -32,7 +32,7 @@ public class RegisterUserFragment extends Fragment {
     private FirebaseDatabase fireDatabase;
     private DatabaseReference databaseReference;
 
-    private TextView bannerHP;
+    private TextView bannerHP, register_age_tv;
     private EditText edt_fullName;
     private EditText edt_age;
     private EditText email_regis;
@@ -45,6 +45,7 @@ public class RegisterUserFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_register_user, viewGroup, false);
 
         btnSubmitUser = v.findViewById(R.id.btn_submit_user);
+        register_age_tv = v.findViewById(R.id.register_age_tv);
 //        bannerHP = v.findViewById(R.id.happy_pet_banner);
         edt_fullName = v.findViewById(R.id.fName_edt_regis);
         edt_age = v.findViewById(R.id.age_edt_regis);
@@ -52,6 +53,9 @@ public class RegisterUserFragment extends Fragment {
         pass_regis = v.findViewById(R.id.pass_edt_regis);
 //        progressBar = v.findViewById(R.id.progressBar_regis);
 //        regis_btn = v.findViewById(R.id.btn_regis);
+
+        edt_age.setVisibility(View.GONE);
+        register_age_tv.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -89,11 +93,11 @@ public class RegisterUserFragment extends Fragment {
             return;
         }
 
-        if (age.isEmpty()) {
-            edt_age.setError("Age must be Required!");
-            edt_age.requestFocus();
-            return;
-        }
+//        if (age.isEmpty()) {
+//            edt_age.setError("Age must be Required!");
+//            edt_age.requestFocus();
+//            return;
+//        }
 
         if (email.isEmpty()) {
             email_regis.setError("Email must be Required!");
