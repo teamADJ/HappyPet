@@ -20,7 +20,7 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".UpdateActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".LoginActivity" android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
