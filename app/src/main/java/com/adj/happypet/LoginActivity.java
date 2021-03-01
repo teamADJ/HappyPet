@@ -20,8 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-    private Button btn_regis;
-    private Button btn_admin;
+//    private Button btn_regis;
+//    private Button btn_admin;
+    private TextView sign_uo_tv_btn;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
@@ -42,7 +43,15 @@ public class LoginActivity extends AppCompatActivity {
         findID();
 
         //button direct ke register
-        btn_regis.setOnClickListener(new View.OnClickListener() {
+//        btn_regis.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent move = new Intent(LoginActivity.this,RegisterActivity.class);
+//                startActivity(move);
+//            }
+//        });
+
+        sign_uo_tv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent move = new Intent(LoginActivity.this,RegisterActivity.class);
@@ -50,13 +59,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        btn_admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent move = new Intent(LoginActivity.this, AdminRegisterActivity.class);
-                startActivity(move);
-            }
-        });
+//        btn_admin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent move = new Intent(LoginActivity.this, AdminRegisterActivity.class);
+//                startActivity(move);
+//            }
+//        });
 
         //button login
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -135,13 +144,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findID() {
-        btn_regis = findViewById(R.id.register_btn);
+//        btn_regis = findViewById(R.id.register_btn);
+        sign_uo_tv_btn = findViewById(R.id.sign_uo_tv_btn);
         edt_email_login = findViewById(R.id.edt_email);
         edt_pass_login = findViewById(R.id.edt_pass);
         btn_login = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar_login);
         forgetPass = findViewById(R.id.forget_pass);
-        btn_admin = findViewById(R.id.register_admin_btn);
+//        btn_admin = findViewById(R.id.register_admin_btn);
         btn_login_admin = findViewById(R.id.btn_admin_login);
     }
 }

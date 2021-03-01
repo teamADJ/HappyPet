@@ -39,7 +39,13 @@ public class BottomNavigationActivity extends AppCompatActivity {
                         case R.id.navigation_home:
                             openFragment(HomeFragment.newInstance("", ""));
                             return true;
-                        case R.id.navigation_sms:
+                        case R.id.order:
+                            openFragment(OrderFragment.newInstance("", ""));
+                            return true;
+                        case R.id.inbox:
+                            openFragment(InboxFragment.newInstance("", ""));
+                            return true;
+                        case R.id.profile:
                             openFragment(ProfileFragment.newInstance("", ""));
                             return true;
                     }

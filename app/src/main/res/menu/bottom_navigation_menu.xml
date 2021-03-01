@@ -6,12 +6,17 @@
         android:icon="@drawable/ic_launcher_background"
         android:title="Home" />
     <item
-        android:id="@+id/navigation_sms"
+        android:id="@+id/order"
         android:icon="@drawable/ic_launcher_background"
         android:title="SMS" />
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/inbox"
+        android:icon="@drawable/inbox"
+        android:title="Inbox" />
+
+    <item
+        android:id="@+id/profile"
         android:icon="@drawable/ic_launcher_background"
-        android:title="Notification" />
+        android:title="SMS" />
 
 </menu>

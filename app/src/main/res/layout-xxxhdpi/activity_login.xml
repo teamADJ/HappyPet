@@ -10,12 +10,14 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="80dp"
+
             android:gravity="center"
             android:orientation="vertical">
 
@@ -23,7 +25,7 @@
                 android:id="@+id/HappyPetTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="80dp"
                 android:text="Welcome to Happy Pet "
                 android:textColor="#000000"
                 android:textSize="24sp"
@@ -46,7 +48,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/loginBox"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
@@ -77,7 +79,7 @@
 
                     <EditText
                         android:id="@+id/edt_email"
-                        android:layout_width="190dp"
+                        android:layout_width="240dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
@@ -102,7 +104,7 @@
 
                     <EditText
                         android:id="@+id/edt_pass"
-                        android:layout_width="190dp"
+                        android:layout_width="240dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
@@ -118,7 +120,7 @@
 
             <TextView
                 android:id="@+id/forget_pass"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:text="Forget Password"
@@ -130,23 +132,57 @@
 
             <Button
                 android:id="@+id/btn_login"
-                android:layout_width="250dp"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/btn"
                 android:text="Login"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintCircleRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginBox" />
 
+<!--            <TextView-->
+<!--                android:id="@+id/or_text"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:text="OR "-->
+<!--                android:textColor="#000000"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:orientation="horizontal"
 
 
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dont_have_acc_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+
+                android:text="Dont Have an Account?"/>
+            <TextView
+                android:id="@+id/sign_uo_tv_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/medium_blue"
+                android:layout_marginLeft="5dp"
+                android:text="Sign Up!"
+
+                />
+        </LinearLayout>
 
 <!--            <Button-->
 <!--                android:id="@+id/register_btn"-->
@@ -160,29 +196,6 @@
 <!--                app:layout_constraintEnd_toEndOf="parent"-->
 <!--                app:layout_constraintStart_toStartOf="parent"-->
 <!--                app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
-
-            <LinearLayout
-                android:layout_width="250dp"
-                android:orientation="horizontal"
-
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/dont_have_acc_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-
-                    android:text="Dont Have an Account?"/>
-                <TextView
-                    android:id="@+id/sign_uo_tv_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/medium_blue"
-                    android:layout_marginLeft="5dp"
-                    android:text="Sign Up!"
-
-                    />
-            </LinearLayout>
 
 <!--            <Button-->
 <!--                android:id="@+id/register_admin_btn"-->

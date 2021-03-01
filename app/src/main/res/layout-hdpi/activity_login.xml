@@ -9,13 +9,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="0dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -23,7 +21,7 @@
                 android:id="@+id/HappyPetTV"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="50dp"
                 android:text="Welcome to Happy Pet "
                 android:textColor="#000000"
                 android:textSize="24sp"
@@ -133,9 +131,9 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:layout_marginBottom="10dp"
                 android:background="@drawable/btn"
                 android:text="Login"
+                android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -145,25 +143,10 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginBox" />
 
-
-
-
-<!--            <Button-->
-<!--                android:id="@+id/register_btn"-->
-<!--                android:layout_width="300dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:background="@drawable/btn"-->
-<!--                android:text="Sign Up with Email"-->
-<!--                android:textColor="#000000"-->
-<!--                app:layout_constraintCircleRadius="10dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
-
             <LinearLayout
                 android:layout_width="250dp"
                 android:orientation="horizontal"
+
 
                 android:layout_height="wrap_content">
                 <TextView
@@ -183,6 +166,22 @@
 
                     />
             </LinearLayout>
+
+
+
+
+<!--            <Button-->
+<!--                android:id="@+id/register_btn"-->
+<!--                android:layout_width="300dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:background="@drawable/btn"-->
+<!--                android:text="Sign Up with Email"-->
+<!--                android:textColor="#000000"-->
+<!--                app:layout_constraintCircleRadius="10dp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
 
 <!--            <Button-->
 <!--                android:id="@+id/register_admin_btn"-->
