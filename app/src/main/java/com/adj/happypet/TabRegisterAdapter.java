@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
+import com.adj.happypet.Owner.RegisterOwnerFragment;
+
 public class TabRegisterAdapter extends FragmentStatePagerAdapter {
     int mNumOfTabsRegister;
     public TabRegisterAdapter(@NonNull FragmentManager fm, int NoofTabsRegister) {
