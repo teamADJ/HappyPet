@@ -1,4 +1,4 @@
-package com.adj.happypet;
+package com.adj.happypet.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adj.happypet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -55,7 +56,7 @@ public class AdminLoginActivity extends AppCompatActivity {
         forgetPass_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent move = new Intent(AdminLoginActivity.this,ForgetPasswordAdmin.class);
+                Intent move = new Intent(AdminLoginActivity.this, ForgetPasswordAdmin.class);
                 startActivity(move);
             }
         });
