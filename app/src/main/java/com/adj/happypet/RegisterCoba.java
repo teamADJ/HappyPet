@@ -104,6 +104,7 @@ public class RegisterCoba extends Fragment {
                     return;
                 }
                 else{
+                    // mengambil doc ref nya
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -112,14 +113,19 @@ public class RegisterCoba extends Fragment {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()){
+
                                         currentUser = mAuth.getCurrentUser();
+                                        //unik id
                                         final String currentUserId = currentUser.getUid();
 
-                                        Map<String,String> userMap = new HashMap<>();
+                                        // mengambil data dri edt yg diinputkan
+                                        Map<String,Object> userMap = new HashMap<>();
                                         userMap.put("userId",currentUserId);
-                                        userMap.put("username",fullname);
+                                        userMap.put("fullname",fullname);
                                         userMap.put("email",email);
                                         userMap.put("password",password);
+
+                                        //push data ke collection db nya
 
                                         db.collection("Member").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                             @Override

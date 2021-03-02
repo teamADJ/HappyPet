@@ -15,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "439433452872-mm2gsq9ats0kk0dpktgpa8te2805cns3.apps.googleusercontent.com",
+          "client_id": "439433452872-2ql21n6die5bmlhti8s99soodjurkjeu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.adj.happypet",
             "certificate_hash": "44f272ebfca49440bb29065ef13d4b8d594fc74c"
+          }
+        },
+        {
+          "client_id": "439433452872-m8dm8ls9qo1936o4kbg59kvv6mh7d5cr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adj.happypet",
+            "certificate_hash": "71e3413f787a7ba4dcff7e31a781697b1a20370e"
           }
         },
         {
