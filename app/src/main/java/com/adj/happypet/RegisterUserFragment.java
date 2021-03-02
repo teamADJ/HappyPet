@@ -49,21 +49,21 @@ public class RegisterUserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_register_user,viewGroup , false);
+        View v = inflater.inflate(R.layout.fragment_register_user, viewGroup, false);
 
         btn_regis = v.findViewById(R.id.btn_submit_user);
         edt_fullName = v.findViewById(R.id.fName_edt_regis);
         email_regis = v.findViewById(R.id.email_edt_regis);
         pass_regis = v.findViewById(R.id.pass_edt_regis);
 
-        mAuth  = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         documentReference = db.collection("Member").document();
 
         //cek ada akun atau enggak
-        if(currentUser!= null){
+        if (currentUser != null) {
             // User is signed in
-        }else{
+        } else {
             // No user is signed in
         }
 
@@ -80,9 +80,7 @@ public class RegisterUserFragment extends Fragment {
                     edt_fullName.setError("Full Name must be Required!");
                     edt_fullName.requestFocus();
                     return;
-                }
-
-                else if (email.isEmpty()) {
+                } else if (email.isEmpty()) {
                     email_regis.setError("Email must be Required!");
                     email_regis.requestFocus();
                     return;
@@ -92,9 +90,7 @@ public class RegisterUserFragment extends Fragment {
                     email_regis.setError("Please check your email format");
                     email_regis.requestFocus();
                     return;
-                }
-
-                else if (password.isEmpty()) {
+                } else if (password.isEmpty()) {
                     pass_regis.setError("Password must be Required");
                     pass_regis.requestFocus();
                     return;
@@ -105,28 +101,27 @@ public class RegisterUserFragment extends Fragment {
                     pass_regis.setError("Password must be at least 6");
                     pass_regis.requestFocus();
                     return;
-                }
-                else{
+                } else {
                     // mengambil doc ref nya
                     documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                         @Override
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             //create account using email and password
-                            mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()){
+                                    if (task.isSuccessful()) {
 
                                         currentUser = mAuth.getCurrentUser();
                                         //unik id
                                         final String currentUserId = currentUser.getUid();
 
                                         // mengambil data dri edt yg diinputkan
-                                        Map<String,Object> userMap = new HashMap<>();
-                                        userMap.put("userId",currentUserId);
-                                        userMap.put("fullname",fullname);
-                                        userMap.put("email",email);
-                                        userMap.put("password",password);
+                                        Map<String, Object> userMap = new HashMap<>();
+                                        userMap.put("userId", currentUserId);
+                                        userMap.put("fullname", fullname);
+                                        userMap.put("email", email);
+                                        userMap.put("password", password);
 
                                         //push data ke collection db nya
 
@@ -175,6 +170,8 @@ public class RegisterUserFragment extends Fragment {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){}
+        if (currentUser != null) {
+        }
     }
 
+}
