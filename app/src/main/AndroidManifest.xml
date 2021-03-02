@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adj.happypet">
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -11,11 +12,11 @@
         android:theme="@style/AppTheme">
         <activity android:name=".UpdateProfileActivity"></activity>
         <activity android:name=".UpdateEmail" />
-        <activity android:name=".AdminHome" />
+        <activity android:name=".Admin.AdminHome" />
         <activity android:name=".BottomNavigationActivity" />
-        <activity android:name=".ForgetPasswordAdmin" />
-        <activity android:name=".AdminLoginActivity" />
-        <activity android:name=".AdminRegisterActivity" />
+        <activity android:name=".Admin.ForgetPasswordAdmin" />
+        <activity android:name=".Admin.AdminLoginActivity" />
+        <activity android:name=".Admin.AdminRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" />
