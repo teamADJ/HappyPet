@@ -34,12 +34,13 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseDatabase fireDatabase;
     private DatabaseReference databaseReference;
 
-    private TextView bannerHP;
+    private TextView bannerHP, back_to_login;
     private EditText edt_fullName;
     private EditText edt_age;
     private EditText email_regis;
     private EditText pass_regis;
     private ProgressBar progressBar;
+
 //    private Button regis_btn;
 
 
@@ -47,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
@@ -68,6 +71,15 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(move);
             }
         });
+
+        back_to_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent move = new Intent(RegisterActivity.this,LoginActivity.class);
+                startActivity(move);
+            }
+        });
+
 
 
 //        tab register
@@ -218,6 +230,7 @@ public class RegisterActivity extends AppCompatActivity {
         email_regis = findViewById(R.id.email_edt_regis);
         pass_regis = findViewById(R.id.pass_edt_regis);
         progressBar = findViewById(R.id.progressBar_regis);
+        back_to_login = findViewById(R.id.back_to_login);
 //        regis_btn = findViewById(R.id.btn_regis);
 
 

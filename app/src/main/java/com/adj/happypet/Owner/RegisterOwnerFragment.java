@@ -44,6 +44,8 @@ public class RegisterOwnerFragment extends Fragment {
     private FirebaseFirestore db ;
     private DocumentReference documentReference;
 
+    private TextView age_tv;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_register_owner, viewGroup, false);
 
@@ -54,6 +56,10 @@ public class RegisterOwnerFragment extends Fragment {
         edt_email_owner = v.findViewById(R.id.email_edt_regis_owner);
         edt_pass_owner = v.findViewById(R.id.pass_edt_regis_owner);
         reg_owner_btn = v.findViewById(R.id.btn_submit_owner);
+        age_tv = v.findViewById(R.id.register_age_tv_owner);
+
+        edt_age_owner.setVisibility(View.GONE);
+        age_tv.setVisibility((View.GONE));
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
