@@ -21,10 +21,10 @@ public class TabRegisterAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-//                RegisterUserFragment registerUserFragment = new RegisterUserFragment();
-//                return registerUserFragment;
-                RegisterCoba registerCoba = new RegisterCoba();
-                return  registerCoba;
+                RegisterUserFragment registerUserFragment = new RegisterUserFragment();
+                return registerUserFragment;
+//                RegisterCoba registerCoba = new RegisterCoba();
+//                return  registerCoba;
 
             case 1:
                 RegisterOwnerFragment registerOwnerFragment = new RegisterOwnerFragment();
