@@ -18,6 +18,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
 //    private Button btn_regis;
@@ -31,6 +35,9 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
+    private DocumentReference documentReference;
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,13 @@ public class LoginActivity extends AppCompatActivity {
 //                startActivity(move);
 //            }
 //        });
+
+        if(currentUser!= null){
+            // User is signed in
+        }else{
+            // No user is signed in
+        }
+
 
         sign_uo_tv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +85,102 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userLogin();
+                final String email = edt_email_login.getText().toString().trim();
+                final String password = edt_pass_login.getText().toString().trim();
+
+                if(email.isEmpty()){
+                    edt_email_login.setError("Email harus diisi !");
+                    edt_email_login.requestFocus();
+                    return;
+                }  else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    edt_email_login.setError("Email yang diisi format nya harus sesuai");
+                    edt_email_login.requestFocus();
+                    return;
+                } else if(password.isEmpty()){
+                    edt_pass_login.setError("Password harus diisi");
+                    edt_pass_login.requestFocus();
+                    return;
+                } else if(password.length() < 6) {
+                    edt_pass_login.setError("Password minimal 6 karakter");
+                    edt_pass_login.requestFocus();
+                    return;
+                } else{
+
+                    currentUser = mAuth.getCurrentUser();
+
+                    db.collection("Member").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot doc : task.getResult()){
+
+                                    String a = doc.getString("email");
+                                    String b = doc.getString("password");
+
+                                    if(a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)){
+
+                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(task.isSuccessful()){
+
+
+                                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
+
+                                                }else {
+                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+
+
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if(task.isSuccessful()){
+                                for(QueryDocumentSnapshot doc : task.getResult()){
+
+                                    String a = doc.getString("email");
+                                    String b = doc.getString("password");
+
+                                    if(a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)){
+
+                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(task.isSuccessful()){
+
+
+                                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+
+                                                }else {
+                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                        });
+
+
+
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+                }
             }
         });
 
@@ -87,58 +196,33 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void userLogin() {
-        String email = edt_email_login.getText().toString().trim();
-        String password = edt_pass_login.getText().toString().trim();
 
-        if(email.isEmpty()){
-            edt_email_login.setError("Email harus diisi !");
-            edt_email_login.requestFocus();
-            return;
-        }
 
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            edt_email_login.setError("Email yang diisi format nya harus sesuai");
-            edt_email_login.requestFocus();
-            return;
-        }
 
-        if(password.isEmpty()){
-            edt_pass_login.setError("Password harus diisi");
-            edt_pass_login.requestFocus();
-            return;
-        }
 
-        if(password.length() < 6) {
-            edt_pass_login.setError("Password minimal 6 karakter");
-            edt_pass_login.requestFocus();
-            return;
-        }
-
-        progressBar.setVisibility(View.VISIBLE);
-
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if(task.isSuccessful()){
-                    //verifikasi email
-                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if(firebaseUser.isEmailVerified()){
-                        //redirect ke home
-                        Intent moveHome = new Intent(LoginActivity.this,BottomNavigationActivity.class);
-                        startActivity(moveHome);
-                    }else{
-                        firebaseUser.sendEmailVerification();
-                        Toast.makeText(LoginActivity.this,"Cek email anda untuk verifikasi akun!",Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                    }
-
-                }else{
-                    Toast.makeText(LoginActivity.this,"Gagal login, cek lagi!",Toast.LENGTH_LONG).show();
-                }
-
-            }
-        });
+//        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                if(task.isSuccessful()){
+//                    //verifikasi email
+//                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                    if(firebaseUser.isEmailVerified()){
+//                        //redirect ke home
+//                        Intent moveHome = new Intent(LoginActivity.this,BottomNavigationActivity.class);
+//                        startActivity(moveHome);
+//                    }else{
+//                        firebaseUser.sendEmailVerification();
+//                        Toast.makeText(LoginActivity.this,"Cek email anda untuk verifikasi akun!",Toast.LENGTH_LONG).show();
+//                        progressBar.setVisibility(View.GONE);
+//                    }
+//
+//                }else{
+//                    Toast.makeText(LoginActivity.this,"Gagal login, cek lagi!",Toast.LENGTH_LONG).show();
+//                }
+//
+//            }
+//        });
 
 
     }
@@ -153,5 +237,6 @@ public class LoginActivity extends AppCompatActivity {
         forgetPass = findViewById(R.id.forget_pass);
 //        btn_admin = findViewById(R.id.register_admin_btn);
         btn_login_admin = findViewById(R.id.btn_admin_login);
+        db = FirebaseFirestore.getInstance();
     }
 }

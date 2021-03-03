@@ -13,12 +13,20 @@ import android.widget.Toast;
 
 import com.adj.happypet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -30,7 +38,10 @@ public class RegisterOwnerFragment extends Fragment {
     Button reg_owner_btn;
     private FirebaseAuth mAuth;
     private FirebaseDatabase fireDatabase;
+    private FirebaseUser currentOwner = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseFirestore db;
     private DatabaseReference databaseReference;
+    private DocumentReference documentReference;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fragment_register_owner, viewGroup, false);
@@ -47,11 +58,101 @@ public class RegisterOwnerFragment extends Fragment {
 //        edt_age_tv.setVisibility(View.GONE);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        documentReference = db.collection("Owner").document();
+
+        //cek ada akun atau enggak
+        if(currentOwner!= null){
+            // User is signed in
+        }else{
+            // No user is signed in
+        }
+
 
         reg_owner_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createOwner();
+                final String email = edt_email.getText().toString().trim();
+                final String password = edt_pass.getText().toString().trim();
+                final String fullname = edt_fullname.getText().toString().trim();
+                final String age = edt_age.getText().toString().trim();
+
+                if (fullname.isEmpty()) {
+                    edt_fullname.setError("Full Name must be Required!");
+                    edt_fullname.requestFocus();
+                    return;
+                } else if (email.isEmpty()) {
+                    edt_email.setError("Email must be Required!");
+                    edt_email.requestFocus();
+                    return;
+                }
+                //check email syntax
+                else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    edt_email.setError("Please check your email format");
+                    edt_email.requestFocus();
+                    return;
+                }
+
+                else if (password.isEmpty()) {
+                    edt_pass.setError("Password must be Required");
+                    edt_pass.requestFocus();
+                    return;
+                }
+
+                //password must be at least 6
+                else if (password.length() < 6) {
+                    edt_pass.setError("Password must be at least 6");
+                    edt_pass.requestFocus();
+                    return;
+
+                }else{
+
+                    documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    if(task.isSuccessful()){
+
+                                        currentOwner = mAuth.getCurrentUser();
+
+                                        final String currentOwnerId = currentOwner.getUid();
+
+                                        Map<String,Object> ownerMap = new HashMap<>();
+                                        ownerMap.put("age", age);
+                                        ownerMap.put("email",email);
+                                        ownerMap.put("fullname",fullname);
+                                        ownerMap.put("ownerId",currentOwnerId);
+                                        ownerMap.put("password",password);
+
+                                        db.collection("Owner").add(ownerMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                            @Override
+                                            public void onSuccess(DocumentReference documentReference) {
+                                                Toast.makeText(getActivity(), "OK", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getActivity(), "HMMMMM", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+
+                                    }
+
+                                }
+                            });
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+
+                }
             }
         });
 
@@ -59,75 +160,75 @@ public class RegisterOwnerFragment extends Fragment {
         return v;
     }
 
-    private void createOwner(){
-        final String email = edt_email.getText().toString().trim();
-        final String password = edt_pass.getText().toString().trim();
-        final String fullname = edt_fullname.getText().toString().trim();
-        final String age = edt_age.getText().toString().trim();
-
-        if (fullname.isEmpty()) {
-            edt_fullname.setError("Full Name must be Required!");
-            edt_fullname.requestFocus();
-            return;
-        }
-
-
-        if (email.isEmpty()) {
-            edt_email.setError("Email must be Required!");
-            edt_email.requestFocus();
-            return;
-        }
-        //check email syntax
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            edt_email.setError("Please check your email format");
-            edt_email.requestFocus();
-            return;
-        }
-
-        if (password.isEmpty()) {
-            edt_pass.setError("Password must be Required");
-            edt_pass.requestFocus();
-            return;
-        }
-
-        //password must be at least 6
-        if (password.length() < 6) {
-            edt_pass.setError("Password must be at least 6");
-            edt_pass.requestFocus();
-            return;
-        }
-
-        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-
-                    //user object realtime database
-                    User user = new User(fullname,email,age,password);
-                    FirebaseDatabase.getInstance().getReference("Owner").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "User Registered!", Toast.LENGTH_SHORT).show();
-//                                progressBar.setVisibility(View.GONE);
-                                Intent move = new Intent(getActivity(),LoginActivity.class);
-                                startActivity(move);
-                            }else{
-                                Toast.makeText(getActivity(), "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
-//                                progressBar.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-
-                }else{
-                    Toast.makeText(getActivity(), "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
-//                    progressBar.setVisibility(View.GONE);
-                }
-            }
-        });
-
-    }
+//    private void createOwner(){
+//        final String email = edt_email.getText().toString().trim();
+//        final String password = edt_pass.getText().toString().trim();
+//        final String fullname = edt_fullname.getText().toString().trim();
+//        final String age = edt_age.getText().toString().trim();
+//
+//        if (fullname.isEmpty()) {
+//            edt_fullname.setError("Full Name must be Required!");
+//            edt_fullname.requestFocus();
+//            return;
+//        }
+//
+//
+//        if (email.isEmpty()) {
+//            edt_email.setError("Email must be Required!");
+//            edt_email.requestFocus();
+//            return;
+//        }
+//        //check email syntax
+//        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//            edt_email.setError("Please check your email format");
+//            edt_email.requestFocus();
+//            return;
+//        }
+//
+//        if (password.isEmpty()) {
+//            edt_pass.setError("Password must be Required");
+//            edt_pass.requestFocus();
+//            return;
+//        }
+//
+//        //password must be at least 6
+//        if (password.length() < 6) {
+//            edt_pass.setError("Password must be at least 6");
+//            edt_pass.requestFocus();
+//            return;
+//        }
+//
+//        mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()) {
+//
+//                    //user object realtime database
+//                    User user = new User(fullname,email,age,password);
+//                    FirebaseDatabase.getInstance().getReference("Owner").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                            .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+//                                Toast.makeText(getActivity(), "User Registered!", Toast.LENGTH_SHORT).show();
+////                                progressBar.setVisibility(View.GONE);
+//                                Intent move = new Intent(getActivity(),LoginActivity.class);
+//                                startActivity(move);
+//                            }else{
+//                                Toast.makeText(getActivity(), "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
+////                                progressBar.setVisibility(View.GONE);
+//                            }
+//                        }
+//                    });
+//
+//                }else{
+//                    Toast.makeText(getActivity(), "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
+////                    progressBar.setVisibility(View.GONE);
+//                }
+//            }
+//        });
+//
+//    }
 
     @Override
     public void onStart() {
