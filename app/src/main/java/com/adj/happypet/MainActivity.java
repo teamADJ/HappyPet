@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,6 +28,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.HashMap;
 
@@ -47,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     LayoutInflater inflater;
 
     private String getEmail;
+    private FirebaseFirestore db;
+    private DocumentReference documentReference;
+    private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fUser = mAuth.getCurrentUser();
         userDBRef = FirebaseDatabase.getInstance().getReference("Member");
-        userID = fUser.getUid();
+        userID = currentUser.getUid();
+
+        db = FirebaseFirestore.getInstance();
 
         email_dialog = new AlertDialog.Builder(this);
         inflater = this.getLayoutInflater();
@@ -66,37 +77,53 @@ public class MainActivity extends AppCompatActivity {
 
         findID();
         final TextView tv_nama = findViewById(R.id.tv_fName_home);
-        final TextView tv_age = findViewById(R.id.tv_age_home);
+        TextView tv_age = findViewById(R.id.tv_age_home);
         final TextView tv_email = findViewById(R.id.tv_email_home);
-        final TextView banner = findViewById(R.id.happy_pet_banner);
+        TextView banner = findViewById(R.id.happy_pet_banner);
 
         progressBar.setVisibility(View.VISIBLE);
 
-        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+        db.collection("Member").document(userID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if(documentSnapshot.exists()){
+                        String fullname = documentSnapshot.getString("fullname");
+                        String email = documentSnapshot.getString("email");
 
-                progressBar.setVisibility(View.GONE);
-                User userPofile = dataSnapshot.getValue(User.class);
-
-                if(userPofile != null){
-                    String fullname = userPofile.getFullName();
-                //    String age = userPofile.getAge();
-                    String email = userPofile.getEmail();
-
-                    banner.setText("Welcome " + fullname + "!");
-                    tv_nama.setText(fullname);
-           //         tv_age.setText(age);
-                    tv_email.setText(email);
-
+                        tv_nama.setText(fullname);
+                        tv_email.setText(email);
+                    }
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
-            }
         });
+
+//        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                progressBar.setVisibility(View.GONE);
+//                User userPofile = dataSnapshot.getValue(User.class);
+//
+//                if(userPofile != null){
+//                    String fullname = userPofile.getFullName();
+//                //    String age = userPofile.getAge();
+//                    String email = userPofile.getEmail();
+//
+//                    banner.setText("Welcome " + fullname + "!");
+//                    tv_nama.setText(fullname);
+//           //         tv_age.setText(age);
+//                    tv_email.setText(email);
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(MainActivity.this, "Something Wrong", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
 
         //logout dengan firebase

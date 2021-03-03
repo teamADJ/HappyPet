@@ -108,6 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     currentUser = mAuth.getCurrentUser();
 
+                    //Login Member
                     db.collection("Member").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -124,10 +125,19 @@ public class LoginActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if(task.isSuccessful()){
 
+                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                    if(firebaseUser.isEmailVerified()){
+                                                        //redirect ke home
+                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                        startActivity(i);
+                                                        Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }else{
+                                                        firebaseUser.sendEmailVerification();
+                                                        Toast.makeText(LoginActivity.this,"Cek email anda untuk verifikasi akun!",Toast.LENGTH_LONG).show();
+                                                        progressBar.setVisibility(View.GONE);
+                                                    }
 
-                                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                                    startActivity(i);
-                                                    Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
 
                                                 }else {
                                                     Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
@@ -144,6 +154,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
+                    //Login Owner
                     db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -160,10 +171,21 @@ public class LoginActivity extends AppCompatActivity {
                                             public void onComplete(@NonNull Task<AuthResult> task) {
                                                 if(task.isSuccessful()){
 
+                                                    //verifikasi email
+                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                    if(firebaseUser.isEmailVerified()){
+                                                        //redirect ke home
+                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                        startActivity(i);
+                                                        Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+                                                        finish();
+                                                    }else{
+                                                        firebaseUser.sendEmailVerification();
+                                                        Toast.makeText(LoginActivity.this,"Cek email anda untuk verifikasi akun!",Toast.LENGTH_LONG).show();
+                                                        progressBar.setVisibility(View.GONE);
+                                                    }
 
-                                                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                                                    startActivity(i);
-                                                    Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+
 
                                                 }else {
                                                     Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
