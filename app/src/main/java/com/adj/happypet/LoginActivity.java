@@ -149,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if(task.isSuccessful()){
                                 for(QueryDocumentSnapshot doc : task.getResult()){
-
+                                    
                                     String a = doc.getString("email");
                                     String b = doc.getString("password");
 
