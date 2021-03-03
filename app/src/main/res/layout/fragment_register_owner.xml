@@ -27,7 +27,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
             <EditText
                 android:id="@+id/fName_edt_regis_owner"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="2dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
             <EditText
                 android:id="@+id/age_edt_regis_owner"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="2dp"
@@ -84,7 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
             <EditText
                 android:id="@+id/email_edt_regis_owner"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="2dp"
@@ -112,7 +112,7 @@
                 app:layout_constraintStart_toStartOf="parent"/>
             <EditText
                 android:id="@+id/pass_edt_regis_owner"
-                android:layout_width="240dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="2dp"
@@ -129,8 +129,10 @@
 
             <Button
                 android:id="@+id/btn_submit_owner"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
                 android:layout_gravity="center"
                 android:background="@drawable/btn"
                 android:text="Register Owner"
