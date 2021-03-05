@@ -15,18 +15,19 @@
         android:layout_height="wrap_content"
         android:hint="Email" />
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_update"-->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="36dp"-->
-<!--        android:background="#FFE5C0"-->
-<!--        android:text="UPDATE USER"-->
-<!--        android:textColor="#A36831"-->
-<!--        android:textSize="20sp"-->
-<!--        android:textStyle="bold"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintHorizontal_bias="0.495"-->
-<!--        app:layout_constraintStart_toStartOf="parent"/>-->
+    <Button
+        android:id="@+id/btn_update"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="#FFE5C0"
+        android:text="UPDATE Email"
+        android:layout_gravity="center"
+        android:textColor="#A36831"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </LinearLayout>

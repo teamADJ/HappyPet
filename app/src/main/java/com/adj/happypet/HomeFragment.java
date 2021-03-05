@@ -187,51 +187,51 @@ public class HomeFragment extends Fragment {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent moveToUpdate = new Intent(MainActivity.this,UpdateEmail.class);
-//                startActivity(moveToUpdate);
-                final View view = inflater.inflate(R.layout.activity_update_email,null);
-                email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
-                        .setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                final EditText email = view.findViewById(R.id.et_update_email) ;
-//                                HashMap hashMap = new HashMap();
-//                                hashMap.put("email",email);
-                                //  hashMap.put("id",userID);
-                                if(email.getText().toString().isEmpty()){
-                                    email.setError("Required Filled ");
-                                    return;
-                                }
-
-//                                userDBRef.child("Member").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+                Intent moveToUpdate = new Intent(getActivity(),UpdateEmail.class);
+                startActivity(moveToUpdate);
+//                final View view = inflater.inflate(R.layout.activity_update_email,null);
+//                email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
+//                        .setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                final EditText email = view.findViewById(R.id.et_update_email) ;
+////                                HashMap hashMap = new HashMap();
+////                                hashMap.put("email",email);
+//                                //  hashMap.put("id",userID);
+//                                if(email.getText().toString().isEmpty()){
+//                                    email.setError("Required Filled ");
+//                                    return;
+//                                }
+//
+////                                userDBRef.child("Member").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+////                                    @Override
+////                                    public void onComplete(@NonNull Task task) {
+////                                        Toast.makeText(MainActivity.this, "Success Update", Toast.LENGTH_SHORT).show();
+////                                    }
+////                                }).addOnFailureListener(new OnFailureListener() {
+////                                    @Override
+////                                    public void onFailure(@NonNull Exception e) {
+////                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
+////                                    }
+////                                });
+////
+//                                getEmail = email.getText().toString().trim();
+//                                //send reset link udah tpi DB belum ke update
+//                                fUser = mAuth.getCurrentUser();
+//                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
 //                                    @Override
-//                                    public void onComplete(@NonNull Task task) {
-//                                        Toast.makeText(MainActivity.this, "Success Update", Toast.LENGTH_SHORT).show();
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
 //                                    }
 //                                }).addOnFailureListener(new OnFailureListener() {
 //                                    @Override
 //                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
 //                                    }
 //                                });
 //
-                                getEmail = email.getText().toString().trim();
-                                //send reset link udah tpi DB belum ke update
-                                fUser = mAuth.getCurrentUser();
-                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-
-                            }
-                        }).setNegativeButton("Cancel",null).setView(view).create().show();
+//                            }
+//                        }).setNegativeButton("Cancel",null).setView(view).create().show();
 
             }
         });
