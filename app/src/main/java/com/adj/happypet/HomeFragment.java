@@ -218,15 +218,14 @@ public class HomeFragment extends Fragment {
                                 getEmail = email.getText().toString().trim();
                                 //send reset link udah tpi DB belum ke update
                                 fUser = mAuth.getCurrentUser();
-                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                db.collection("Member").document().update("email", getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(getActivity(), "Data updated!!" , Toast.LENGTH_SHORT).show();
+                                        }else{
+                                            Toast.makeText(getActivity(), "Error : " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        }
                                     }
                                 });
 

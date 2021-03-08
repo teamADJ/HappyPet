@@ -50,6 +50,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         userID = fUser.getUid();
 
+        edt_email.setVisibility(View.GONE);
+
 
         userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
