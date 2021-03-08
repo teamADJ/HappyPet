@@ -10,7 +10,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.adj.happypet.Model.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,8 +22,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
@@ -28,6 +36,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference userDBRef;
+
+    private FirebaseFirestore db;
 
     private FirebaseUser fUser;
     private String userID;
@@ -49,40 +59,23 @@ public class UpdateProfileActivity extends AppCompatActivity {
         userDBRef = FirebaseDatabase.getInstance().getReference("Member");
 
         userID = fUser.getUid();
+        db = FirebaseFirestore.getInstance();
 
         edt_email.setVisibility(View.GONE);
 
 
-        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User userPofile = dataSnapshot.getValue(User.class);
-
-
-                final String fullname = userPofile.getFullName();
-        //        final String age = userPofile.getAge();
-                final String email = userPofile.getEmail();
-
-
-                edt_nama.setText(fullname);
-               // edt_age.setText(age);
-                edt_email.setText(email);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
 
 
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                User dataUpdateUser = new User();
-                dataUpdateUser.setFullName(edt_nama.getText().toString());
-            //    dataUpdateUser.setAge(edt_age.getText().toString());
-                dataUpdateUser.setEmail(edt_email.getText().toString());
-                updateData(dataUpdateUser);
+
+
+//                User dataUpdateUser = new User();
+//                dataUpdateUser.setFullName(edt_nama.getText().toString());
+//            //    dataUpdateUser.setAge(edt_age.getText().toString());
+//                dataUpdateUser.setEmail(edt_email.getText().toString());
+//                updateData(dataUpdateUser);
             }
         });
 
@@ -91,22 +84,5 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
 
 
-    private void updateData(User dataUpdateUser) {
 
-        String userID = mAuth.getCurrentUser().getUid();
-        userDBRef = FirebaseDatabase.getInstance().getReference("Member").child("fullname").child("age").child("email");
-
-
-        userDBRef.setValue(dataUpdateUser)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        edt_nama.setText("");
-        //                edt_age.setText("");
-                        edt_email.setText("");
-                        Toast.makeText(UpdateProfileActivity.this, "Berhasil", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-    }
 }
