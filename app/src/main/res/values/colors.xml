@@ -8,4 +8,6 @@
     <color name="primary_btn">#BC9557</color>
     <color name="main_color">#BC9557</color>
     <color name="medium_blue">#0000CD</color>
+    <color name="toolbar_color">#EABA6D</color>
+    <color name="light_grey">#D4D4D4</color>
 </resources>
