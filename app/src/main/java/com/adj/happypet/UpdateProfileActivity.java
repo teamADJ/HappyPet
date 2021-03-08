@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -41,6 +42,8 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private FirebaseUser fUser;
     private String userID;
+    private static final String fullname = "fullname";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,11 +66,20 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
 
 
-
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final String fullnameUpdate = edt_nama.getText().toString().trim();
 
+                DocumentReference updateData = db.collection("Member").document("27zUur7vHyJk9yOUk87W");
+
+                updateData.update(fullname, fullnameUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 //                User dataUpdateUser = new User();
 //                dataUpdateUser.setFullName(edt_nama.getText().toString());

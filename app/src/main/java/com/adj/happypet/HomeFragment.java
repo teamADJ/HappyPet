@@ -138,6 +138,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
+
+        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent keLogin = new Intent(getActivity(),UpdateProfileActivity.class);
+
+                startActivity(keLogin);
+            }
+        });
+
 //        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
