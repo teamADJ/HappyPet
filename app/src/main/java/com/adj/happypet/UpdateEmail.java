@@ -16,8 +16,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,6 +34,7 @@ public class UpdateEmail extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser user;
     private FirebaseFirestore db;
+    private String userID, documentIdMember, documentIdOwner;
    // private DocumentReference documentReference;
 
 
@@ -44,6 +48,7 @@ public class UpdateEmail extends AppCompatActivity {
         btn_update = findViewById(R.id.btn_update);
 
         mAuth = FirebaseAuth.getInstance();
+        userID = mAuth.getUid();
         user = mAuth.getCurrentUser();
         db = FirebaseFirestore.getInstance();
   //      documentReference = db.collection("Member").document();
@@ -71,21 +76,87 @@ public class UpdateEmail extends AppCompatActivity {
         }
 
         final String email = edt_email.getText().toString();
-        user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+        db.collection("Member").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                DocumentReference documentReference = db.collection("Member").document(user.getUid());
-                Map<String,Object> update = new HashMap<>();
-                update.put("email",email);
-                documentReference.update(update);
-                Toast.makeText(UpdateEmail.this, "Email berhasil diganti!", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(UpdateEmail.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
+                    documentIdMember = documentSnapshot.getId();
+                }
             }
         });
+
+        db.collection("Owner").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
+                    documentIdOwner = documentSnapshot.getId();
+                }
+            }
+        });
+
+        userID = mAuth.getUid();
+
+        if(userID.equals(documentIdMember) || userID.equals(documentIdOwner)){
+            db.collection("Member").document(documentIdMember).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateEmail.this, "Email member berhasil diganti", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(UpdateEmail.this, "Gagal update email member!", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            db.collection("Owner").document(documentIdOwner).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateEmail.this, "Email owner berhasil diganti", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(UpdateEmail.this, "Gagal update email owner!", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+
+
+
+//        user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//
+//
+//
+//
+//                DocumentReference documentReferenceMember = db.collection("Member").document(documentIdMember);
+//                Map<String,Object> update = new HashMap<>();
+//                update.put("email",email);
+//                documentReference.update(update);
+//                Toast.makeText(UpdateEmail.this, "Email berhasil diganti!", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(UpdateEmail.this,e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
 
 
 
