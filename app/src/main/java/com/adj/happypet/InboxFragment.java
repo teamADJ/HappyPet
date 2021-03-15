@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 public class InboxFragment extends Fragment {
@@ -39,6 +40,12 @@ public class InboxFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_bottom_inbox, viewGroup, false);
+
+        //        toolbar
+        Toolbar inbox_toolbar = v.findViewById(R.id.inbox_toolbar);
+        ((BottomNavigationActivity)getActivity()).setSupportActionBar(inbox_toolbar);
+        ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
+
         return v;
     }
 }
