@@ -246,6 +246,14 @@ public class HomeFragment extends Fragment {
                                             }
                                         });
 
+                                        db.collection("Owner").document(userID).update("email", emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getActivity(), "Updated Successfully",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
