@@ -18,10 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/black"
-app:itemIconTint="@color/bottom_nav_color"
-            app:itemTextColor="@color/bottom_nav_color"
-
-
+            app:itemIconTint="@color/bottom_nav_color"
+            app:itemTextColor="@color/light_grey"
             app:menu="@menu/bottom_navigation_menu"
             />
 
