@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.adj.happypet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -60,6 +61,9 @@ public class HomeFragment extends Fragment {
 
     private String getEmail;
     private FirebaseFirestore db;
+
+    private static final String email_email = "email";
+
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -84,8 +88,9 @@ public class HomeFragment extends Fragment {
         //initialize Firebase ,Database Ref, get UserID
         mAuth = FirebaseAuth.getInstance();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-//        userDBRef = FirebaseDatabase.getInstance().getReference("Member");
-        userID = mAuth.getUid();
+        userDBRef = FirebaseDatabase.getInstance().getReference("Member");
+        //userID = mAuth.getUid();
+        userID = fUser.getUid();
 
         db = FirebaseFirestore.getInstance();
 
@@ -200,51 +205,67 @@ public class HomeFragment extends Fragment {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent moveToUpdate = new Intent(getActivity(),UpdateEmail.class);
-                startActivity(moveToUpdate);
-//                final View view = inflater.inflate(R.layout.activity_update_email,null);
-//                email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
-//                        .setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                final EditText email = view.findViewById(R.id.et_update_email) ;
-////                                HashMap hashMap = new HashMap();
-////                                hashMap.put("email",email);
-//                                //  hashMap.put("id",userID);
-//                                if(email.getText().toString().isEmpty()){
-//                                    email.setError("Required Filled ");
-//                                    return;
-//                                }
-//
-////                                userDBRef.child("Member").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
-////                                    @Override
-////                                    public void onComplete(@NonNull Task task) {
-////                                        Toast.makeText(MainActivity.this, "Success Update", Toast.LENGTH_SHORT).show();
-////                                    }
-////                                }).addOnFailureListener(new OnFailureListener() {
-////                                    @Override
-////                                    public void onFailure(@NonNull Exception e) {
-////                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
-////                                    }
-////                                });
-////
-//                                getEmail = email.getText().toString().trim();
-//                                //send reset link udah tpi DB belum ke update
-//                                fUser = mAuth.getCurrentUser();
-//                                fUser.updateEmail(getEmail).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                Intent moveToUpdate = new Intent(getActivity(),UpdateEmail.class);
+//                startActivity(moveToUpdate);
+                final View view = inflater.inflate(R.layout.activity_update_email,null);
+                email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
+                        .setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                final EditText email = view.findViewById(R.id.et_update_email) ;
+//                                HashMap hashMap = new HashMap();
+//                                hashMap.put("email",email);
+                                //  hashMap.put("id",userID);
+                                if(email.getText().toString().isEmpty()){
+                                    email.setError("Required Filled ");
+                                    return;
+                                }
+
+//                                userDBRef.child("Member").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
 //                                    @Override
-//                                    public void onComplete(@NonNull Task<Void> task) {
-//                                        Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
+//                                    public void onComplete(@NonNull Task task) {
+//                                        Toast.makeText(MainActivity.this, "Success Update", Toast.LENGTH_SHORT).show();
 //                                    }
 //                                }).addOnFailureListener(new OnFailureListener() {
 //                                    @Override
 //                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
 //                                    }
 //                                });
 //
-//                            }
-//                        }).setNegativeButton("Cancel",null).setView(view).create().show();
+                                getEmail = email.getText().toString().trim();
+                                //send reset link udah tpi DB belum ke update
+                                fUser = mAuth.getCurrentUser();
+                                fUser.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(getActivity(), "Reset email sent!", Toast.LENGTH_SHORT).show();
+                                        final String emailUpdate = email.getText().toString().trim();
+
+                                        DocumentReference updateData = db.collection("Member").document(userID);
+
+                                        updateData.update(email_email, emailUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                Toast.makeText(getActivity(), "Updated Successfully",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+
+
+
+
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+                            }
+                        }).setNegativeButton("Cancel",null).setView(view).create().show();
 
             }
         });
@@ -252,6 +273,12 @@ public class HomeFragment extends Fragment {
 
 
 
+
+
         return v;
     }
 }
+
+
+
+
