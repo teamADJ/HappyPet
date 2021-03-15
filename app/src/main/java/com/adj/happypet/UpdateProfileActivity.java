@@ -70,7 +70,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String fullnameUpdate = edt_nama.getText().toString().trim();
-
                 DocumentReference updateData = db.collection("Member").document("27zUur7vHyJk9yOUk87W");
 
                 updateData.update(fullname, fullnameUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
