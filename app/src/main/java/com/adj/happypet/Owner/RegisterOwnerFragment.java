@@ -15,6 +15,7 @@ import com.adj.happypet.LoginActivity;
 import com.adj.happypet.Model.Owner;
 import com.adj.happypet.Model.User;
 import com.adj.happypet.R;
+import com.adj.happypet.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -140,9 +141,9 @@ public class RegisterOwnerFragment extends Fragment {
                                 ownerMap.put("age",age);
                                 ownerMap.put("password",password);
 
-                                db.collection("Owner").add(ownerMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                db.collection("Owner").document(currentOwnerId).set(ownerMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
-                                    public void onSuccess(DocumentReference documentReference) {
+                                    public void onSuccess(Void aVoid) {
                                         Toast.makeText(getActivity(), "Register berhasil", Toast.LENGTH_SHORT).show();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {

@@ -125,17 +125,18 @@ public class RegisterUserFragment extends Fragment {
 
                                         //push data ke collection db nya
 
-                                        db.collection("Member").add(userMap).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        db.collection("Member").document(currentUserId).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
-                                            public void onSuccess(DocumentReference documentReference) {
+                                            public void onSuccess(Void aVoid) {
                                                 Toast.makeText(getActivity(), "Register berhasil", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getActivity(), "Register gagal coba cek lagi ", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getActivity(), "Register gagal coba cek lagi ", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
 
                                     }
 

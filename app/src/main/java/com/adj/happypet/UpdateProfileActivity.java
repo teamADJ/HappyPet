@@ -72,21 +72,29 @@ public class UpdateProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final String fullnameUpdate = edt_nama.getText().toString().trim();
-                DocumentReference updateData = db.collection("Member").document("27zUur7vHyJk9yOUk87W");
+                DocumentReference updateData = db.collection("Member").document(userID);
 
                 updateData.update(fullname, fullnameUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 //                User dataUpdateUser = new User();
 //                dataUpdateUser.setFullName(edt_nama.getText().toString());
 //            //    dataUpdateUser.setAge(edt_age.getText().toString());
 //                dataUpdateUser.setEmail(edt_email.getText().toString());
 //                updateData(dataUpdateUser);
+
+                db.collection("Owner").document(userID).update("name", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
