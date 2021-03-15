@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     private Button btn_update;
     private Button btn_updateProfile;
 
-    private TextView tv_nama, tv_age, tv_email, banner ;
+    private TextView tv_nama, tv_age, tv_email, banner;
 
     // Firebase
     private FirebaseUser fUser;
@@ -98,15 +98,11 @@ public class HomeFragment extends Fragment {
         inflater = this.getLayoutInflater();
 
 
-
-
-
-
     }
 
 
-    public View onCreateView(final LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
-        View v =  inflater.inflate(R.layout.fragment_bottom_home, viewGroup, false);
+    public View onCreateView(final LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_bottom_home, viewGroup, false);
 
 
         btn_update = v.findViewById(R.id.btn_update);
@@ -115,15 +111,15 @@ public class HomeFragment extends Fragment {
 
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
-      //  tv_age = v.findViewById(R.id.tv_age_home);
+        //  tv_age = v.findViewById(R.id.tv_age_home);
         tv_email = v.findViewById(R.id.tv_email_home);
         banner = v.findViewById(R.id.happy_pet_banner);
 
         db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }
@@ -134,8 +130,8 @@ public class HomeFragment extends Fragment {
         db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }
@@ -148,7 +144,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                Intent keLogin = new Intent(getActivity(),UpdateProfileActivity.class);
+                Intent keLogin = new Intent(getActivity(), UpdateProfileActivity.class);
 
                 startActivity(keLogin);
             }
@@ -185,13 +181,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                Intent keLogin = new Intent(getActivity(),LoginActivity.class);
-                keLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent keLogin = new Intent(getActivity(), LoginActivity.class);
+                keLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(keLogin);
             }
         });
-
-
 
 
 //        btn_updateProfile.setOnClickListener(new View.OnClickListener() {
@@ -207,16 +201,16 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 //                Intent moveToUpdate = new Intent(getActivity(),UpdateEmail.class);
 //                startActivity(moveToUpdate);
-                final View view = inflater.inflate(R.layout.activity_update_email,null);
+                final View view = inflater.inflate(R.layout.activity_update_email, null);
                 email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
                         .setPositiveButton("Update Email", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                final EditText email = view.findViewById(R.id.et_update_email) ;
+                                final EditText email = view.findViewById(R.id.et_update_email);
 //                                HashMap hashMap = new HashMap();
 //                                hashMap.put("email",email);
                                 //  hashMap.put("id",userID);
-                                if(email.getText().toString().isEmpty()){
+                                if (email.getText().toString().isEmpty()) {
                                     email.setError("Required Filled ");
                                     return;
                                 }
@@ -244,16 +238,13 @@ public class HomeFragment extends Fragment {
 
                                         DocumentReference updateData = db.collection("Member").document(userID);
 
-                                        updateData.update(email_email, emailUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
+                                        updateData.update(email_email, emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
                                                 Toast.makeText(getActivity(), "Updated Successfully",
                                                         Toast.LENGTH_SHORT).show();
                                             }
                                         });
-
-
-
 
 
                                     }
@@ -265,14 +256,10 @@ public class HomeFragment extends Fragment {
                                 });
 
                             }
-                        }).setNegativeButton("Cancel",null).setView(view).create().show();
+                        }).setNegativeButton("Cancel", null).setView(view).create().show();
 
             }
         });
-
-
-
-
 
 
         return v;
