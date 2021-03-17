@@ -1,5 +1,6 @@
 package com.adj.happypet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements RowOptionClickListener{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     // TODO: Rename and change types of parameters
@@ -92,5 +93,14 @@ public class ProfileFragment extends Fragment {
         return v;
 
 
+    }
+
+
+    @Override
+    public void optionClicked(View view, int position) {
+        if(position == 0){
+            Intent updateProfile = new Intent(getActivity(), UpdateProfileActivity.class);
+            startActivity(updateProfile);
+        }
     }
 }

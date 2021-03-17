@@ -1,9 +1,12 @@
 package com.adj.happypet;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,9 +20,11 @@ import java.util.ArrayList;
 public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.OptionListViewHolder> {
 
     private ArrayList<Option_list> option_lists;
+    private RowOptionClickListener rowOptionClickListener;
 
     public OptionListAdapter(ArrayList<Option_list> option_lists) {
         this.option_lists = option_lists;
+
     }
     @NonNull
     @Override
@@ -36,15 +41,31 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Op
 
     @Override
     public int getItemCount() {
-        return (option_lists != null) ? option_lists.size() : 0;
+        return option_lists.size();
     }
 
     public class OptionListViewHolder extends RecyclerView.ViewHolder{
         private TextView title_option;
+        private LinearLayout card_layout;
 
-        public OptionListViewHolder(@NonNull View itemView) {
+        public OptionListViewHolder(@NonNull final View itemView) {
             super(itemView);
             title_option = itemView.findViewById(R.id.option_list_tv);
+            card_layout = itemView.findViewById(R.id.card_layout);
+
+            card_layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(itemView.getContext(), "Position " + Integer.toString(getPosition()), Toast.LENGTH_SHORT).show();
+
+                    if(rowOptionClickListener != null){
+                        rowOptionClickListener.optionClicked(v, getAdapterPosition());
+                    }
+
+                    Intent updateProfile = new Intent(v.getContext(), UpdateProfileActivity.class);
+                    v.getContext().startActivity(updateProfile);
+                }
+            });
         }
     }
 }
