@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Model.Option_list;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Text;
 
@@ -56,14 +57,25 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Op
             card_layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(itemView.getContext(), "Position " + Integer.toString(getPosition()), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(itemView.getContext(), "Position " + Integer.toString(getPosition()), Toast.LENGTH_SHORT).show();
 
                     if(rowOptionClickListener != null){
                         rowOptionClickListener.optionClicked(v, getAdapterPosition());
                     }
 
-                    Intent updateProfile = new Intent(v.getContext(), UpdateProfileActivity.class);
-                    v.getContext().startActivity(updateProfile);
+                    if(getPosition() == 0){
+                        Intent updateProfile = new Intent(v.getContext(), UpdateProfileActivity.class);
+                        v.getContext().startActivity(updateProfile);
+                    }
+                    
+                    if(getAdapterPosition() == 2){
+                        FirebaseAuth.getInstance().signOut();
+                        Intent keLogin = new Intent(v.getContext(), LoginActivity.class);
+                        keLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        v.getContext().startActivity(keLogin);
+                    }
+
+
                 }
             });
         }
