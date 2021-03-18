@@ -3,10 +3,12 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adj.happypet.Model.User;
@@ -32,7 +34,8 @@ import java.util.Map;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
-    private EditText edt_nama,edt_age,edt_email;
+    private EditText edt_nama,edt_age;
+    private TextView edt_email;
     private Button btn_update,btn_back;
 
     private FirebaseAuth mAuth;
@@ -66,6 +69,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         edt_email.setVisibility(View.GONE);
 
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UpdateProfileActivity.this, BottomNavigationActivity.class);
+                startActivity(i);
+            }
+        });
+
 
 
         btn_update.setOnClickListener(new View.OnClickListener() {
@@ -82,11 +93,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     }
                 });
 
-//                User dataUpdateUser = new User();
-//                dataUpdateUser.setFullName(edt_nama.getText().toString());
-//            //    dataUpdateUser.setAge(edt_age.getText().toString());
-//                dataUpdateUser.setEmail(edt_email.getText().toString());
-//                updateData(dataUpdateUser);
 
                 db.collection("Owner").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

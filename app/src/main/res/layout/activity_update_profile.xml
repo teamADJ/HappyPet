@@ -14,11 +14,12 @@
         android:layout_height="wrap_content"
         android:hint="Full Name" />
 
-    <EditText
+    <TextView
         android:id="@+id/et_update_email"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="Email" />
+        android:hint="Email"
+        android:textSize="18sp" />
 
     <EditText
         android:id="@+id/et_update_age"
