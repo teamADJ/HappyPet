@@ -67,7 +67,6 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Op
                         Intent updateProfile = new Intent(v.getContext(), UpdateProfileActivity.class);
                         v.getContext().startActivity(updateProfile);
                     }
-                    
                     if(getAdapterPosition() == 2){
                         FirebaseAuth.getInstance().signOut();
                         Intent keLogin = new Intent(v.getContext(), LoginActivity.class);
