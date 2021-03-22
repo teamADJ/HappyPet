@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.adj.happypet.Model.User;
@@ -58,6 +59,8 @@ public class HomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private AlertDialog.Builder email_dialog;
     LayoutInflater inflater;
+
+    private CardView search_box;
 
     private String getEmail;
     private FirebaseFirestore db;
@@ -104,10 +107,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_bottom_home, viewGroup, false);
 
+        search_box = v.findViewById(R.id.search_box);
 
         btn_update = v.findViewById(R.id.btn_update);
+        btn_update.setVisibility(View.GONE);
         btn_logout = v.findViewById(R.id.btn_logout);
+        btn_logout.setVisibility(View.GONE);
         btn_updateProfile = v.findViewById(R.id.btn_update_profile);
+        btn_updateProfile.setVisibility(View.GONE);
 
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
@@ -138,7 +145,15 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
+        search_box.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Intent toSearchActivity = new Intent(getActivity(), SearchActivity.class);
+
+                startActivity(toSearchActivity);
+            }
+        });
 
         btn_updateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
