@@ -10,8 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.adj.happypet.Model.Option_list;
+import com.adj.happypet.Model.Order_list;
+
+import java.util.ArrayList;
 
 public class OrderFragment extends Fragment {
+
+    private RecyclerView recyclerViewOrderOptions;
+    private OrderListAdapter orderListAdapter;
+    private ArrayList<Order_list> orderArrayList;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -46,6 +57,18 @@ public class OrderFragment extends Fragment {
         Toolbar order_toolbar = v.findViewById(R.id.order_toolbar);
         ((BottomNavigationActivity)getActivity()).setSupportActionBar(order_toolbar);
         ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Order History");
+
+
+        orderArrayList = new ArrayList<>();
+        orderArrayList.add(new Order_list("PhetShop name 1", "Acc"));
+        orderArrayList.add(new Order_list("PhetShop name 2", "Rejected"));
+        orderArrayList.add(new Order_list("PhetShop name 3", "Acc"));
+
+        recyclerViewOrderOptions = v.findViewById(R.id.recyclerViewListOrder);
+        orderListAdapter = new OrderListAdapter(orderArrayList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerViewOrderOptions.setLayoutManager(layoutManager);
+        recyclerViewOrderOptions.setAdapter(orderListAdapter);
 
 
         return v;
