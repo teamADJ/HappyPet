@@ -40,8 +40,8 @@ import java.util.Map;
 
 public class UpdateProfileActivity extends AppCompatActivity {
 
-    private EditText edt_nama,edt_age;
-    private Button btn_update,btn_back;
+    private EditText edt_nama, edt_age;
+    private Button btn_update, btn_back, btn_change_pass;
 
     private FirebaseAuth mAuth;
     private DatabaseReference userDBRef;
@@ -52,13 +52,14 @@ public class UpdateProfileActivity extends AppCompatActivity {
     private String userID;
     private static final String fullname = "fullname";
     private static final String email_email = "email";
+    private static final String password_password = "password";
 
     private String getEmail;
+    private String getPass;
 
     AlertDialog.Builder dialog;
     LayoutInflater inflater;
     View dialogView;
-
 
 
     @Override
@@ -67,11 +68,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update_profile);
         btn_update_email = findViewById(R.id.btn_update_email);
         edt_nama = findViewById(R.id.et_update_name);
-        edt_age  = findViewById(R.id.et_update_age);
+        edt_age = findViewById(R.id.et_update_age);
         edt_email = findViewById(R.id.tv_update_email);
 
         btn_update = findViewById(R.id.btn_update);
         btn_back = findViewById(R.id.btn_back);
+        btn_change_pass = findViewById(R.id.btn_change_pass);
 
         mAuth = FirebaseAuth.getInstance();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -79,7 +81,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         userID = fUser.getUid();
         db = FirebaseFirestore.getInstance();
-
 
 
         //        toolbar
@@ -115,7 +116,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
         });
 
         //popup
-
         btn_update_email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,8 +158,17 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
+        //pop up change pass
+        btn_change_pass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogChangePassword();
+            }
+        });
+
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -171,7 +180,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void dialogUpdateEmail(){
+    public void dialogUpdateEmail() {
 
         dialog = new AlertDialog.Builder(UpdateProfileActivity.this);
         inflater = getLayoutInflater();
@@ -245,10 +254,70 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     }
 
+    private void dialogChangePassword() {
+
+        dialog = new AlertDialog.Builder(UpdateProfileActivity.this);
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.activity_change_password, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setTitle("Please Input Your New Password");
+
+        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final EditText password = dialogView.findViewById(R.id.et_change_pass);
+
+                if (password.getText().toString().isEmpty() || password.length() < 6) {
+                    password.setError("Required Filled and password at least 6");
+                    return;
+                }
+
+                getPass = password.getText().toString().trim();
+                //send reset link udah tpi DB belum ke update
+                fUser = mAuth.getCurrentUser();
+
+                fUser.updatePassword(getPass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(UpdateProfileActivity.this, "Change Password Succes!", Toast.LENGTH_SHORT).show();
+                        final String newPassword = password.getText().toString().trim();
+
+                        DocumentReference updateData = db.collection("Member").document(userID);
+
+                        updateData.update(password_password, newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(UpdateProfileActivity.this, "Change Password Successfully",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
 
 
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(UpdateProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
 
 
 }
