@@ -3,10 +3,12 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -38,6 +40,12 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
+    private Dialog initDialogCantLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +203,7 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
+                                        cantLoginDialog();
                                         Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                     }
 
@@ -246,6 +255,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+    private void cantLoginDialog(){
+        initDialogCantLogin = new Dialog(LoginActivity.this);
+        initDialogCantLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        initDialogCantLogin.setContentView(R.layout.cant_login);
+        initDialogCantLogin.setCancelable(true);
+        initDialogCantLogin.setCanceledOnTouchOutside(true);
+        initDialogCantLogin.show();
+    }
+
 
     private void findID() {
 //        btn_regis = findViewById(R.id.register_btn);
