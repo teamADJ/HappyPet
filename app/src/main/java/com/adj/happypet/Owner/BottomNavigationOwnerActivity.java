@@ -1,4 +1,4 @@
-package com.adj.happypet;
+package com.adj.happypet.Owner;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -9,26 +9,31 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+
+import com.adj.happypet.HomeFragment;
+import com.adj.happypet.ProfileFragment;
+import com.adj.happypet.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class BottomNavigationActivity extends AppCompatActivity {
+public class BottomNavigationOwnerActivity extends AppCompatActivity {
+    BottomNavigationView bottomNavigationViewOwner;
 
-    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bottom_navigation);
-        bottomNavigationView = findViewById(R.id.bottomNavigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
-        openFragment(HomeFragment.newInstance("", ""));
+        setContentView(R.layout.activity_bottom_navigation_owner);
+        bottomNavigationViewOwner = findViewById(R.id.bottomNavigationOwner);
+        bottomNavigationViewOwner.setOnNavigationItemSelectedListener(navigationItemSelectedListener);
+        openFragment(HomeOwnerFragment.newInstance("", ""));
     }
 
-    public void openFragment(Fragment fragment) {
+    public void openFragment(Fragment fragment){
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, fragment);
+        transaction.replace(R.id.container_owner, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+
     }
 
     BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
@@ -36,20 +41,18 @@ public class BottomNavigationActivity extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                     switch (menuItem.getItemId()){
-                        case R.id.navigation_home:
-                            openFragment(HomeFragment.newInstance("", ""));
+                        case R.id.navigation_home_owner:
+                            openFragment(HomeOwnerFragment.newInstance("", ""));
                             return true;
-                        case R.id.order:
-                            openFragment(OrderFragment.newInstance("", ""));
+                        case R.id.inbox_owner:
+                            openFragment(InboxOwnerFragment.newInstance("", ""));
                             return true;
-                        case R.id.inbox:
-                            openFragment(InboxFragment.newInstance("", ""));
-                            return true;
-                        case R.id.profile:
+                        case R.id.profile_owner:
                             openFragment(ProfileFragment.newInstance("", ""));
                             return true;
                     }
                     return false;
                 }
             };
+
 }

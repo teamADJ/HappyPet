@@ -15,6 +15,7 @@
         <activity android:name=".UpdateEmail" />
         <activity android:name=".Admin.AdminHome" />
         <activity android:name=".BottomNavigationActivity" />
+        <activity android:name=".Owner.BottomNavigationOwnerActivity" />
         <activity android:name=".Admin.ForgetPasswordAdmin" />
         <activity android:name=".Admin.AdminLoginActivity" />
         <activity android:name=".Admin.AdminRegisterActivity" />

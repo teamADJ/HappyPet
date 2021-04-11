@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adj.happypet.Owner.BottomNavigationOwnerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -185,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                                     if (firebaseUser.isEmailVerified()) {
                                                         //redirect ke home
-                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationOwnerActivity.class);
                                                         startActivity(i);
                                                         Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
                                                         finish();
@@ -203,8 +204,8 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        cantLoginDialog();
-                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                                        cantLoginDialog();
+//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
