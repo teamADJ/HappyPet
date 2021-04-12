@@ -3,16 +3,19 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adj.happypet.Owner.BottomNavigationOwnerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,6 +41,12 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+
+
+
+    private Dialog initDialogCantLogin;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                                     if (firebaseUser.isEmailVerified()) {
                                                         //redirect ke home
-                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationOwnerActivity.class);
                                                         startActivity(i);
                                                         Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
                                                         finish();
@@ -195,7 +204,8 @@ public class LoginActivity extends AppCompatActivity {
                                             }
                                         });
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                                        cantLoginDialog();
+//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                     }
 
                                 }
@@ -246,6 +256,16 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
+
+    private void cantLoginDialog(){
+        initDialogCantLogin = new Dialog(LoginActivity.this);
+        initDialogCantLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        initDialogCantLogin.setContentView(R.layout.cant_login);
+        initDialogCantLogin.setCancelable(true);
+        initDialogCantLogin.setCanceledOnTouchOutside(true);
+        initDialogCantLogin.show();
+    }
+
 
     private void findID() {
 //        btn_regis = findViewById(R.id.register_btn);
