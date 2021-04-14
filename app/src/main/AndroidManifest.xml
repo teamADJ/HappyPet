@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adj.happypet">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,8 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UpdateProfileActivity"></activity>
-        <activity android:name=".SearchActivity"/>
+        <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".UpdateEmail" />
         <activity android:name=".Admin.AdminHome" />
         <activity android:name=".BottomNavigationActivity" />
@@ -21,9 +22,13 @@
         <activity android:name=".Admin.AdminRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterActivity" android:windowSoftInputMode="stateVisible|adjustPan" />
+        <activity
+            android:name=".RegisterActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity android:name=".UpdateActivity" />
-        <activity android:name=".LoginActivity" android:windowSoftInputMode="stateVisible|adjustPan">
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
