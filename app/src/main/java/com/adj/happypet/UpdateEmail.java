@@ -3,11 +3,13 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,11 +32,11 @@ public class UpdateEmail extends AppCompatActivity {
     private static final java.lang.String TAG ="" ;
     private EditText edt_email;
     private Button btn_update;
-
+    private TextView view_email;
     private FirebaseAuth mAuth;
-    private FirebaseUser user;
+    private FirebaseUser fUser;
     private FirebaseFirestore db;
-    private String userID, documentIdMember, documentIdOwner;
+    private String userID;
    // private DocumentReference documentReference;
 
 
@@ -45,95 +47,113 @@ public class UpdateEmail extends AppCompatActivity {
         setContentView(R.layout.activity_update_email);
 
         edt_email = findViewById(R.id.et_update_email);
+//        view_email = findViewById(R.id.view_email);
         btn_update = findViewById(R.id.btn_update);
 
         mAuth = FirebaseAuth.getInstance();
-        userID = mAuth.getUid();
-        user = mAuth.getCurrentUser();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        userID = fUser.getUid();
         db = FirebaseFirestore.getInstance();
   //      documentReference = db.collection("Member").document();
 
-        if(user != null){
-            Log.d(TAG, "onCreate: " +user.getEmail());
-            if(user.getEmail() !=null){
-                edt_email.setText(user.getEmail());
-                edt_email.setSelection(user.getEmail().length());
+        Bundle bundle = getIntent().getExtras();
+        String gEmail = bundle.getString("email");
+
+        //set text edittext
+
+        if(fUser != null){
+            if(bundle != null){
+                view_email.setText(gEmail);
+            }else{
+
             }
+        }else{
+
         }
 
-        btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateEmail();
-            }
-        });
+
+
+//        btn_update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(edt_email.getText().toString().isEmpty()){
+//                    Toast.makeText(UpdateEmail.this, "Tidak boleh kosong!", Toast.LENGTH_SHORT).show();
+//
+//                }
+//
+//                final String email = edt_email.getText().toString().trim();
+//                fUser.updateEmail(userID).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//
+//
+//                        //untuk update email member
+//                        db.collection("Member").document(userID).update("email", email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(UpdateEmail.this, "Updated Successfully",
+//                                        Toast.LENGTH_SHORT).show();
+//                                Intent i = new Intent(UpdateEmail.this, BottomNavigationActivity.class);
+//                                startActivity(i);
+//                            }
+//                        });
+//
+//                        //untuk update email owner
+//                        db.collection("Owner").document(userID).update("email", email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(UpdateEmail.this, "Updated Successfully",
+//                                        Toast.LENGTH_SHORT).show();
+//                                Intent i = new Intent(UpdateEmail.this, BottomNavigationActivity.class);
+//                                startActivity(i);
+//                            }
+//                        });
+//
+//                    }
+//                });
+//            }
+//        });
     }
 
     private void updateEmail() {
-        if(edt_email.getText().toString().isEmpty()){
-            Toast.makeText(this, "Tidak boleh kosong!", Toast.LENGTH_SHORT).show();
-            return;
-        }
 
-        final String email = edt_email.getText().toString();
 
-        db.collection("Member").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
-                    documentIdMember = documentSnapshot.getId();
-                }
-            }
-        });
+//            db.collection("Member").document(userID).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(UpdateEmail.this, "Email member berhasil diganti", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(UpdateEmail.this, "Gagal update email member!", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//
+//            db.collection("Owner").document(userID).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void aVoid) {
+//                            Toast.makeText(UpdateEmail.this, "Email owner berhasil diganti", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(UpdateEmail.this, "Gagal update email owner!", Toast.LENGTH_SHORT).show();
+//                }
+//            });
 
-        db.collection("Owner").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for (QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots){
-                    documentIdOwner = documentSnapshot.getId();
-                }
-            }
-        });
-
-        userID = mAuth.getUid();
-
-        if(userID.equals(documentIdMember) || userID.equals(documentIdOwner)){
-            db.collection("Member").document(documentIdMember).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateEmail.this, "Email member berhasil diganti", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UpdateEmail.this, "Gagal update email member!", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-            db.collection("Owner").document(documentIdOwner).update("email", email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    user.updateEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(UpdateEmail.this, "Email owner berhasil diganti", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(UpdateEmail.this, "Gagal update email owner!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
 
 

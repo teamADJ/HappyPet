@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adj.happypet.Adapter.OptionListAdapter;
 import com.adj.happypet.Model.Option_list;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -83,6 +84,18 @@ public class ProfileFragment extends Fragment implements RowOptionClickListener{
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()){
                     for (DocumentSnapshot documentSnapshot: task.getResult()){
+                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
+                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+                    }
+                }
+            }
+        });
+
+        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }

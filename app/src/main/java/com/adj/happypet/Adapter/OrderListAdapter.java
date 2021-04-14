@@ -1,4 +1,4 @@
-package com.adj.happypet;
+package com.adj.happypet.Adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Model.Order_list;
+import com.adj.happypet.R;
+import com.adj.happypet.RowOptionClickListener;
 
 import java.util.ArrayList;
 
