@@ -160,11 +160,13 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 
                 Intent keLogin = new Intent(getActivity(), UpdateProfileActivity.class);
-
+//                keLogin.putExtra("email", tv_email.getText().toString().trim());
                 startActivity(keLogin);
             }
         });
 
+
+        //get user profile from realtime database
 //        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -215,6 +217,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
 //                Intent moveToUpdate = new Intent(getActivity(),UpdateEmail.class);
+//                moveToUpdate.putExtra("email", tv_email.getText().toString().trim());
 //                startActivity(moveToUpdate);
                 final View view = inflater.inflate(R.layout.activity_update_email, null);
                 email_dialog.setTitle("Update your Email").setMessage("Please enter your new Email!")
@@ -222,28 +225,11 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 final EditText email = view.findViewById(R.id.et_update_email);
-//                                HashMap hashMap = new HashMap();
-//                                hashMap.put("email",email);
-                                //  hashMap.put("id",userID);
                                 if (email.getText().toString().isEmpty()) {
                                     email.setError("Required Filled ");
                                     return;
                                 }
-
-//                                userDBRef.child("Member").updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
-//                                    @Override
-//                                    public void onComplete(@NonNull Task task) {
-//                                        Toast.makeText(MainActivity.this, "Success Update", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                }).addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        Toast.makeText(MainActivity.this, "Check", Toast.LENGTH_SHORT).show();
-//                                    }
-//                                });
-//
                                 getEmail = email.getText().toString().trim();
-                                //send reset link udah tpi DB belum ke update
                                 fUser = mAuth.getCurrentUser();
                                 fUser.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
