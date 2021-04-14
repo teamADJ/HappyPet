@@ -19,7 +19,6 @@
         <activity android:name=".Admin.ForgetPasswordAdmin" />
         <activity android:name=".Admin.AdminLoginActivity" />
         <activity android:name=".Admin.AdminRegisterActivity" />
-        <activity android:name=".Admin.BottomNavigationAdminActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterActivity" android:windowSoftInputMode="stateVisible|adjustPan" />
