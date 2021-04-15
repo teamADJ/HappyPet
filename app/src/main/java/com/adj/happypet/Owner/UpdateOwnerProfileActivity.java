@@ -42,12 +42,12 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
     private TextView btn_update_email, tv_email;
     private FirebaseUser fOwner;
     private String ownerID;
-    private static final String fullname = "fullname";
-    private static final String petgrooming_name = "petgrooming_name";
-    private static final String pet_grooming_number = "pet_grooming_number";
-    private static final String pet_grooming_address = "pet_grooming_address";
-    private static final String pet_grooming_desc = "pet_grooming_desc";
-    private static final String status = "status";
+//    private static final String fullname = "fullname";
+//    private static final String petgrooming_name = "petgrooming_name";
+//    private static final String pet_grooming_number = "pet_grooming_number";
+//    private static final String pet_grooming_address = "pet_grooming_address";
+//    private static final String pet_grooming_desc = "pet_grooming_desc";
+//    private static final String status = "status";
     private static final String email_email = "email";
     private static final String password_owner = "password";
 
@@ -62,9 +62,9 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_update_profile);
+        setContentView(R.layout.activity_update_profile_owner);
         btn_update_email = findViewById(R.id.btn_update_email);
-        edt_nama = findViewById(R.id.et_update_name);
+        edt_nama = findViewById(R.id.et_update_Ownername);
         edt_phone = findViewById(R.id.et_update_phone);
         edt_petgrooming_name = findViewById(R.id.et_petgrooming_name);
         edt_address = findViewById(R.id.et_update_address);
