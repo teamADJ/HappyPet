@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".UpdateEmail" />
         <activity android:name=".Admin.AdminHome" />
