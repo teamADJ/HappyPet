@@ -48,7 +48,7 @@ public class BottomNavigationOwnerActivity extends AppCompatActivity {
                             openFragment(InboxOwnerFragment.newInstance("", ""));
                             return true;
                         case R.id.profile_owner:
-                            openFragment(ProfileFragment.newInstance("", ""));
+                            openFragment(ProfileOwnerFragment.newInstance("", ""));
                             return true;
                     }
                     return false;
