@@ -40,7 +40,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private TextView btn_update_email, tv_email;
-    private FirebaseUser fUser;
+    private FirebaseUser fOwner;
     private String ownerID;
     private static final String fullname = "fullname";
     private static final String petgrooming_name = "petgrooming_name";
@@ -49,10 +49,10 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
     private static final String pet_grooming_desc = "pet_grooming_desc";
     private static final String status = "status";
     private static final String email_email = "email";
-    private static final String password_password = "password";
+    private static final String password_owner = "password";
 
     private String getEmail;
-    private String getPass;
+    private String getPassOwner;
 
     AlertDialog.Builder dialog;
     LayoutInflater inflater;
@@ -77,10 +77,10 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         btn_change_pass = findViewById(R.id.btn_change_pass);
 
         mAuth = FirebaseAuth.getInstance();
-        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        fOwner = FirebaseAuth.getInstance().getCurrentUser();
         userDBRef = FirebaseDatabase.getInstance().getReference("Owner");
 
-        ownerID = fUser.getUid();
+        ownerID = fOwner.getUid();
         db = FirebaseFirestore.getInstance();
 
 
@@ -145,13 +145,14 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 final String petGroomingStatusUpdate = edt_status.toString().trim();
 
 
-                db.collection("Owner").document(ownerID).update("fullname",
+                db.collection("Owner").document(ownerID).update(
+                        "fullname",
                         "petgrooming_name",
                         "pet_grooming_number",
                         "pet_grooming_address",
                         "pet_grooming_desc",
                         "status"
-                        , fullnameUpdate,petGroomingNameUpdate,phoneUpdate,petGroomingAddressUpdate,petGroomingDescUpdate,petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        , fullnameUpdate, petGroomingNameUpdate, phoneUpdate, petGroomingAddressUpdate, petGroomingDescUpdate, petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
@@ -165,12 +166,12 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         btn_change_pass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dialogChangePassword();
+                dialogChangePasswordOwner();
             }
         });
-
-
     }
+
+
 
 
     @Override
@@ -205,9 +206,9 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
                 getEmail = email.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
-                fUser = mAuth.getCurrentUser();
+                fOwner = mAuth.getCurrentUser();
 
-                fUser.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fOwner.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateOwnerProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
@@ -257,11 +258,75 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
     }
 
-    private void dialogChangePassword() {
+//    private void dialogChangePassword() {
+//
+//        dialog = new AlertDialog.Builder(UpdateOwnerProfileActivity.this);
+//        inflater = getLayoutInflater();
+//        dialogView = inflater.inflate(R.layout.activity_change_password_owner, null);
+//        dialog.setView(dialogView);
+//        dialog.setCancelable(true);
+//        dialog.setTitle("Please Input Your New Password");
+//
+//        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                final EditText password = dialogView.findViewById(R.id.et_change_pass_owner);
+//
+//                if (password.getText().toString().isEmpty() || password.length() < 6) {
+//                    password.setError("Required Filled and password at least 6");
+//                    return;
+//                }
+//
+//                getPassOwner = password.getText().toString().trim();
+//                //send reset link udah tpi DB belum ke update
+//                fOwner = mAuth.getCurrentUser();
+//
+//                fOwner.updatePassword(getPassOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Succes!", Toast.LENGTH_SHORT).show();
+//                        final String newPassword = password.getText().toString().trim();
+//
+//                        DocumentReference updateData = db.collection("Owner").document(ownerID);
+//
+//                        updateData.update(password_owner, newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                            @Override
+//                            public void onSuccess(Void aVoid) {
+//                                Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Successfully",
+//                                        Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//
+//
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(UpdateOwnerProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//
+//        dialog.show();
+//    }
 
+    private void dialogChangePasswordOwner() {
         dialog = new AlertDialog.Builder(UpdateOwnerProfileActivity.this);
         inflater = getLayoutInflater();
-        dialogView = inflater.inflate(R.layout.activity_change_password, null);
+        dialogView = inflater.inflate(R.layout.activity_change_password_owner, null);
         dialog.setView(dialogView);
         dialog.setCancelable(true);
         dialog.setTitle("Please Input Your New Password");
@@ -270,29 +335,37 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                final EditText password = dialogView.findViewById(R.id.et_change_pass);
+                final EditText password = dialogView.findViewById(R.id.et_change_pass_owner);
 
                 if (password.getText().toString().isEmpty() || password.length() < 6) {
                     password.setError("Required Filled and password at least 6");
                     return;
                 }
 
-                getPass = password.getText().toString().trim();
+                getPassOwner = password.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
-                fUser = mAuth.getCurrentUser();
+                fOwner = mAuth.getCurrentUser();
 
-                fUser.updatePassword(getPass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fOwner.updatePassword(getPassOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Succes!", Toast.LENGTH_SHORT).show();
-                        final String newPassword = password.getText().toString().trim();
+                        Toast.makeText(UpdateOwnerProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
+                        final String passUpdate = password.getText().toString().trim();
 
                         DocumentReference updateData = db.collection("Owner").document(ownerID);
 
-                        updateData.update(password_password, newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        updateData.update(password_owner, passUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Successfully",
+                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                        db.collection("Owner").document(ownerID).update("password", passUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -309,9 +382,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
                 dialog.dismiss();
             }
-        });
-
-        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -320,8 +391,10 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         });
 
         dialog.show();
+
+
     }
 
-
 }
+
 
