@@ -42,12 +42,12 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
     private TextView btn_update_email, tv_email;
     private FirebaseUser fOwner;
     private String ownerID;
-//    private static final String fullname = "fullname";
-//    private static final String petgrooming_name = "petgrooming_name";
-//    private static final String pet_grooming_number = "pet_grooming_number";
-//    private static final String pet_grooming_address = "pet_grooming_address";
-//    private static final String pet_grooming_desc = "pet_grooming_desc";
-//    private static final String status = "status";
+    private static final String fullname = "fullname";
+    private static final String petgrooming_name = "petgrooming_name";
+    private static final String pet_grooming_number = "pet_grooming_number";
+    private static final String pet_grooming_address = "pet_grooming_address";
+    private static final String pet_grooming_desc = "pet_grooming_desc";
+    private static final String status = "status";
     private static final String email_email = "email";
     private static final String password_owner = "password";
 
@@ -116,9 +116,9 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         edt_nama.setText((CharSequence) documentSnapshot.get("fullname"));
                         edt_petgrooming_name.setText((CharSequence) documentSnapshot.get("petgrooming_name"));
-                        edt_phone.setText((CharSequence) documentSnapshot.get("pet_grooming_number"));
-                        edt_address.setText((CharSequence) documentSnapshot.get("pet_grooming_address"));
-                        edt_desc.setText((CharSequence) documentSnapshot.get("pet_grooming_desc"));
+                        edt_phone.setText((CharSequence) documentSnapshot.get("contact"));
+                        edt_address.setText((CharSequence) documentSnapshot.get("address"));
+                        edt_desc.setText((CharSequence) documentSnapshot.get("description"));
                         edt_status.setText((CharSequence) documentSnapshot.get("status"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }
@@ -145,34 +145,35 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 final String petGroomingStatusUpdate = edt_status.toString().trim();
 
 
+                //status, desc,address masih salah
+                db.collection("Owner").document(ownerID).update(
+                        "fullname", fullnameUpdate,
+                        "status", status,
+                        "description", pet_grooming_desc,
+                        "address", pet_grooming_address,
+                        "contact", phoneUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+
 //                db.collection("Owner").document(ownerID).update(
-//                        "fullname",
-//                        "petgrooming_name",
-//                        "pet_grooming_number",
-//                        "pet_grooming_address",
-//                        "pet_grooming_desc",
-//                        "status"
-//                        , fullnameUpdate, petGroomingNameUpdate, phoneUpdate, petGroomingAddressUpdate, petGroomingDescUpdate, petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//
+//                            "fullname",fullnameUpdate,
+//                        "status", petGroomingStatusUpdate,
+//                        "description", petGroomingDescUpdate,
+//                        "address", petGroomingAddressUpdate,
+//                        "contact", phoneUpdate
+//
+//                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
 //                    @Override
 //                    public void onSuccess(Void aVoid) {
 //                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-
-                db.collection("Owner").document(ownerID).update(
-
-                            "fullname",fullnameUpdate,
-                        "status", petGroomingStatusUpdate,
-                        "description", petGroomingDescUpdate,
-                        "address", petGroomingAddressUpdate,
-                        "contact", phoneUpdate
-
-                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
             }
         });
@@ -185,8 +186,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
     @Override
@@ -273,70 +272,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
     }
 
-//    private void dialogChangePassword() {
-//
-//        dialog = new AlertDialog.Builder(UpdateOwnerProfileActivity.this);
-//        inflater = getLayoutInflater();
-//        dialogView = inflater.inflate(R.layout.activity_change_password_owner, null);
-//        dialog.setView(dialogView);
-//        dialog.setCancelable(true);
-//        dialog.setTitle("Please Input Your New Password");
-//
-//        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                final EditText password = dialogView.findViewById(R.id.et_change_pass_owner);
-//
-//                if (password.getText().toString().isEmpty() || password.length() < 6) {
-//                    password.setError("Required Filled and password at least 6");
-//                    return;
-//                }
-//
-//                getPassOwner = password.getText().toString().trim();
-//                //send reset link udah tpi DB belum ke update
-//                fOwner = mAuth.getCurrentUser();
-//
-//                fOwner.updatePassword(getPassOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Succes!", Toast.LENGTH_SHORT).show();
-//                        final String newPassword = password.getText().toString().trim();
-//
-//                        DocumentReference updateData = db.collection("Owner").document(ownerID);
-//
-//                        updateData.update(password_owner, newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Successfully",
-//                                        Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//
-//
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Toast.makeText(UpdateOwnerProfileActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//
-//        dialog.show();
-//    }
 
     private void dialogChangePasswordOwner() {
         dialog = new AlertDialog.Builder(UpdateOwnerProfileActivity.this);
@@ -413,3 +348,16 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 }
 
 
+//                db.collection("Owner").document(ownerID).update(
+//                        "fullname",
+//                        "petgrooming_name",
+//                        "pet_grooming_number",
+//                        "pet_grooming_address",
+//                        "pet_grooming_desc",
+//                        "status"
+//                        , fullnameUpdate, petGroomingNameUpdate, phoneUpdate, petGroomingAddressUpdate, petGroomingDescUpdate, petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
