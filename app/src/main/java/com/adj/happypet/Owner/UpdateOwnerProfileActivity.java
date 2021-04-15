@@ -145,14 +145,29 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 final String petGroomingStatusUpdate = edt_status.toString().trim();
 
 
+//                db.collection("Owner").document(ownerID).update(
+//                        "fullname",
+//                        "petgrooming_name",
+//                        "pet_grooming_number",
+//                        "pet_grooming_address",
+//                        "pet_grooming_desc",
+//                        "status"
+//                        , fullnameUpdate, petGroomingNameUpdate, phoneUpdate, petGroomingAddressUpdate, petGroomingDescUpdate, petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+
                 db.collection("Owner").document(ownerID).update(
-                        "fullname",
-                        "petgrooming_name",
-                        "pet_grooming_number",
-                        "pet_grooming_address",
-                        "pet_grooming_desc",
-                        "status"
-                        , fullnameUpdate, petGroomingNameUpdate, phoneUpdate, petGroomingAddressUpdate, petGroomingDescUpdate, petGroomingStatusUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+
+                            "fullname",fullnameUpdate,
+                        "status", petGroomingStatusUpdate,
+                        "description", petGroomingDescUpdate,
+                        "address", petGroomingAddressUpdate,
+                        "contact", phoneUpdate
+
+                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
