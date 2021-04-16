@@ -15,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adj.happypet.Admin.BottomNavigationAdminActivity;
 import com.adj.happypet.Owner.BottomNavigationOwnerActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -146,6 +147,49 @@ public class LoginActivity extends AppCompatActivity {
                                                         Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
                                                         progressBar.setVisibility(View.GONE);
                                                     }
+
+
+                                                }
+//                                                else {
+//                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                                                }
+                                            }
+                                        });
+
+
+                                    } else {
+                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                            }
+                        }
+                    });
+
+                    db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                for (QueryDocumentSnapshot doc : task.getResult()) {
+
+                                    String a = doc.getString("email");
+                                    String b = doc.getString("password");
+
+                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
+
+                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (task.isSuccessful()) {
+
+                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                                        //redirect ke home
+                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
+                                                        startActivity(i);
+                                                        Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
+                                                        finish();
+
 
 
                                                 }
