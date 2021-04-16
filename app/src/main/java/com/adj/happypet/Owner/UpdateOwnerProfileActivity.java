@@ -137,20 +137,21 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String fullnameUpdate = edt_nama.getText().toString().trim();
-                final String petGroomingNameUpdate = edt_petgrooming_name.getText().toString().trim();
-                final String phoneUpdate = edt_phone.getText().toString().trim();
-                final String petGroomingAddressUpdate = edt_address.toString().trim();
-                final String petGroomingDescUpdate = edt_desc.toString().trim();
-                final String petGroomingStatusUpdate = edt_status.toString().trim();
+                String fullnameUpdate = edt_nama.getText().toString().trim();
+                String petGroomingNameUpdate = edt_petgrooming_name.getText().toString().trim();
+                String phoneUpdate = edt_phone.getText().toString().trim();
+                String petGroomingAddressUpdate = edt_address.getText().toString().trim();
+                String petGroomingDescUpdate = edt_desc.getText().toString().trim();
+                String petGroomingStatusUpdate = "Pending";
 
 
                 //status, desc,address masih salah
                 db.collection("Owner").document(ownerID).update(
                         "fullname", fullnameUpdate,
-                        "status", status,
-                        "description", pet_grooming_desc,
-                        "address", pet_grooming_address,
+                        "groomingshopname", petGroomingNameUpdate,
+                        "status", petGroomingStatusUpdate,
+                        "description", petGroomingDescUpdate,
+                        "address", petGroomingAddressUpdate,
                         "contact", phoneUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -197,6 +198,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public void dialogUpdateEmail() {
 
