@@ -102,6 +102,14 @@
         android:gravity="center"
         android:orientation="vertical">
 
+        <Button
+            android:id="@+id/btn_findPetgroomer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Pet Groomer"
+            android:backgroundTint="@color/primary_btn"
+            />
+
         <TextView
             android:id="@+id/happy_pet_banner"
             android:layout_width="wrap_content"
