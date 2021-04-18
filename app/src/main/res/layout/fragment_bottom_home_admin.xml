@@ -32,17 +32,18 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Home Admin"
-            tools:layout_editor_absoluteX="179dp"
-            tools:layout_editor_absoluteY="217dp"
-            tools:ignore="MissingConstraints" />
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Home Admin"-->
+<!--            tools:layout_editor_absoluteX="179dp"-->
+<!--            tools:layout_editor_absoluteY="217dp"-->
+<!--            tools:ignore="MissingConstraints" />-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:clipToPadding="false"
             android:id="@+id/recyclerViewListGrooming"
+            tools:listitem="@layout/row_grooming_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

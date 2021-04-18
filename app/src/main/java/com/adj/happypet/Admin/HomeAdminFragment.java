@@ -41,6 +41,8 @@ public class HomeAdminFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    LayoutInflater inflater;
+
     public static Fragment newInstance(String param1, String param2) {
         HomeAdminFragment fragment = new HomeAdminFragment();
         Bundle args = new Bundle();
@@ -57,6 +59,13 @@ public class HomeAdminFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        //db
+        db = FirebaseFirestore.getInstance();
+        //initialize list dan adapternya
+        grooming_list = new ArrayList<>();
+
+        inflater = this.getLayoutInflater();
     }
 
 
@@ -71,20 +80,17 @@ public class HomeAdminFragment extends Fragment {
         ((BottomNavigationAdminActivity) getActivity()).setSupportActionBar(home_owner_toolbar);
         ((BottomNavigationAdminActivity) getActivity()).getSupportActionBar().setTitle("Home");
 
-        //initialize list dan adapternya
-        grooming_list = new ArrayList<>();
-        groomingListAdapter = new GroomingListAdapter(this, grooming_list);
-
         recyclerViewGroomingList = v.findViewById(R.id.recyclerViewListGrooming);
-
         //set size dari recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerViewGroomingList.setLayoutManager(layoutManager);
+
+
+        groomingListAdapter = new GroomingListAdapter(this, grooming_list);
         recyclerViewGroomingList.setAdapter(groomingListAdapter);
 
-        //db
 
-        db = FirebaseFirestore.getInstance();
+
 
         showData();
 
@@ -93,6 +99,7 @@ public class HomeAdminFragment extends Fragment {
     }
 
     private void showData() {
+
         db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -100,10 +107,17 @@ public class HomeAdminFragment extends Fragment {
 
                 for(DocumentSnapshot documentSnapshot :task.getResult()){
 
-                    PetGrooming_list petGrooming_list = new PetGrooming_list(documentSnapshot.getString("ownerId"),documentSnapshot.getString("groomingshopname"),documentSnapshot.getString("status"));
+                    PetGrooming_list petGrooming_list = new PetGrooming_list(documentSnapshot.getString("ownerId"),
+                            documentSnapshot.getString("groomingshopname"),
+                            documentSnapshot.getString("contact"),
+                            documentSnapshot.getString("address"),
+                            documentSnapshot.getString("description"),
+                            documentSnapshot.getString("status"));
                     //add model to list
                     grooming_list.add(petGrooming_list);
                 }
+
+                groomingListAdapter.notifyDataSetChanged();
 
 
 

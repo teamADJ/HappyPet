@@ -50,9 +50,9 @@ public class GroomingListAdapter extends RecyclerView.Adapter<GroomingListAdapte
     }
 
     public class GroomingViewHolder extends RecyclerView.ViewHolder {
-        private TextView petgrooming_name;
+        TextView petgrooming_name;
         private LinearLayout card_layout_order_click;
-        private TextView status;
+        TextView status;
 
         public GroomingViewHolder(@NonNull View itemView) {
             super(itemView);

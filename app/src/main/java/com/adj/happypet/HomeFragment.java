@@ -49,6 +49,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private Button btn_update;
     private Button btn_updateProfile;
+    Button btn_findPetGroomer;
 
     private TextView tv_nama, tv_age, tv_email, banner;
 
@@ -115,6 +116,7 @@ public class HomeFragment extends Fragment {
         btn_logout.setVisibility(View.GONE);
         btn_updateProfile = v.findViewById(R.id.btn_update_profile);
         btn_updateProfile.setVisibility(View.GONE);
+        btn_findPetGroomer = v.findViewById(R.id.btn_findPetgroomer);
 
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
@@ -162,6 +164,14 @@ public class HomeFragment extends Fragment {
                 Intent keLogin = new Intent(getActivity(), UpdateProfileActivity.class);
 //                keLogin.putExtra("email", tv_email.getText().toString().trim());
                 startActivity(keLogin);
+            }
+        });
+
+        btn_findPetGroomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), PetGroomerList.class);
+                startActivity(i);
             }
         });
 

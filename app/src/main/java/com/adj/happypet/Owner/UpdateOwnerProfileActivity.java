@@ -115,7 +115,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         edt_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        edt_petgrooming_name.setText((CharSequence) documentSnapshot.get("petgrooming_name"));
+                        edt_petgrooming_name.setText((CharSequence) documentSnapshot.get("groomingshopname"));
                         edt_phone.setText((CharSequence) documentSnapshot.get("contact"));
                         edt_address.setText((CharSequence) documentSnapshot.get("address"));
                         edt_desc.setText((CharSequence) documentSnapshot.get("description"));
