@@ -38,6 +38,11 @@
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edt_detail_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/petshop_owner_name_detail_tv"
             android:layout_width="wrap_content"
@@ -46,6 +51,11 @@
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edt_detail_owner_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/petshop_contact_detail_tv"
             android:layout_width="wrap_content"
@@ -55,6 +65,12 @@
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
 
+        <EditText
+            android:id="@+id/edt_detail_contact"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"/>
+
         <TextView
             android:id="@+id/description_detail_tv"
             android:layout_width="wrap_content"
@@ -63,6 +79,11 @@
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/edt_detail_desc"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:inputType="textMultiLine" />
         <TextView
             android:id="@+id/address_detail_tv"
             android:layout_width="wrap_content"
@@ -71,6 +92,11 @@
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+        <EditText
+            android:id="@+id/edt_detail_address"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:inputType="textMultiLine"/>
 
         <TextView
             android:id="@+id/petshop_status_detail_tv"
@@ -86,5 +112,13 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             />
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Update"/>
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,19 +1,17 @@
 package com.adj.happypet.Adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Admin.HomeAdminFragment;
-import com.adj.happypet.DetailPetshopDataActivity;
+import com.adj.happypet.Admin.DetailPetshopDataAdminActivity;
 import com.adj.happypet.Model.PetGrooming_list;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
@@ -21,7 +19,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
-public class GroomingListAdapter extends RecyclerView.Adapter<GroomingListAdapter.GroomingViewHolder> {
+public class GroomingListAdapter_Admin extends RecyclerView.Adapter<GroomingListAdapter_Admin.GroomingViewHolder> {
     private HomeAdminFragment homeAdminFragment;
     // create List
     private List<PetGrooming_list> groomingList;
@@ -32,7 +30,7 @@ public class GroomingListAdapter extends RecyclerView.Adapter<GroomingListAdapte
 
     String ownerId,groomingshopname, contact, address, description;
 
-    public GroomingListAdapter(HomeAdminFragment homeAdminFragment, List<PetGrooming_list> groomingList) {
+    public GroomingListAdapter_Admin(HomeAdminFragment homeAdminFragment, List<PetGrooming_list> groomingList) {
         this.homeAdminFragment = homeAdminFragment;
         this.groomingList = groomingList;
     }
@@ -57,7 +55,7 @@ public class GroomingListAdapter extends RecyclerView.Adapter<GroomingListAdapte
             @Override
             public void optionClicked(View view, int position) {
                 ownerId = groomingList.get(position).getOwnerId();
-                Intent detailPetshopData = new Intent(view.getContext(), DetailPetshopDataActivity.class);
+                Intent detailPetshopData = new Intent(view.getContext(), DetailPetshopDataAdminActivity.class);
                 detailPetshopData.putExtra("ownerId", ownerId);
                 view.getContext().startActivity(detailPetshopData);
 //        groomingshopname = groomingList.get(position).getGroomingshopname();

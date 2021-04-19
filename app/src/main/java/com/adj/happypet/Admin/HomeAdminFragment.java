@@ -14,9 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.adj.happypet.Adapter.GroomingListAdapter;
-import com.adj.happypet.Adapter.OrderListAdapter;
-import com.adj.happypet.Model.Order_list;
+import com.adj.happypet.Adapter.GroomingListAdapter_Admin;
 import com.adj.happypet.Model.PetGrooming_list;
 import com.adj.happypet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,7 +30,7 @@ public class HomeAdminFragment extends Fragment implements PetshopListClickListe
 
     private FirebaseFirestore db;
     private RecyclerView recyclerViewGroomingList;
-    private GroomingListAdapter groomingListAdapter;
+    private GroomingListAdapter_Admin groomingListAdapterAdmin;
     private ArrayList<PetGrooming_list> grooming_list;
 
     private static final String ARG_PARAM1 = "param1";
@@ -86,8 +84,8 @@ public class HomeAdminFragment extends Fragment implements PetshopListClickListe
         recyclerViewGroomingList.setLayoutManager(layoutManager);
 
 
-        groomingListAdapter = new GroomingListAdapter(this, grooming_list);
-        recyclerViewGroomingList.setAdapter(groomingListAdapter);
+        groomingListAdapterAdmin = new GroomingListAdapter_Admin(this, grooming_list);
+        recyclerViewGroomingList.setAdapter(groomingListAdapterAdmin);
 
 
 
@@ -117,7 +115,7 @@ public class HomeAdminFragment extends Fragment implements PetshopListClickListe
                     grooming_list.add(petGrooming_list);
                 }
 
-                groomingListAdapter.notifyDataSetChanged();
+                groomingListAdapterAdmin.notifyDataSetChanged();
 
 
 
