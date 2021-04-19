@@ -91,24 +91,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-//        db.collection("Owner").whereEqualTo("ownerId", ownerID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-//                        edt_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-//                        edt_petgrooming_name.setText((CharSequence) documentSnapshot.get("petgrooming_name"));
-//                        edt_phone.setText((CharSequence) documentSnapshot.get("pet_grooming_number"));
-//                        edt_address.setText((CharSequence) documentSnapshot.get("pet_grooming_address"));
-//                        edt_desc.setText((CharSequence) documentSnapshot.get("pet_grooming_desc"));
-//                        edt_status.setText((CharSequence) documentSnapshot.get("status"));
-//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-//                    }
-//                }
-//            }
-//        });
-
         db.collection("Owner").whereEqualTo("ownerId", ownerID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -145,7 +127,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 String petGroomingStatusUpdate = "Pending";
 
 
-                //status, desc,address masih salah
+                //update profile owner
                 db.collection("Owner").document(ownerID).update(
                         "fullname", fullnameUpdate,
                         "groomingshopname", petGroomingNameUpdate,
@@ -159,22 +141,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-//                db.collection("Owner").document(ownerID).update(
-//
-//                            "fullname",fullnameUpdate,
-//                        "status", petGroomingStatusUpdate,
-//                        "description", petGroomingDescUpdate,
-//                        "address", petGroomingAddressUpdate,
-//                        "contact", phoneUpdate
-//
-//                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
             }
         });

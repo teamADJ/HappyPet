@@ -21,7 +21,7 @@
             android:parentActivityName=".BottomNavigationActivity" />
         <activity android:name=".UpdateProfileActivity" />
         <activity
-            android:name=".DetailPetshopDataActivity"
+            android:name=".Admin.DetailPetshopDataAdminActivity"
             android:parentActivityName=".Admin.AdminHome" />
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
