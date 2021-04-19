@@ -148,12 +148,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
 //                dataUpdateUser.setEmail(edt_email.getText().toString());
 //                updateData(dataUpdateUser);
 
-                db.collection("Owner").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                db.collection("Owner").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
             }
         });

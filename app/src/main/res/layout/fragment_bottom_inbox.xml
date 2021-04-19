@@ -6,11 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent">
+
 
 
     <androidx.appcompat.widget.Toolbar
@@ -19,7 +15,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/main_color"
         app:titleTextAppearance="@style/Toolbar.toolbar_title"
-        >
+        tools:ignore="MissingConstraints">
 
         <TextView
             android:layout_width="wrap_content"
@@ -30,12 +26,51 @@
             />
 
     </androidx.appcompat.widget.Toolbar>
-    <TextView
-        android:layout_width="wrap_content"
+
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/tvChat"-->
+<!--        android:layout_width="414dp"-->
+<!--        android:layout_height="461dp"-->
+<!--        android:gravity="bottom"-->
+<!--        android:text="Chat messages will appear here"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/inbox_toolbar"-->
+<!--        tools:layout_editor_absoluteX="3dp" />-->
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInbox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Inbox"
-        tools:layout_editor_absoluteX="179dp"
-        tools:layout_editor_absoluteY="217dp"
-        tools:ignore="MissingConstraints" />
-    </LinearLayout>
+        app:layout_constraintTop_toBottomOf="@+id/inbox_toolbar"
+        tools:listitem="@layout/row_inbox_user_item"/>
+
+<!--    <EditText-->
+<!--        android:id="@+id/etTypeMsg"-->
+<!--        android:layout_width="321dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Type your message"-->
+<!--        android:inputType="textPersonName"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rvChat" />-->
+
+<!--    <Button-->
+<!--        android:id="@+id/sendChatBtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="2dp"-->
+<!--        android:layout_marginRight="2dp"-->
+<!--        android:onClick="sendMessage"-->
+<!--        android:text="SEND"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/etTypeMsg"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/rvChat" />-->
+
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
