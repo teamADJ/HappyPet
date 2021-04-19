@@ -136,17 +136,17 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-                    }
-                }
-            }
-        });
+//        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+//                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
+//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+//                    }
+//                }
+//            }
+//        });
         search_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
