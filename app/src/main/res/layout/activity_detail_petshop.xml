@@ -71,5 +71,20 @@
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/petshop_status_detail_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            tools:layout_editor_absoluteX="179dp"
+            tools:layout_editor_absoluteY="217dp"
+            tools:ignore="MissingConstraints" />
+
+        <EditText
+            android:id="@+id/edt_detail_status"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
