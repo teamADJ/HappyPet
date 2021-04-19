@@ -99,7 +99,7 @@ public class InboxFragment extends Fragment {
         ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
 
         arrayList = new ArrayList<>();
-        arrayList.add(new GroomingOwnerInfoModel("djMBm0lIhEaOuFIT85LZxsGghIs1", "Joec Lim", "Venesia", "Love pet love family"));
+        arrayList.add(new GroomingOwnerInfoModel("djMBm0lIhEaOuFIT85LZxsGghIs1", "Joec Lim", "Venesia", "Love pet love family", "Cawang"));
         adapter = new InboxUserAdapter(getContext(), arrayList);
         rvInbox.setAdapter(adapter);
 

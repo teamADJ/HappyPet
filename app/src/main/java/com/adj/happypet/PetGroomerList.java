@@ -69,7 +69,9 @@ public class PetGroomerList extends AppCompatActivity {
                             snapshot.getString("ownerId"),
                             snapshot.getString("fullname"),
                             snapshot.getString("groomingshopname"),
-                            snapshot.getString("description"));
+                            snapshot.getString("description"),
+                            snapshot.getString("address")
+                            );
                     ownerInfoModelList.add(groomingOwnerInfoModel);
                 }
                 petGroomerListAdapter.notifyDataSetChanged();

@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Groomer Name"
-            android:textSize="14sp"
+            android:textSize="20dp"
+            android:textStyle="bold"
             />
 
         <TextView
@@ -36,6 +37,14 @@
             android:textSize="14sp"
             />
 
+
+        <TextView
+            android:id="@+id/location_petshop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pet Grooming Location"
+            android:textSize="14sp"
+            />
 
 
     </LinearLayout>

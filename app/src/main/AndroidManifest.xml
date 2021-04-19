@@ -20,6 +20,7 @@
             android:name=".PetGroomerList"
             android:parentActivityName=".BottomNavigationActivity" />
         <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".DetailPetshopUserActivity" />
         <activity
             android:name=".Admin.DetailPetshopDataAdminActivity"
             android:parentActivityName=".Admin.AdminHome" />
