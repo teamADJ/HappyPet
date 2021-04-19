@@ -1,16 +1,19 @@
 package com.adj.happypet.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Admin.HomeAdminFragment;
+import com.adj.happypet.DetailPetshopDataActivity;
 import com.adj.happypet.Model.PetGrooming_list;
 import com.adj.happypet.R;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -60,6 +63,17 @@ public class GroomingListAdapter extends RecyclerView.Adapter<GroomingListAdapte
             petgrooming_name = itemView.findViewById(R.id.petshop_name_tv);
             status = itemView.findViewById(R.id.status_tv);
             card_layout_order_click = itemView.findViewById(R.id.card_layout_order_click);
+
+
+
+            card_layout_order_click.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(v.getContext(), "Position " + Integer.toString(getPosition()), Toast.LENGTH_SHORT).show();
+                    Intent detailPetshopData = new Intent(v.getContext(), DetailPetshopDataActivity.class);
+                    v.getContext().startActivity(detailPetshopData);
+                }
+            });
 
         }
     }

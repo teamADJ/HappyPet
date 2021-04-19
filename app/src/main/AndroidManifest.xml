@@ -11,12 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <activity android:name=".ChatInUser" >
-        </activity>
         <activity
             android:name=".PetGroomerList"
             android:parentActivityName=".BottomNavigationActivity" />
         <activity android:name=".UpdateProfileActivity" />
+        <activity android:name=".DetailPetshopDataActivity" />
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".UpdateEmail" />

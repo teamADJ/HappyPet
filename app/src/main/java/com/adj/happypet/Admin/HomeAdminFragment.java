@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class HomeAdminFragment extends Fragment {
+public class HomeAdminFragment extends Fragment implements PetshopListClickListener {
 
     private FirebaseFirestore db;
     private RecyclerView recyclerViewGroomingList;
@@ -129,5 +129,10 @@ public class HomeAdminFragment extends Fragment {
 
             }
         });
+    }
+
+    @Override
+    public void optionClicked(View view, int position) {
+
     }
 }
