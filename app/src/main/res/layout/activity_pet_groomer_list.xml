@@ -32,6 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/groomer_list_toolbar"
-        tools:listitem="@layout/pet_groomer_list_item" />
+        tools:listitem="@layout/pet_groomer_list_item"
+        android:orientation = "horizontal"
+        android:scrollbars= "horizontal"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
