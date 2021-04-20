@@ -9,6 +9,8 @@
         android:id="@+id/tvMsgChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/chat_background_left"
+        android:textColor="@color/white"
         android:layout_marginLeft="20dp"
         android:textSize="18sp"
         android:padding="8dp"
