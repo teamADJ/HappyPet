@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,8 +24,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class DetailPetshopUserActivity extends AppCompatActivity {
 
-    private EditText petshop_name, petshop_owner_name, petshop_contact, petshop_address, petshop_description, petshop_status;
+
     private String ownerId, groomingshopname, contact, address, description;
+    private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status;
 
 
     private FirebaseAuth mAuth;
@@ -67,12 +69,12 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     for (DocumentSnapshot snapshot : task.getResult()) {
-                        petshop_name.setText(snapshot.getString("groomingshopname"));
-                        petshop_owner_name.setText(snapshot.getString("fullname"));
-                        petshop_address.setText(snapshot.getString("address"));
-                        petshop_description.setText(snapshot.getString("description"));
-                        petshop_contact.setText(snapshot.getString("contact"));
-                        petshop_status.setText(snapshot.getString("status"));
+                        tv_detail_name.setText(snapshot.getString("groomingshopname"));
+                        tv_detail_owner_name.setText(snapshot.getString("fullname"));
+                        tv_detail_address.setText(snapshot.getString("address"));
+                        tv_detail_desc.setText(snapshot.getString("description"));
+                        tv_detail_contact.setText(snapshot.getString("contact"));
+                        tv_detail_status.setText(snapshot.getString("status"));
                     }
 
                 }
@@ -84,13 +86,14 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
 
     private void findID() {
-        petshop_name = findViewById(R.id.edt_detail_name);
-        petshop_owner_name = findViewById(R.id.edt_detail_owner_name);
-        petshop_address = findViewById(R.id.edt_detail_address);
-        petshop_description = findViewById(R.id.edt_detail_desc);
-        petshop_contact = findViewById(R.id.edt_detail_contact);
-        petshop_status = findViewById(R.id.edt_detail_status);
 
+
+        tv_detail_address = findViewById(R.id.tv_detail_address);
+        tv_detail_desc = findViewById(R.id.tv_detail_desc);
+        tv_detail_contact = findViewById(R.id.tv_detail_contact);
+        tv_detail_status = findViewById(R.id.tv_detail_status);
+        tv_detail_name = findViewById(R.id.tv_detail_name);
+        tv_detail_owner_name = findViewById(R.id.tv_detail_owner_name);
 
     }
 }

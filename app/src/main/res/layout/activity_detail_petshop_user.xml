@@ -35,30 +35,23 @@
                     android:textStyle="bold" />
 
             </androidx.appcompat.widget.Toolbar>
-
             <TextView
-                android:id="@+id/petshop_name_detail_tv"
-                android:layout_width="wrap_content"
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Pet Shop Name"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="24dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
-                android:textSize="14sp"
-                android:text="Petshop name"
-                android:textStyle="bold"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="179dp"
-                tools:layout_editor_absoluteY="217dp" />
+                />
 
-            <EditText
-                android:id="@+id/edt_detail_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp" />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/petshop_owner_name_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,14 +59,15 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Petshop owner name"
+                android:text="Petshop owner"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
-                android:id="@+id/edt_detail_owner_name"
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -81,6 +75,7 @@
                 android:layout_marginRight="20dp" />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/petshop_contact_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,8 +89,9 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
-                android:id="@+id/edt_detail_contact"
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -104,6 +100,7 @@
                 android:inputType="number" />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/description_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,10 +114,11 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
-                android:id="@+id/edt_detail_desc"
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_desc"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
@@ -129,6 +127,7 @@
                 android:inputType="textMultiLine" />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/address_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,10 +140,11 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
-                android:id="@+id/edt_detail_address"
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_address"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
@@ -153,6 +153,7 @@
                 android:inputType="textMultiLine" />
 
             <TextView
+                android:textColor="@color/black"
                 android:id="@+id/petshop_status_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -166,14 +167,36 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
-                android:id="@+id/edt_detail_status"
+            <TextView
+                android:textColor="@color/black"
+                android:id="@+id/tv_detail_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp" />
 
+            <Button
+                android:id="@+id/btn_chat_with_owner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn"
+                android:layout_margin="20dp"
+                android:text="Chat"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
+            <Button
+                android:id="@+id/btn_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn"
+                android:layout_margin="20dp"
+                android:text="Pesan Jasa Petshop"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
 
 
         </LinearLayout>
