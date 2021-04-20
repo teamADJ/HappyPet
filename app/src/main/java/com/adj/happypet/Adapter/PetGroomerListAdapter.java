@@ -44,9 +44,10 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.petGroomerName.setText(ownerInfoModelList.get(position).getPetGroomerName());
+
         holder.petGroomingShopName.setText(ownerInfoModelList.get(position).getGroomingShopName());
-        holder.petGroomingDesc.setText(ownerInfoModelList.get(position).getPetGroomerDesc());
+//        holder.petGroomerName.setText(ownerInfoModelList.get(position).getPetGroomerName());
+//        holder.petGroomingDesc.setText(ownerInfoModelList.get(position).getPetGroomerDesc());
         holder.location_petshop.setText(ownerInfoModelList.get(position).getLocation_petshop());
 
 
@@ -96,7 +97,7 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
             this.rowOptionClickListener.optionClicked(view, getLayoutPosition());
         }
 
-        public void setItemClickListener(RowOptionClickListener rowOptionClickListener){
+        public void setItemClickListener(RowOptionClickListener rowOptionClickListener) {
             this.rowOptionClickListener = rowOptionClickListener;
 
         }
