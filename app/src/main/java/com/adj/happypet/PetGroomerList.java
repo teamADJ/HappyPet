@@ -37,7 +37,7 @@ public class PetGroomerList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         LinearLayoutManager layoutManager =new LinearLayoutManager(
-                PetGroomerList.this,LinearLayoutManager.VERTICAL,false
+                PetGroomerList.this,LinearLayoutManager.HORIZONTAL,false
         );
         recyclerView.setLayoutManager(layoutManager);
 
