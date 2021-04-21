@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,7 +8,16 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".HomeFragment">
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:gravity="center"
@@ -207,6 +217,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_home" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewListGroomingUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/row_list_petshop_home_user"
+            />
+
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="wrap_content"
@@ -260,6 +278,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </LinearLayout>
-
-
+</LinearLayout>
+</ScrollView>
 </LinearLayout>

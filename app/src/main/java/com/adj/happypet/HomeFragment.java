@@ -17,7 +17,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.adj.happypet.Adapter.PetshopListUserAdapter;
+import com.adj.happypet.Model.PetGroomingListUser;
+import com.adj.happypet.Model.PetGrooming_list;
 import com.adj.happypet.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -36,6 +41,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
@@ -71,6 +78,11 @@ public class HomeFragment extends Fragment {
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+    private RecyclerView recyclerViewListGroomingUser;
+
+    private PetshopListUserAdapter petshopListUserAdapter;
+    private ArrayList<PetGroomingListUser> petGroomingListUsers;
+
 
     public static Fragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -97,7 +109,7 @@ public class HomeFragment extends Fragment {
         userID = fUser.getUid();
 
         db = FirebaseFirestore.getInstance();
-
+        petGroomingListUsers = new ArrayList<>();
         email_dialog = new AlertDialog.Builder(getActivity());
         inflater = this.getLayoutInflater();
 
@@ -109,6 +121,7 @@ public class HomeFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_bottom_home, viewGroup, false);
 
         search_box = v.findViewById(R.id.search_box);
+
 
         btn_update = v.findViewById(R.id.btn_update);
         btn_update.setVisibility(View.GONE);
@@ -147,6 +160,8 @@ public class HomeFragment extends Fragment {
 //                }
 //            }
 //        });
+
+
         search_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +190,12 @@ public class HomeFragment extends Fragment {
             }
         });
 
+//        cardlist petshop
+        recyclerViewListGroomingUser = v.findViewById(R.id.recyclerViewListGroomingUser);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        recyclerViewListGroomingUser.setLayoutManager(layoutManager);
+        petshopListUserAdapter = new PetshopListUserAdapter(this, petGroomingListUsers);
+        recyclerViewListGroomingUser.setAdapter(petshopListUserAdapter);
 
         //get user profile from realtime database
 //        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -280,8 +301,37 @@ public class HomeFragment extends Fragment {
             }
         });
 
-
+showData();
         return v;
+    }
+
+    private void showData() {
+
+        db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                petGroomingListUsers.clear();
+
+                for(DocumentSnapshot documentSnapshot :task.getResult()){
+
+                    PetGroomingListUser petGroomingList_Users = new PetGroomingListUser(documentSnapshot.getString("ownerId"),
+                            documentSnapshot.getString("groomingshopname"));
+                    //add model to list
+                    petGroomingListUsers.add(petGroomingList_Users);
+                }
+
+                petshopListUserAdapter.notifyDataSetChanged();
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Oppsss.... something wrong ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }
 
