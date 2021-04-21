@@ -3,10 +3,14 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.adj.happypet.Adapter.PetGroomerListAdapter;
@@ -87,4 +91,63 @@ public class PetGroomerList extends AppCompatActivity {
         });
     }
 
+    private void searchPetgrooming(String s) {
+
+        db.collection("Owner").whereEqualTo("groomingshopname", s).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                ownerInfoModelList.clear();
+                for(DocumentSnapshot snapshot: task.getResult()){
+                    GroomingOwnerInfoModel groomingOwnerInfoModel = new GroomingOwnerInfoModel(
+                            snapshot.getString("ownerId"),
+                            snapshot.getString("fullname"),
+                            snapshot.getString("groomingshopname"),
+                            snapshot.getString("description"),
+                            snapshot.getString("address")
+                    );
+                    ownerInfoModelList.add(groomingOwnerInfoModel);
+                }
+                petGroomerListAdapter.notifyDataSetChanged();
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(PetGroomerList.this, "Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    //menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //inflate toolbar_with_search.xml
+        getMenuInflater().inflate(R.menu.toolbar_with_search, menu);
+
+        //SearchView
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                searchPetgrooming(s); //function call with string entered in searchview as parameter
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }
