@@ -1,5 +1,6 @@
 package com.adj.happypet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
     private String ownerId, groomingshopname, contact, address, description;
     private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status;
-
+    private Button btn_order ;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -57,6 +58,14 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
             ownerId = bundle.getString("ownerId");
             getGroomingIndo(ownerId);
         }
+
+        btn_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DetailPetshopUserActivity.this,OrderActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 
@@ -94,6 +103,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
         tv_detail_status = findViewById(R.id.tv_detail_status);
         tv_detail_name = findViewById(R.id.tv_detail_name);
         tv_detail_owner_name = findViewById(R.id.tv_detail_owner_name);
+        btn_order = findViewById(R.id.btn_order);
 
     }
 }
