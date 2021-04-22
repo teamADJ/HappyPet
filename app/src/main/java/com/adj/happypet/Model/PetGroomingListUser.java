@@ -5,26 +5,34 @@ import com.adj.happypet.HomeFragment;
 import java.util.ArrayList;
 
 public class PetGroomingListUser {
-    String groomingshopname, id, contact_petgrooming_user, address_petgrooming_user, description_petgrooming_user, status_petgrooming_user;
+    String id, groomingshopname, contact_petgrooming_user, address_petgrooming_user, description_petgrooming_user, status_petgrooming_user;
 
-    public PetGroomingListUser(String petGroomingUserName, String id, String contact_petgrooming_user, String address_petgrooming_user, String description_petgrooming_user, String status_petgrooming_user){
-        this.groomingshopname = petGroomingUserName;
+    public PetGroomingListUser(String id, String petGroomingUserName, String contact_petgrooming_user, String address_petgrooming_user, String description_petgrooming_user, String status_petgrooming_user){
         this.id = id;
+        this.groomingshopname = petGroomingUserName;
         this.contact_petgrooming_user = contact_petgrooming_user;
         this.address_petgrooming_user = address_petgrooming_user;
         this.description_petgrooming_user = description_petgrooming_user;
         this.status_petgrooming_user = status_petgrooming_user;
     }
 
-    public PetGroomingListUser(String ownerId, String groomingshopname) {
+    public PetGroomingListUser() {
     }
 
-    public String getAddress_petgrooming_user() {
-        return address_petgrooming_user;
+    public String getId() {
+        return id;
     }
 
-    public void setAddress_petgrooming_user(String address_petgrooming_user) {
-        this.address_petgrooming_user = address_petgrooming_user;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getGroomingshopname() {
+        return groomingshopname;
+    }
+
+    public void setGroomingshopname(String groomingshopname) {
+        this.groomingshopname = groomingshopname;
     }
 
     public String getContact_petgrooming_user() {
@@ -33,6 +41,14 @@ public class PetGroomingListUser {
 
     public void setContact_petgrooming_user(String contact_petgrooming_user) {
         this.contact_petgrooming_user = contact_petgrooming_user;
+    }
+
+    public String getAddress_petgrooming_user() {
+        return address_petgrooming_user;
+    }
+
+    public void setAddress_petgrooming_user(String address_petgrooming_user) {
+        this.address_petgrooming_user = address_petgrooming_user;
     }
 
     public String getDescription_petgrooming_user() {
@@ -50,22 +66,4 @@ public class PetGroomingListUser {
     public void setStatus_petgrooming_user(String status_petgrooming_user) {
         this.status_petgrooming_user = status_petgrooming_user;
     }
-
-    public String getGroomingshopname() {
-        return groomingshopname;
-    }
-
-    public void setGroomingshopname(String petGroomingUserName) {
-        this.groomingshopname = petGroomingUserName;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-
 }

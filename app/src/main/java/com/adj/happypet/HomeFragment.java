@@ -149,18 +149,6 @@ public class HomeFragment extends Fragment {
             }
         });
 
-//        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-//                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-//                    }
-//                }
-//            }
-//        });
-
 
         search_box.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,7 +184,7 @@ public class HomeFragment extends Fragment {
         recyclerViewListGroomingUser.setLayoutManager(layoutManager);
         petshopListUserAdapter = new PetshopListUserAdapter(this, petGroomingListUsers);
         recyclerViewListGroomingUser.setAdapter(petshopListUserAdapter);
-
+        showData();
         //get user profile from realtime database
 //        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
 //            @Override
@@ -301,7 +289,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-showData();
+
         return v;
     }
 
