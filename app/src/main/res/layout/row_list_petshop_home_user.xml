@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
     xmlns:tools="http://schemas.android.com/tools"
     card_view:cardCornerRadius="20dp"
     card_view:cardElevation="1dp"
@@ -17,20 +17,42 @@
         android:id="@+id/petshop_list_user_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="30dp">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/listPetGroomingNameUser_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pet Grooming Shop Name"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="@color/main_color"
 
+            >
+            <TextView
+                android:id="@+id/listPetGroomingNameUser_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pet Grooming Shop Name"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:paddingLeft="20dp"
+                android:paddingTop="40dp"
+                />
+        </LinearLayout>
 
-
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:background="@color/white"
+            >
+            <TextView
+                android:paddingTop="35dp"
+                android:paddingLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lihat detail"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+        </LinearLayout>
 
 
     </LinearLayout>

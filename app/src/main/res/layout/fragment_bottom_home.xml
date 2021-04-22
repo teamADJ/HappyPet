@@ -112,13 +112,7 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/btn_findPetgroomer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Find Pet Groomer"
-            android:backgroundTint="@color/primary_btn"
-            />
+
 
         <TextView
             android:id="@+id/happy_pet_banner"
@@ -216,13 +210,46 @@
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_home" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:text="Rekomendasi Petshop"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.495"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/email_home" />
+            <Button
+                android:id="@+id/btn_findPetgroomer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Find Pet Groomer"
+                android:backgroundTint="@color/white"
+                android:layout_gravity="right"
+                android:textColor="@color/main_color"
+                />
+        </LinearLayout>
+
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewListGroomingUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
+            android:scrollbars="horizontal"
             tools:listitem="@layout/row_list_petshop_home_user"
+            android:orientation = "horizontal"
+
             />
 
         <Button

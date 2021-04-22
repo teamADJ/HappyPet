@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
 
 //        cardlist petshop
         recyclerViewListGroomingUser = v.findViewById(R.id.recyclerViewListGroomingUser);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerViewListGroomingUser.setLayoutManager(layoutManager);
         petshopListUserAdapter = new PetshopListUserAdapter(this, petGroomingListUsers);
         recyclerViewListGroomingUser.setAdapter(petshopListUserAdapter);
