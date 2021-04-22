@@ -315,7 +315,12 @@ showData();
                 for(DocumentSnapshot documentSnapshot :task.getResult()){
 
                     PetGroomingListUser petGroomingList_Users = new PetGroomingListUser(documentSnapshot.getString("ownerId"),
-                            documentSnapshot.getString("groomingshopname"));
+                            documentSnapshot.getString("groomingshopname"),
+                            documentSnapshot.getString("contact"),
+                            documentSnapshot.getString("address"),
+                            documentSnapshot.getString("description"),
+                            documentSnapshot.getString("status")
+                    );
                     //add model to list
                     petGroomingListUsers.add(petGroomingList_Users);
                 }

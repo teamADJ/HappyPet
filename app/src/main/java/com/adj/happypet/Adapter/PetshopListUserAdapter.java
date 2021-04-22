@@ -69,7 +69,7 @@ public class PetshopListUserAdapter extends RecyclerView.Adapter<PetshopListUser
         public PetshopListUserViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            listPetGroomingNameUser = itemView.findViewById(R.id.listPetGroomingNameUser);
+            listPetGroomingNameUser = itemView.findViewById(R.id.listPetGroomingNameUser_tv);
             petshop_list_user_container = itemView.findViewById(R.id.petshop_list_user_container);
 
             itemView.setOnClickListener(this);
