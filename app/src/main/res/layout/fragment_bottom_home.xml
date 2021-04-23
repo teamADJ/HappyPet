@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:context=".HomeFragment">
     <ScrollView
@@ -110,6 +111,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:layout_marginBottom="70dp"
         android:orientation="vertical">
 
 
@@ -211,31 +213,32 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/email_home" />
         <LinearLayout
-            android:orientation="horizontal"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
                 android:textColor="@color/black"
                 android:textStyle="bold"
-                android:gravity="center"
+
                 android:layout_gravity="left"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:ems="10"
+
                 android:text="Rekomendasi Petshop"
-                android:inputType="textPersonName"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/email_home" />
-            <Button
+                android:padding="15dp"
+
+
+                />
+            <TextView
                 android:id="@+id/btn_findPetgroomer"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Find Pet Groomer"
+                android:text="View All"
                 android:backgroundTint="@color/white"
                 android:layout_gravity="right"
+                android:gravity="right"
+                android:padding= "15dp"
                 android:textColor="@color/main_color"
                 />
         </LinearLayout>

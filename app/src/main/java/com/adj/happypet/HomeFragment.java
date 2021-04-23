@@ -42,6 +42,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
@@ -56,7 +58,7 @@ public class HomeFragment extends Fragment {
     private ProgressBar progressBar;
     private Button btn_update;
     private Button btn_updateProfile;
-    Button btn_findPetGroomer;
+    TextView btn_findPetGroomer;
 
     private TextView tv_nama, tv_age, tv_email, banner;
 
