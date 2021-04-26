@@ -1,11 +1,14 @@
 package com.adj.happypet;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,7 +30,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class OrderActivity extends AppCompatActivity {
-    private String orderId;
+    private String orderId, ownerId;
     private Button btn_order;
     private EditText edt_nama_pemesan, edt_contact, edt_jam, edt_address;
     private FirebaseAuth mAuth;
@@ -50,6 +53,7 @@ public class OrderActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         orderId = fOrder.getUid();
 
+
         btn_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +61,17 @@ public class OrderActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = super.getParentActivityIntent();
+        //here you put the data that you want to send back - could be Serializable/Parcelable, etc
+        intent.putExtra("ownerId", ownerId);
+        setResult(RESULT_OK, intent);
 
     }
 
@@ -93,6 +108,7 @@ public class OrderActivity extends AppCompatActivity {
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);
+            hashMap.put("status", "Waiting");
 
             db.collection("Order").document(currentOrderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -119,4 +135,6 @@ public class OrderActivity extends AppCompatActivity {
         edt_address = findViewById(R.id.edt_order_address);
         btn_order = findViewById(R.id.btn_order);
     }
+
+
 }
