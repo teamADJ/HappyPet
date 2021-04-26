@@ -1,5 +1,6 @@
 package com.adj.happypet;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -28,7 +29,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
     private String ownerId, groomingshopname, contact, address, description;
     private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status;
-    private Button btn_order ;
+    private Button btn_order, btn_chat ;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -59,6 +60,15 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
             getGroomingIndo(ownerId);
         }
 
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailPetshopUserActivity.this, ChatInUser.class);
+                i.putExtra("ownerId", ownerId);
+                startActivity(i);
+            }
+        });
+
         btn_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,6 +80,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
 
     }
+
 
     public void getGroomingIndo(String ownerId) {
         db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -92,8 +103,6 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
     }
 
 
-
-
     private void findID() {
 
 
@@ -104,7 +113,9 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
         tv_detail_name = findViewById(R.id.tv_detail_name);
         tv_detail_owner_name = findViewById(R.id.tv_detail_owner_name);
         btn_order = findViewById(R.id.btn_order);
+        btn_chat = findViewById(R.id.btn_chat_with_owner);
 
     }
+
 }
 

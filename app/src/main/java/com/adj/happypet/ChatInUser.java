@@ -35,7 +35,7 @@ public class ChatInUser extends AppCompatActivity {
     RecyclerView rvChat;
     EditText etTypeMsg;
     Button sendChatBtn;
-    String userId;
+    String userId, ownerId;
     ChatAdapter chatAdapter;
     List<Chat> chatList;
 
@@ -68,7 +68,13 @@ public class ChatInUser extends AppCompatActivity {
         fuser = mAuth.getCurrentUser();
         userId = fuser.getUid();
 
-        readMessage(fuser.getUid(), "djMBm0lIhEaOuFIT85LZxsGghIs1");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            ownerId = bundle.getString("ownerId");
+
+        }
+
+        readMessage(fuser.getUid(), ownerId);
 
         sendChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +82,7 @@ public class ChatInUser extends AppCompatActivity {
                 String msg = etTypeMsg.getText().toString();
                 if(!msg.equals("")){
                     etTypeMsg.getText().clear();
-                    sendMessage(fuser.getUid(), "djMBm0lIhEaOuFIT85LZxsGghIs1", msg);
+                    sendMessage(fuser.getUid(), ownerId, msg);
                 }else{
                     Toast.makeText(ChatInUser.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
