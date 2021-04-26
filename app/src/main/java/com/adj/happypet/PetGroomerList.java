@@ -40,8 +40,11 @@ public class PetGroomerList extends AppCompatActivity {
         recyclerView = findViewById(R.id.petGroomerList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        LinearLayoutManager layoutManager =new LinearLayoutManager(
+//                PetGroomerList.this,LinearLayoutManager.HORIZONTAL,false
+//        );
         LinearLayoutManager layoutManager =new LinearLayoutManager(
-                PetGroomerList.this,LinearLayoutManager.HORIZONTAL,false
+                PetGroomerList.this
         );
         recyclerView.setLayoutManager(layoutManager);
 
