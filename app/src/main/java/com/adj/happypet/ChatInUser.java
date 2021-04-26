@@ -35,7 +35,7 @@ public class ChatInUser extends AppCompatActivity {
     RecyclerView rvChat;
     EditText etTypeMsg;
     Button sendChatBtn;
-    String userId, ownerId;
+    String ownerId, currentId;
     ChatAdapter chatAdapter;
     List<Chat> chatList;
 
@@ -60,21 +60,21 @@ public class ChatInUser extends AppCompatActivity {
         //        toolbar
         Toolbar inbox_toolbar = findViewById(R.id.chat_user_toolbar);
         setSupportActionBar(inbox_toolbar);
-        getSupportActionBar().setTitle("Joec Lim");
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         fuser = mAuth.getCurrentUser();
-        userId = fuser.getUid();
+        currentId = fuser.getUid();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             ownerId = bundle.getString("ownerId");
-
+            readMessage(fuser.getUid(), ownerId);
         }
 
-        readMessage(fuser.getUid(), ownerId);
+
 
         sendChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,9 +101,44 @@ public class ChatInUser extends AppCompatActivity {
         hashMap.put("message", message);
 
         databaseReference.child("Chats").push().setValue(hashMap);
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(fuser.getUid())
+                .child(ownerId);
+
+        final DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(receiver)
+                .child(fuser.getUid());
+        chatRefReceiver.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chatRefReceiver.child("id").setValue(fuser.getUid());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    chatRef.child("id").setValue(ownerId);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
-    private  void readMessage(final String myId, final String userId){
+    private  void readMessage(final String myId, final String ownerId){
         chatList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
@@ -113,8 +148,8 @@ public class ChatInUser extends AppCompatActivity {
                 chatList.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Chat chat = dataSnapshot.getValue(Chat.class);
-                    if(chat.getReceiver().equals(myId) && chat.getSender().equals(userId) ||
-                    chat.getReceiver().equals(userId) && chat.getSender().equals(myId)){
+                    if(chat.getReceiver().equals(myId) && chat.getSender().equals(ownerId) ||
+                    chat.getReceiver().equals(ownerId) && chat.getSender().equals(myId)){
 
                         chatList.add(chat);
 

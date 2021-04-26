@@ -9,6 +9,9 @@ public class ClientInfoModel {
         this.email = email;
     }
 
+    public ClientInfoModel() {
+    }
+
     public String getId() {
         return id;
     }

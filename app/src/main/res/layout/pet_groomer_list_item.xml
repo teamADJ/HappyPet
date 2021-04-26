@@ -10,8 +10,7 @@
     card_view:cardUseCompatPadding="true"
     card_view:contentPadding="-8dp"
     android:layout_marginRight="15dp"
-    android:layout_marginLeft="15dp"
-    tools:ignore="MissingConstraints">
+    android:layout_marginLeft="15dp">
 
     <LinearLayout
         android:id="@+id/petshop_list_container"

@@ -6,12 +6,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adj.happypet.Adapter.InboxUserAdapter;
+import com.adj.happypet.Model.Chat;
+import com.adj.happypet.Model.Chatlist;
 import com.adj.happypet.Model.GroomingOwnerInfoModel;
+import com.adj.happypet.Model.PetGroomingListUser;
 import com.adj.happypet.Model.PetGrooming_list;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,15 +25,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -48,7 +58,8 @@ public class InboxFragment extends Fragment {
     EditText etTypeMsg;
     Button sendChatBtn;
     String userId;
-    ArrayList<GroomingOwnerInfoModel> arrayList;
+    List<PetGrooming_list> petGroomingLists;
+    List<Chatlist> chatlists;
     InboxUserAdapter adapter;
 
     public static Fragment newInstance(String param1, String param2) {
@@ -73,7 +84,7 @@ public class InboxFragment extends Fragment {
         fuser = mAuth.getCurrentUser();
         userId = fuser.getUid();
         db = FirebaseFirestore.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+
 
 
 
@@ -89,8 +100,11 @@ public class InboxFragment extends Fragment {
 //        sendChatBtn = v.findViewById(R.id.sendChatBtn);
 
         rvInbox = v.findViewById(R.id.rvInbox);
+        petGroomingLists = new ArrayList<>();
+        chatlists = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvInbox.setLayoutManager(layoutManager);
+        rvInbox.setItemAnimator(new DefaultItemAnimator());
 
 
         //        toolbar
@@ -98,17 +112,85 @@ public class InboxFragment extends Fragment {
         ((BottomNavigationActivity)getActivity()).setSupportActionBar(inbox_toolbar);
         ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
 
-        arrayList = new ArrayList<>();
-        arrayList.add(new GroomingOwnerInfoModel("djMBm0lIhEaOuFIT85LZxsGghIs1", "Joec Lim", "Venesia", "Love pet love family", "Cawang"));
-        adapter = new InboxUserAdapter(getContext(), arrayList);
-        rvInbox.setAdapter(adapter);
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                chatlists.clear();
+
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
+                    chatlists.add(chatlist);
+                }
+
+
+                db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        petGroomingLists.clear();
+                        for(DocumentSnapshot snapshot: task.getResult()){
+                            PetGrooming_list petGrooming_list = new PetGrooming_list(snapshot.getString("ownerId"),
+                                    snapshot.getString("groomingshopname"),
+                                    snapshot.getString("contact"),
+                                    snapshot.getString("address"),
+                                    snapshot.getString("description"),
+                                    snapshot.getString("status"));
+
+                            for(Chatlist chatlist: chatlists){
+                                if(petGrooming_list.getOwnerId().equals(chatlist.getId())){
+                                    petGroomingLists.add(petGrooming_list);
+                                }
+                            }
+
+
+
+
+                        }
+                        adapter = new InboxUserAdapter(getContext(), petGroomingLists);
+                        rvInbox.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         return v;
     }
 
-
-
+//    private void chatList() {
+//        petGroomingLists = new ArrayList<>();
+//        db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                petGroomingLists.clear();
+//                for(DocumentSnapshot snapshot: task.getResult()){
+//                    PetGrooming_list petGrooming_list = new PetGrooming_list(snapshot.getString("ownerId"),
+//                            snapshot.getString("groomingshopname"),
+//                            snapshot.getString("contact"),
+//                            snapshot.getString("address"),
+//                            snapshot.getString("description"),
+//                            snapshot.getString("status"));
+//
+//                    petGroomingLists.add(petGrooming_list);
+//
+//                }
+//                adapter = new InboxUserAdapter(getContext(), petGroomingLists);
+//                rvInbox.setAdapter(adapter);
+//                adapter.notifyDataSetChanged();
+//
+//            }
+//        });
+//
+//    }
 
 
 }

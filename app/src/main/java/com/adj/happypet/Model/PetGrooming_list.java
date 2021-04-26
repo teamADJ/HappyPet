@@ -3,8 +3,7 @@ package com.adj.happypet.Model;
 public class PetGrooming_list {
     String ownerId, groomingshopname, contact, address, description, status;
 
-    public PetGrooming_list() {
-    }
+
 
     public PetGrooming_list(String ownerId, String groomingshopname, String contact, String address, String description, String status) {
         this.ownerId = ownerId;
@@ -15,8 +14,10 @@ public class PetGrooming_list {
         this.status = status;
     }
 
-    public PetGrooming_list(String ownerId, String groomingshopname, String status) {
+    public PetGrooming_list() {
     }
+
+
 
     public String getOwnerId() {
         return ownerId;

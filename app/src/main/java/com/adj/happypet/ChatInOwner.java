@@ -34,7 +34,7 @@ public class ChatInOwner extends AppCompatActivity {
     RecyclerView rvChat;
     EditText etTypeMsg;
     Button sendChatBtn;
-    String ownerId;
+    String ownerId, idUser;
     ChatAdapter chatAdapter;
     List<Chat> chatList;
 
@@ -58,7 +58,7 @@ public class ChatInOwner extends AppCompatActivity {
         //        toolbar
         Toolbar inbox_toolbar = findViewById(R.id.chat_user_toolbar);
         setSupportActionBar(inbox_toolbar);
-        getSupportActionBar().setTitle("ADJ");
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -66,7 +66,12 @@ public class ChatInOwner extends AppCompatActivity {
         fuser = mAuth.getCurrentUser();
         ownerId = fuser.getUid();
 
-        readMessage(fuser.getUid(), "Pt37iKXskxRkCX7V5OtKRb30N0w1");
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            idUser = bundle.getString("idUser");
+            readMessage(ownerId, idUser);
+        }
+
 
         sendChatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,13 +79,15 @@ public class ChatInOwner extends AppCompatActivity {
                 String msg = etTypeMsg.getText().toString();
                 if(!msg.equals("")){
                     etTypeMsg.getText().clear();
-                    sendMessage(fuser.getUid(), "Pt37iKXskxRkCX7V5OtKRb30N0w1", msg);
+                    sendMessage(fuser.getUid(), idUser, msg);
                 }else{
                     Toast.makeText(ChatInOwner.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
 
             }
         });
+
+
     }
 
     private void sendMessage(String sender, String receiver, String message){
@@ -93,6 +100,27 @@ public class ChatInOwner extends AppCompatActivity {
         hashMap.put("message", message);
 
         databaseReference.child("Chats").push().setValue(hashMap);
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
+                .child(fuser.getUid())
+                .child(idUser);
+
+
+
+        chatRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(!snapshot.exists()){
+                    chatRef.child("id").setValue(idUser);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     private  void readMessage(final String myId, final String userId){
