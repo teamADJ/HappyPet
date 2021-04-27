@@ -22,10 +22,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAdapter.ViewHolder> {
 
-    PetGroomerList activity;
-    List<GroomingOwnerInfoModel> ownerInfoModelList;
-    RowOptionClickListener rowOptionClickListener;
-    String ownerId;
+    private PetGroomerList activity;
+    private List<GroomingOwnerInfoModel> ownerInfoModelList;
+    private RowOptionClickListener rowOptionClickListener;
+    private String ownerId;
 
 
     public PetGroomerListAdapter(PetGroomerList petGroomerList, List<GroomingOwnerInfoModel> ownerInfoModelList) {
