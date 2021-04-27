@@ -1,12 +1,16 @@
 package com.adj.happypet.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.adj.happypet.Admin.DetailPetshopDataAdminActivity;
 import com.adj.happypet.Model.ClientInfoModel;
 import com.adj.happypet.Model.ClientOrderModel;
+import com.adj.happypet.Owner.DetailOrderListOwnerActivity;
 import com.adj.happypet.Owner.HomeOwnerFragment;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
@@ -20,6 +24,8 @@ public class HomeOwnerAdapter extends  RecyclerView.Adapter<HomeOwnerAdapter.Vie
 
     private HomeOwnerFragment fragment;
     private List<ClientOrderModel> clientList;
+
+    String orderId;
 
     public HomeOwnerAdapter(HomeOwnerFragment fragment, List<ClientOrderModel> clientList) {
         this.fragment = fragment;
@@ -38,6 +44,15 @@ public class HomeOwnerAdapter extends  RecyclerView.Adapter<HomeOwnerAdapter.Vie
         holder.tvClientName.setText(clientList.get(position).getName());
         holder.status.setText(clientList.get(position).getStatus());
 
+        holder.setItemClickListener(new RowOptionClickListener() {
+            @Override
+            public void optionClicked(View view, int position) {
+                orderId = clientList.get(position).getOrderId();
+                Intent detailPetshopData = new Intent(view.getContext(), DetailOrderListOwnerActivity.class);
+                detailPetshopData.putExtra("orderId", orderId);
+                view.getContext().startActivity(detailPetshopData);
+            }
+        });
     }
 
     @Override
@@ -49,14 +64,16 @@ public class HomeOwnerAdapter extends  RecyclerView.Adapter<HomeOwnerAdapter.Vie
 
         TextView tvClientName, status;
         RowOptionClickListener rowOptionClickListener;
+        LinearLayout card_layout_order_click_owner;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             tvClientName = itemView.findViewById(R.id.client_name_tv);
             status = itemView.findViewById(R.id.status_tv);
+            card_layout_order_click_owner = itemView.findViewById(R.id.card_layout_order_click_owner);
 
-//            itemView.setOnClickListener(this);
+            itemView.setOnClickListener(this);
 
         }
 

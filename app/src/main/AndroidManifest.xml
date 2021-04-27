@@ -15,6 +15,9 @@
         <activity
             android:name=".OrderActivity"
             android:parentActivityName=".DetailPetshopUserActivity"></activity>
+
+        <activity
+            android:name=".Owner.DetailOrderListOwnerActivity"></activity>
         <activity
             android:name=".ChatInOwner"
             android:parentActivityName=".Owner.BottomNavigationOwnerActivity" />
