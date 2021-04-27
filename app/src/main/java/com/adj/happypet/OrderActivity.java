@@ -53,13 +53,19 @@ public class OrderActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         orderId = fOrder.getUid();
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            ownerId = bundle.getString("ownerId");
+            btn_order.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    createOrder();
+                }
+            });
 
-        btn_order.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                createOrder();
-            }
-        });
+
+        }
+
 
 
     }
@@ -109,6 +115,7 @@ public class OrderActivity extends AppCompatActivity {
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);
             hashMap.put("status", "Waiting");
+            hashMap.put("ownerId", ownerId);
 
             db.collection("Order").document(currentOrderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override

@@ -33,9 +33,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Home"
+            android:text="Orders"
             tools:layout_editor_absoluteX="179dp"
             tools:layout_editor_absoluteY="217dp"
             tools:ignore="MissingConstraints" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:clipToPadding="false"
+            android:id="@+id/recyclerViewListClient"
+            tools:listitem="@layout/row_client_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

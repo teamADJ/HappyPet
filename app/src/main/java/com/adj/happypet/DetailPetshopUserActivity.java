@@ -73,6 +73,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DetailPetshopUserActivity.this,OrderActivity.class);
+                intent.putExtra("ownerId", ownerId);
                 startActivity(intent);
             }
         });

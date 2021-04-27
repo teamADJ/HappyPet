@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingConstraints">
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,12 +37,12 @@
 
 
                 <TextView
-                    android:id="@+id/petshop_name_tv"
+                    android:id="@+id/client_name_tv"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:text="Pet Shop Name"
+                    android:text="Client Name"
                     android:layout_height="wrap_content" />
 
                 <TextView
