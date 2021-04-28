@@ -1,17 +1,21 @@
 package com.adj.happypet.Owner;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.adj.happypet.Admin.DetailPetshopDataAdminActivity;
 import com.adj.happypet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,9 +26,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
 
-    private TextView petshop_name, petshop_owner_name, petshop_contact, petshop_address, petshop_description, petshop_status;
+    private TextView order_name, phone_number_order, order_status, time_start, order_address, petshop_status;
     private String ownerId, groomingshopname, contact, address, description;
-    private Button btn_update;
+    private Button btn_finish_order;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -55,6 +59,27 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
         }
 
 
+        btn_finish_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //update order
+                db.collection("Order").document(ownerId).update(
+
+                        "status", "Success"
+
+                      ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+        });
+
+
+
 
     }
 
@@ -65,12 +90,12 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
 
                     for (DocumentSnapshot snapshot : task.getResult()) {
-                        petshop_name.setText(snapshot.getString("alamat"));
-                        petshop_owner_name.setText(snapshot.getString("nama_owner"));
-                        petshop_address.setText(snapshot.getString("alamat"));
-                        petshop_description.setText(snapshot.getString("jam_mulai"));
-                        petshop_contact.setText(snapshot.getString("contact"));
-                        petshop_status.setText(snapshot.getString("status"));
+                        order_name.setText(snapshot.getString("nama_owner"));
+                        phone_number_order.setText(snapshot.getString("contact"));
+                        time_start.setText(snapshot.getString("jam_mulai"));
+                        order_address.setText(snapshot.getString("alamat"));
+                        order_status.setText(snapshot.getString("status"));
+
                     }
 
                 }
@@ -79,13 +104,13 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
     }
 
     private void findID() {
-        petshop_name = findViewById(R.id.edt_detail_name);
-        petshop_owner_name = findViewById(R.id.edt_detail_owner_name);
-        petshop_address = findViewById(R.id.edt_detail_address);
-        petshop_description = findViewById(R.id.edt_detail_desc);
-        petshop_contact = findViewById(R.id.edt_detail_contact);
-        petshop_status = findViewById(R.id.edt_detail_status);
-        btn_update = findViewById(R.id.btn_update);
+        order_name = findViewById(R.id.order_name);
+        phone_number_order = findViewById(R.id.phone_number_order);
+        time_start = findViewById(R.id.time_start_order);
+        order_address = findViewById(R.id.order_address);
+        order_status = findViewById(R.id.order_status);
+
+        btn_finish_order = findViewById(R.id.btn_finish_order);
 
     }
 }

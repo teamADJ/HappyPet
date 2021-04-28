@@ -37,21 +37,21 @@
             </androidx.appcompat.widget.Toolbar>
 
             <TextView
-                android:id="@+id/petshop_name_detail_tv"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Petshop name"
+                android:text="Order Name"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_name"
+                android:id="@+id/order_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -59,21 +59,21 @@
                 android:layout_marginRight="20dp" />
 
             <TextView
-                android:id="@+id/petshop_owner_name_detail_tv"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Petshop owner name"
+                android:text="Phone Number"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_owner_name"
+                android:id="@+id/phone_number_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -81,21 +81,21 @@
                 android:layout_marginRight="20dp" />
 
             <TextView
-                android:id="@+id/petshop_contact_detail_tv"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Contact"
+                android:text="Time Start"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_contact"
+                android:id="@+id/time_start_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -103,33 +103,9 @@
                 android:layout_marginRight="20dp"
                 android:inputType="number" />
 
-            <TextView
-                android:id="@+id/description_detail_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="14sp"
-                android:text="Description"
-                android:textStyle="bold"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="179dp"
-                tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_desc"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp"
-                android:gravity="start"
-                android:hint="Detail"
-                android:inputType="textMultiLine" />
 
-            <TextView
-                android:id="@+id/address_detail_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -142,7 +118,7 @@
                 tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_address"
+                android:id="@+id/order_address"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_marginLeft="20dp"
@@ -153,7 +129,7 @@
                 android:inputType="textMultiLine" />
 
             <TextView
-                android:id="@+id/petshop_status_detail_tv"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -167,7 +143,7 @@
                 tools:layout_editor_absoluteY="217dp" />
 
             <TextView
-                android:id="@+id/edt_detail_status"
+                android:id="@+id/order_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -175,7 +151,7 @@
                 android:layout_marginRight="20dp" />
 
             <Button
-                android:id="@+id/btn_update"
+                android:id="@+id/btn_finish_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -183,7 +159,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn"
-                android:text="Update" />
+                android:text="Finish" />
 
 
         </LinearLayout>
