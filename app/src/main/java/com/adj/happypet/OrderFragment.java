@@ -91,36 +91,41 @@ public class OrderFragment extends Fragment {
 
     private void getOrderList() {
 
-        db.collection("Order").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Order").whereEqualTo("userId", userId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 orderArrayList.clear();
 
-                if(task.isSuccessful()){
-                    DocumentSnapshot snapshot = task.getResult();
-                    if(snapshot.exists()){
-                        ownerId = snapshot.getString("ownerId");
+                for(DocumentSnapshot snapshot: task.getResult()){
+                    //ambil nama petshop dari Owner Collection
+                    ownerId = snapshot.getString("ownerId");
 
-                        //ambil nama petshop dari Owner Collection
-                        db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    //ambil data dr owner
+                    db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                for(DocumentSnapshot documentSnapshot: task.getResult()){
-                                    Order_list orderList = new Order_list(documentSnapshot.getString("ownerId"),
-                                            documentSnapshot.getString("groomingshopname"),
-                                            documentSnapshot.getString("fullname"),
-                                            documentSnapshot.getString("status"));
+                            for(DocumentSnapshot documentSnapshot: task.getResult()){
+                                Order_list orderList = new Order_list(documentSnapshot.getString("ownerId"),
+                                        documentSnapshot.getString("groomingshopname"),
+                                        documentSnapshot.getString("fullname"),
+                                        documentSnapshot.getString("status"));
 
-                                    orderArrayList.add(orderList);
-                                }
-                                orderListAdapter.notifyDataSetChanged();
-
+                                orderArrayList.add(orderList);
                             }
-                        });
+                            orderListAdapter.notifyDataSetChanged();
 
-                    }
+                        }
+                    });
+
                 }
+//                    if(snapshot.exists()){
+//
+//
+//
+//
+//
+//                    }
 
             }
         });

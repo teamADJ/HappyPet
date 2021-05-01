@@ -79,29 +79,19 @@ public class ProfileFragment extends Fragment implements RowOptionClickListener{
         tv_nama = v.findViewById(R.id.name);
         tv_email = v.findViewById(R.id.email);
 
-        db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (DocumentSnapshot documentSnapshot: task.getResult()){
-                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-                    }
-                }
-            }
-        });
 
-        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-                    }
-                }
-            }
-        });
+
+//        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+//                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
+//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+//                    }
+//                }
+//            }
+//        });
 
         return v;
 
@@ -115,5 +105,21 @@ public class ProfileFragment extends Fragment implements RowOptionClickListener{
             Intent updateProfile = new Intent(getActivity(), UpdateProfileActivity.class);
             startActivity(updateProfile);
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot documentSnapshot: task.getResult()){
+                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
+                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+                    }
+                }
+            }
+        });
     }
 }

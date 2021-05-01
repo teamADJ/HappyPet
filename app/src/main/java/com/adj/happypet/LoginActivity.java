@@ -123,12 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot doc : task.getResult()) {
-
-                                    String a = doc.getString("email");
-                                    String b = doc.getString("password");
-
-                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
+//
 
                                         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                             @Override
@@ -150,20 +145,15 @@ public class LoginActivity extends AppCompatActivity {
 
 
                                                 }
-//                                                else {
-//                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-//                                                }
+                                                else {
+                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
                                         });
 
 
-                                    } else {
-//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-                                    }
-
                                 }
                             }
-                        }
                     });
 
                     db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

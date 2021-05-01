@@ -140,6 +140,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 });
 //                User dataUpdateUser = new User();

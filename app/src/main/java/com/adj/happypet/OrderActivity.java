@@ -30,11 +30,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public class OrderActivity extends AppCompatActivity {
-    private String orderId, ownerId;
+    private String ownerId, userId;
     private Button btn_order;
     private EditText edt_nama_pemesan, edt_contact, edt_jam, edt_address;
     private FirebaseAuth mAuth;
-    private FirebaseUser fOrder = FirebaseAuth.getInstance().getCurrentUser();
+    private FirebaseUser fUser = FirebaseAuth.getInstance().getCurrentUser();
     private FirebaseFirestore db;
 
     @Override
@@ -51,7 +51,7 @@ public class OrderActivity extends AppCompatActivity {
         findID();
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        orderId = fOrder.getUid();
+        userId = fUser.getUid();
 
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
@@ -105,32 +105,44 @@ public class OrderActivity extends AppCompatActivity {
             edt_address.requestFocus();
             return;
         } else {
-            fOrder = mAuth.getCurrentUser();
             //unik id
-            final String currentOrderId = fOrder.getUid();
+            final String currentOrderId = UUID.randomUUID().toString();
+
+            //hashmap
             HashMap<String, Object> hashMap = new HashMap<>();
-            hashMap.put("orderId", currentOrderId);
+//            hashMap.put("orderId", currentOrderId);
             hashMap.put("nama_owner", nama_owner);
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);
             hashMap.put("status", "Waiting");
+            hashMap.put("userId", userId);
             hashMap.put("ownerId", ownerId);
 
-            db.collection("Order").document(currentOrderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            db.collection("Order").document(currentOrderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                @Override
+//                public void onComplete(@NonNull Task<Void> task) {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(OrderActivity.this, "Gagal membuat order ", Toast.LENGTH_SHORT).show();
+//
+//                }
+//            });
+
+            db.collection("Order").add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                 @Override
-                public void onComplete(@NonNull Task<Void> task) {
+                public void onComplete(@NonNull Task<DocumentReference> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(OrderActivity.this, "Gagal membuat order ", Toast.LENGTH_SHORT).show();
-
-                }
             });
+
         }
     }
 
@@ -143,5 +155,10 @@ public class OrderActivity extends AppCompatActivity {
         btn_order = findViewById(R.id.btn_order);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        onBackPressed();
 
+        return true;
+    }
 }
