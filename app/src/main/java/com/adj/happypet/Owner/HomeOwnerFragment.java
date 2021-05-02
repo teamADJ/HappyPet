@@ -96,7 +96,8 @@ public class HomeOwnerFragment extends Fragment {
                 clientList.clear();
 
                 for(DocumentSnapshot snapshot: task.getResult()){
-                    ClientOrderModel model = new ClientOrderModel(snapshot.getString("orderId"),
+                    ClientOrderModel model = new ClientOrderModel(snapshot.getString("orderId")
+                            ,snapshot.getString("userId"),
                             snapshot.getString("nama_owner"),
                             snapshot.getString("contact"),
                             snapshot.getString("jam_mulai"),

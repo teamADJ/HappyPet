@@ -2,10 +2,11 @@ package com.adj.happypet.Model;
 
 public class ClientOrderModel {
 
-    String orderId, name, contact, time, address, status, ownerId;
+    String orderId, userId, name, contact, time, address, status, ownerId;
 
-    public ClientOrderModel(String orderId, String name, String contact, String time, String address, String status, String ownerId) {
+    public ClientOrderModel(String orderId, String userId, String name, String contact, String time, String address, String status, String ownerId) {
         this.orderId = orderId;
+        this.userId = userId;
         this.name = name;
         this.contact = contact;
         this.time = time;
@@ -23,6 +24,14 @@ public class ClientOrderModel {
 
     public void setOrderId(String orderId) {
         this.orderId = orderId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getOwnerId() {

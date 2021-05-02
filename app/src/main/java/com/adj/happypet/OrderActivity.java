@@ -105,12 +105,18 @@ public class OrderActivity extends AppCompatActivity {
             edt_address.requestFocus();
             return;
         } else {
-            //unik id
-            final String currentOrderId = UUID.randomUUID().toString();
+//            //unik id
+//            final String currentOrderId = UUID.randomUUID().toString();
+//
+
 
             //hashmap
             HashMap<String, Object> hashMap = new HashMap<>();
-//            hashMap.put("orderId", currentOrderId);
+            //utk dapatkan string orderId dgn docref
+            DocumentReference doc = db.collection("Order").document();
+            String orderId = doc.getId();
+
+            hashMap.put("orderId", orderId);
             hashMap.put("nama_owner", nama_owner);
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
@@ -119,29 +125,29 @@ public class OrderActivity extends AppCompatActivity {
             hashMap.put("userId", userId);
             hashMap.put("ownerId", ownerId);
 
-//            db.collection("Order").document(currentOrderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                @Override
-//                public void onComplete(@NonNull Task<Void> task) {
-//                    if (task.isSuccessful()) {
-//                        Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(OrderActivity.this, "Gagal membuat order ", Toast.LENGTH_SHORT).show();
-//
-//                }
-//            });
-
-            db.collection("Order").add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            db.collection("Order").document(orderId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onComplete(@NonNull Task<DocumentReference> task) {
+                public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
                     }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(OrderActivity.this, "Gagal membuat order ", Toast.LENGTH_SHORT).show();
+
+                }
             });
+
+//            db.collection("Order").add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+//                @Override
+//                public void onComplete(@NonNull Task<DocumentReference> task) {
+//                    if (task.isSuccessful()) {
+//                        Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
 
         }
     }

@@ -54,6 +54,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            //get orderId dr intent
             ownerId = bundle.getString("orderId");
             getGroomingIndo(ownerId);
         }

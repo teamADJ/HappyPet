@@ -49,6 +49,7 @@ public class HomeOwnerAdapter extends  RecyclerView.Adapter<HomeOwnerAdapter.Vie
             public void optionClicked(View view, int position) {
                 orderId = clientList.get(position).getOrderId();
                 Intent detailPetshopData = new Intent(view.getContext(), DetailOrderListOwnerActivity.class);
+                //pass data orderId
                 detailPetshopData.putExtra("orderId", orderId);
                 view.getContext().startActivity(detailPetshopData);
             }
