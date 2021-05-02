@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_login_bg"
-    tools:context=".LoginActivity">
+    tools:context=".LoginOwner">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -16,6 +16,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
+
             android:gravity="center"
             android:orientation="vertical">
 
@@ -117,7 +119,7 @@
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/forget_pass"
+                android:id="@+id/forget_pass_owner"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:gravity="end"
@@ -129,84 +131,45 @@
                 app:layout_constraintTop_toBottomOf="@+id/loginBox" />
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_login_owner"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/btn"
                 android:text="Login"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginBottom="10dp"
                 app:layout_constraintCircleRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginBox" />
 
-            <TextView
-                android:id="@+id/login_owner"
+            <LinearLayout
                 android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:gravity="end"
-                android:text="Login As Pet Grooming Owner."
-                android:textColor="#000000"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/loginBox" />
-
-        <LinearLayout
-            android:layout_width="300dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
+                android:orientation="horizontal"
 
 
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/dont_have_acc_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/dont_have_acc_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
 
-                android:text="Dont Have an Account?"/>
-            <TextView
-                android:id="@+id/sign_uo_tv_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/medium_blue"
-                android:layout_marginLeft="5dp"
-                android:text="Sign Up!"
+                    android:text="Dont Have an Account?"/>
+                <TextView
+                    android:id="@+id/owner_sign_up_tv_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/medium_blue"
+                    android:layout_marginLeft="5dp"
+                    android:text="Sign Up!"
 
-                />
-        </LinearLayout>
-
-<!--            <Button-->
-<!--                android:id="@+id/register_btn"-->
-<!--                android:layout_width="300dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:background="@drawable/btn"-->
-<!--                android:text="Sign Up with Email"-->
-<!--                android:textColor="#000000"-->
-<!--                app:layout_constraintCircleRadius="10dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/btn_login" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/register_admin_btn"-->
-<!--                android:layout_width="300dp"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:background="@drawable/btn"-->
-<!--                android:text="Admin not have an account ? Sign Up "-->
-<!--                android:textColor="#000000"-->
-<!--                app:layout_constraintCircleRadius="10dp"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/register_link" />-->
+                    />
+            </LinearLayout>
 
             <ProgressBar
                 android:id="@+id/progressBar_login"
