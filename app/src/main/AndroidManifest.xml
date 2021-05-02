@@ -11,13 +11,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OrderDetailActivity"></activity>
+        <activity android:name=".LoginOwner"></activity>
+        <activity android:name=".OrderDetailActivity" />
         <activity
             android:name=".OrderActivity"
-            android:parentActivityName=".DetailPetshopUserActivity"></activity>
-
-        <activity
-            android:name=".Owner.DetailOrderListOwnerActivity"></activity>
+            android:parentActivityName=".DetailPetshopUserActivity" />
+        <activity android:name=".Owner.DetailOrderListOwnerActivity" />
         <activity
             android:name=".ChatInOwner"
             android:parentActivityName=".Owner.BottomNavigationOwnerActivity" />

@@ -28,9 +28,8 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginActivity extends AppCompatActivity {
-    //    private Button btn_regis;
-//    private Button btn_admin;
-    private TextView sign_uo_tv_btn;
+
+    private TextView sign_up_tv_btn, login_owner_tv;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
@@ -42,8 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-
 
 
     private Dialog initDialogCantLogin;
@@ -75,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
 
-        sign_uo_tv_btn.setOnClickListener(new View.OnClickListener() {
+        sign_up_tv_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent move = new Intent(LoginActivity.this, RegisterActivity.class);
@@ -123,37 +120,30 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-//
+                                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
 
-                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
-
-                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                                    if (firebaseUser.isEmailVerified()) {
-                                                        //redirect ke home
-                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
-                                                        startActivity(i);
-                                                        Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
-                                                        finish();
-                                                    } else {
-                                                        firebaseUser.sendEmailVerification();
-                                                        Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-                                                        progressBar.setVisibility(View.GONE);
-                                                    }
-
-
-                                                }
-                                                else {
-                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-                                                }
+                                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                            if (firebaseUser.isEmailVerified()) {
+                                                //redirect ke home
+                                                Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                startActivity(i);
+                                                Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            } else {
+                                                firebaseUser.sendEmailVerification();
+                                                Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                                progressBar.setVisibility(View.GONE);
                                             }
-                                        });
-
-
-                                }
+                                        } else {
+                                            Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
                             }
+                        }
                     });
 
                     db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -174,12 +164,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                                     FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                                                        //redirect ke home
-                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
-                                                        startActivity(i);
-                                                        Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
-                                                        finish();
-
+                                                    //redirect ke home
+                                                    Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
+                                                    finish();
 
 
                                                 }
@@ -200,54 +189,62 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
                     //Login Owner
-                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot doc : task.getResult()) {
-
-                                    String a = doc.getString("email");
-                                    String b = doc.getString("password");
-
-                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
-
-                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
-
-                                                    //verifikasi email
-                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                                    if (firebaseUser.isEmailVerified()) {
-                                                        //redirect ke home
-                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationOwnerActivity.class);
-                                                        startActivity(i);
-                                                        Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
-                                                        finish();
-                                                    } else {
-                                                        firebaseUser.sendEmailVerification();
-                                                        Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-                                                        progressBar.setVisibility(View.GONE);
-                                                    }
-
-
-                                                }
-//                                                else {
-//                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                for (QueryDocumentSnapshot doc : task.getResult()) {
+//
+//                                    String a = doc.getString("email");
+//                                    String b = doc.getString("password");
+//
+//                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
+//
+//                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                if (task.isSuccessful()) {
+//
+//                                                    //verifikasi email
+//                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                                                    if (firebaseUser.isEmailVerified()) {
+//                                                        //redirect ke home
+//                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationOwnerActivity.class);
+//                                                        startActivity(i);
+//                                                        Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+//                                                        finish();
+//                                                    } else {
+//                                                        firebaseUser.sendEmailVerification();
+//                                                        Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+//                                                        progressBar.setVisibility(View.GONE);
+//                                                    }
+//
+//
 //                                                }
-                                            }
-                                        });
-                                    } else {
-//                                        cantLoginDialog();
-//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                }
-                            }
-                        }
-                    });
+////                                                else {
+////                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+////                                                }
+//                                            }
+//                                        });
+//                                    } else {
+////                                        cantLoginDialog();
+////                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    });
 
                 }
+            }
+        });
+
+        login_owner_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent move = new Intent(LoginActivity.this, LoginOwner.class);
+                startActivity(move);
             }
         });
 
@@ -291,7 +288,7 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void cantLoginDialog(){
+    private void cantLoginDialog() {
         initDialogCantLogin = new Dialog(LoginActivity.this);
         initDialogCantLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
         initDialogCantLogin.setContentView(R.layout.cant_login);
@@ -302,15 +299,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void findID() {
-//        btn_regis = findViewById(R.id.register_btn);
-        sign_uo_tv_btn = findViewById(R.id.sign_uo_tv_btn);
+        sign_up_tv_btn = findViewById(R.id.sign_uo_tv_btn);
         edt_email_login = findViewById(R.id.edt_email);
         edt_pass_login = findViewById(R.id.edt_pass);
         btn_login = findViewById(R.id.btn_login);
         progressBar = findViewById(R.id.progressBar_login);
         forgetPass = findViewById(R.id.forget_pass);
-//        btn_admin = findViewById(R.id.register_admin_btn);
         btn_login_admin = findViewById(R.id.btn_admin_login);
+        login_owner_tv = findViewById(R.id.login_owner);
         db = FirebaseFirestore.getInstance();
     }
 }
