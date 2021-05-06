@@ -23,6 +23,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -120,28 +121,37 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
 
-                                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                            if (firebaseUser.isEmailVerified()) {
-                                                //redirect ke home
-                                                Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
-                                                startActivity(i);
-                                                Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                QuerySnapshot doc = task.getResult();
+
+                                if(doc.equals(email)){
+                                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+
+                                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                                if (firebaseUser.isEmailVerified()) {
+                                                    //redirect ke home
+                                                    Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                } else {
+                                                    firebaseUser.sendEmailVerification();
+                                                    Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                                    progressBar.setVisibility(View.GONE);
+                                                }
                                             } else {
-                                                firebaseUser.sendEmailVerification();
-                                                Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
+                                                Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                             }
-                                        } else {
-                                            Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                });
+                                    });
+                                }else{
+                                    Toast.makeText(LoginActivity.this, "Invalid user", Toast.LENGTH_SHORT).show();
+                                }
+
+
                             }
                         }
                     });

@@ -88,28 +88,38 @@ public class LoginOwner extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
                             if (task.isSuccessful()) {
-                                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-                                        if (task.isSuccessful()) {
-                                            //verifikasi email
-                                            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-                                            if (firebaseUser.isEmailVerified()) {
-                                                Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
-                                                startActivity(i);
-                                                Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                QuerySnapshot doc = task.getResult();
+
+                                if(doc.equals(email)){
+                                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<AuthResult> task) {
+                                            if (task.isSuccessful()) {
+                                                //verifikasi email
+                                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                                if (firebaseUser.isEmailVerified()) {
+                                                    Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                } else {
+                                                    firebaseUser.sendEmailVerification();
+                                                    Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                                    progressBar.setVisibility(View.GONE);
+                                                }
                                             } else {
-                                                firebaseUser.sendEmailVerification();
-                                                Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-                                                progressBar.setVisibility(View.GONE);
+                                                Toast.makeText(LoginOwner.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                             }
-                                        } else {
-                                            Toast.makeText(LoginOwner.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                });
+                                    });
+
+                                }else {
+                                    Toast.makeText(LoginOwner.this, "Invalid owner", Toast.LENGTH_SHORT).show();
+                                }
+
+
                             }
                         }
                     });
