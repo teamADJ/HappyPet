@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -84,45 +85,49 @@ public class LoginOwner extends AppCompatActivity {
                     return;
                 } else {
                     currentUser = mAuth.getCurrentUser();
-                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                //verifikasi email
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                String id = firebaseUser.getUid();
 
-                                QuerySnapshot doc = task.getResult();
+                                if (firebaseUser.isEmailVerified()) {
 
-                                if(doc.equals(email)){
-                                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<AuthResult> task) {
-                                            if (task.isSuccessful()) {
-                                                //verifikasi email
-                                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                    db.collection("Owner").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot doc = task.getResult();
+                                            String getEmail = doc.getString("email");
 
-                                                if (firebaseUser.isEmailVerified()) {
-                                                    Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
-                                                    startActivity(i);
-                                                    Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
-                                                    finish();
-                                                } else {
-                                                    firebaseUser.sendEmailVerification();
-                                                    Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-                                                    progressBar.setVisibility(View.GONE);
-                                                }
-                                            } else {
-                                                Toast.makeText(LoginOwner.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                            if(getEmail == null){
+                                                Toast.makeText(LoginOwner.this, "Invalid", Toast.LENGTH_SHORT).show();
+                                            }else{
+                                                Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
+                                                startActivity(i);
+                                                Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+                                                finish();
                                             }
+
+
                                         }
-                                    });
+                                    }
+                                });
 
-                                }else {
-                                    Toast.makeText(LoginOwner.this, "Invalid owner", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    firebaseUser.sendEmailVerification();
+                                    Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                    progressBar.setVisibility(View.GONE);
                                 }
-
-
+                            } else {
+                                Toast.makeText(LoginOwner.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 }
             }
         });
