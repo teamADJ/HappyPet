@@ -198,6 +198,17 @@
                 android:textColor="@color/white"
                 />
 
+            <Button
+                android:id="@+id/btn_view_loc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/btn"
+                android:layout_margin="20dp"
+                android:text="Pesan Jasa Petshop"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                />
+
 
         </LinearLayout>
     </ScrollView>

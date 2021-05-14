@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginOwner extends AppCompatActivity {
 
-    private TextView sign_up_tv_btn;
+    private TextView sign_up_tv_btn, login_user_tv;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
@@ -132,6 +132,15 @@ public class LoginOwner extends AppCompatActivity {
             }
         });
 
+        login_user_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginOwner.this, LoginActivity.class);
+                finish();
+                startActivity(i);
+            }
+        });
+
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +158,7 @@ public class LoginOwner extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar_login);
         forgetPass = findViewById(R.id.forget_pass_owner);
         db = FirebaseFirestore.getInstance();
+        login_user_tv = findViewById(R.id.login_user);
     }
 }
 

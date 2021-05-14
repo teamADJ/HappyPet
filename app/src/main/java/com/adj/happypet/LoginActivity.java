@@ -280,35 +280,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void userLogin() {
 
-
-//        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//
-//                if(task.isSuccessful()){
-//                    //verifikasi email
-//                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//                    if(firebaseUser.isEmailVerified()){
-//                        //redirect ke home
-//                        Intent moveHome = new Intent(LoginActivity.this,BottomNavigationActivity.class);
-//                        startActivity(moveHome);
-//                    }else{
-//                        firebaseUser.sendEmailVerification();
-//                        Toast.makeText(LoginActivity.this,"Cek email anda untuk verifikasi akun!",Toast.LENGTH_LONG).show();
-//                        progressBar.setVisibility(View.GONE);
-//                    }
-//
-//                }else{
-//                    Toast.makeText(LoginActivity.this,"Gagal login, cek lagi!",Toast.LENGTH_LONG).show();
-//                }
-//
-//            }
-//        });
-
-
-    }
 
     private void cantLoginDialog() {
         initDialogCantLogin = new Dialog(LoginActivity.this);

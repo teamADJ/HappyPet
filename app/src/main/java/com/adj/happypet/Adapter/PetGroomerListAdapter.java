@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,8 +14,14 @@ import com.adj.happypet.Model.GroomingOwnerInfoModel;
 import com.adj.happypet.PetGroomerList;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -24,13 +31,20 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
 
     private PetGroomerList activity;
     private List<GroomingOwnerInfoModel> ownerInfoModelList;
+    private List<GroomingOwnerInfoModel> ownerInfoModelListFull;
     private RowOptionClickListener rowOptionClickListener;
     private String ownerId;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     public PetGroomerListAdapter(PetGroomerList petGroomerList, List<GroomingOwnerInfoModel> ownerInfoModelList) {
         this.activity = petGroomerList;
         this.ownerInfoModelList = ownerInfoModelList;
+    }
+
+    PetGroomerListAdapter(List<GroomingOwnerInfoModel> ownerInfoModelList){
+        this.ownerInfoModelList = ownerInfoModelList;
+        ownerInfoModelListFull = new ArrayList<>(ownerInfoModelList);
     }
 
     @NonNull
@@ -69,10 +83,13 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
 
     }
 
+
     @Override
     public int getItemCount() {
         return ownerInfoModelList.size();
     }
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -103,4 +120,46 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
         }
     }
 
+    public Filter getFilter(){
+        return filter;
+    }
+
+    private Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            List<GroomingOwnerInfoModel> groomingList = new ArrayList<>();
+
+            if(charSequence == null || charSequence.length() == 0){
+                groomingList.addAll(ownerInfoModelListFull);
+            }else{
+                String filterPattern = charSequence.toString().toLowerCase().trim();
+                for (GroomingOwnerInfoModel item : ownerInfoModelListFull) {
+                    if (item.getGroomingShopName().toLowerCase().trim().contains(filterPattern) ||
+                            item.getLocation_petshop().toLowerCase().trim().contains(filterPattern)) {
+
+                        groomingList.add(item);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.count = groomingList.size();
+            results.values = filter;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            ownerInfoModelList.clear();
+//            ownerInfoModelList.addAll((List) filterResults.values);
+            if(filterResults.values instanceof List){
+                for(Object item : (List<Object>) filterResults.values){
+                    if(item instanceof GroomingOwnerInfoModel){
+                        ownerInfoModelList.add((GroomingOwnerInfoModel) item);
+                    }
+                }
+            }
+            notifyDataSetChanged();
+        }
+    };
 }

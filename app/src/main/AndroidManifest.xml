@@ -3,6 +3,8 @@
     package="com.adj.happypet">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginOwner"></activity>
+        <activity android:name=".MapsDetailPetshopActivity"></activity>
+        <activity
+            android:name=".MapsProfileOwnerActivity"
+            android:parentActivityName=".Owner.UpdateOwnerProfileActivity" />
+        <activity
+            android:name=".MapsProfileUserActivity"
+            android:parentActivityName=".UpdateProfileActivity" />
+        <activity android:name=".LoginOwner" />
         <activity android:name=".OrderDetailActivity" />
         <activity
             android:name=".OrderActivity"

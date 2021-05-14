@@ -1,6 +1,7 @@
 package com.adj.happypet.Owner;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.adj.happypet.MapsProfileOwnerActivity;
 import com.adj.happypet.Model.Owner;
 import com.adj.happypet.R;
 import com.adj.happypet.UpdateProfileActivity;
@@ -33,7 +35,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class UpdateOwnerProfileActivity extends AppCompatActivity {
     private EditText edt_nama, edt_phone, edt_petgrooming_name, edt_address, edt_desc, edt_status;
-    private Button btn_update, btn_back, btn_change_pass;
+    private Button btn_update, btn_back, btn_change_pass, btn_set_loc;
 
     private FirebaseAuth mAuth;
     private DatabaseReference userDBRef;
@@ -73,8 +75,8 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         tv_email = findViewById(R.id.tv_update_email);
 
         btn_update = findViewById(R.id.btn_update);
-        btn_back = findViewById(R.id.btn_back);
         btn_change_pass = findViewById(R.id.btn_change_pass);
+        btn_set_loc = findViewById(R.id.btn_set_loc);
 
         mAuth = FirebaseAuth.getInstance();
         fOwner = FirebaseAuth.getInstance().getCurrentUser();
@@ -150,6 +152,15 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dialogChangePasswordOwner();
+            }
+        });
+
+        //set location
+        btn_set_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UpdateOwnerProfileActivity.this, MapsProfileOwnerActivity.class);
+                startActivity(i);
             }
         });
     }

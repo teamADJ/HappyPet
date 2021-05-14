@@ -4,10 +4,21 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.res.ResourcesCompat;
+import timber.log.Timber;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,15 +44,56 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
+import com.mapbox.android.core.location.LocationEngine;
+import com.mapbox.android.core.location.LocationEngineCallback;
+import com.mapbox.android.core.location.LocationEngineProvider;
+import com.mapbox.android.core.location.LocationEngineRequest;
+import com.mapbox.android.core.location.LocationEngineResult;
+import com.mapbox.android.core.permissions.PermissionsListener;
+import com.mapbox.android.core.permissions.PermissionsManager;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.Point;
+import com.mapbox.mapboxsdk.Mapbox;
+import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.geometry.LatLng;
+import com.mapbox.mapboxsdk.location.LocationComponent;
+import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
+import com.mapbox.mapboxsdk.location.Utils;
+import com.mapbox.mapboxsdk.location.modes.CameraMode;
+import com.mapbox.mapboxsdk.location.modes.RenderMode;
+import com.mapbox.mapboxsdk.maps.MapView;
+import com.mapbox.mapboxsdk.maps.MapboxMap;
+import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.maps.Style;
+import com.mapbox.mapboxsdk.plugins.annotation.Symbol;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolManager;
+import com.mapbox.mapboxsdk.plugins.annotation.SymbolOptions;
+import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin;
+import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonOptions;
+import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
+import com.mapbox.mapboxsdk.utils.BitmapUtils;
 
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacement;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class UpdateProfileActivity extends AppCompatActivity {
+public class UpdateProfileActivity extends AppCompatActivity{
 
     private EditText edt_nama, edt_age;
-    private Button btn_update, btn_back, btn_change_pass;
+    private Button btn_update, btn_back, btn_change_pass, btn_set_loc;
 
     private FirebaseAuth mAuth;
     private DatabaseReference userDBRef;
@@ -56,6 +108,16 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     private String getEmail;
     private String getPass;
+    private MapView mapView;
+    private MapboxMap mapboxMap;
+    private PermissionsManager permissionsManager;
+
+
+
+    private LocationEngine locationEngine;
+    private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
+    private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
+
 
     AlertDialog.Builder dialog;
     LayoutInflater inflater;
@@ -66,21 +128,23 @@ public class UpdateProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_profile);
+
         btn_update_email = findViewById(R.id.btn_update_email);
         edt_nama = findViewById(R.id.et_update_name);
         edt_age = findViewById(R.id.et_update_age);
         edt_email = findViewById(R.id.tv_update_email);
 
         btn_update = findViewById(R.id.btn_update);
-        btn_back = findViewById(R.id.btn_back);
         btn_change_pass = findViewById(R.id.btn_change_pass);
+        btn_set_loc = findViewById(R.id.btn_set_loc);
 
+
+        //Firebase
         mAuth = FirebaseAuth.getInstance();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-        userDBRef = FirebaseDatabase.getInstance().getReference("Member");
-
         userID = fUser.getUid();
         db = FirebaseFirestore.getInstance();
+
 
 
         //        toolbar
@@ -90,7 +154,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
+        //panggil data user dari Firestore
         db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -103,17 +167,6 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
-        db.collection("Owner").whereEqualTo("ownerId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                        edt_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        edt_email.setText((CharSequence) documentSnapshot.get("email"));
-                    }
-                }
-            }
-        });
 
         //popup
         btn_update_email.setOnClickListener(new View.OnClickListener() {
@@ -123,38 +176,22 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
+        //update profile
         btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //get string dr edittext
                 final String fullnameUpdate = edt_nama.getText().toString().trim();
-//                DocumentReference updateData = db.collection("Member").document(userID);
-//
-//                updateData.update(fullname, fullnameUpdate).addOnSuccessListener(new OnSuccessListener < Void > () {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
-//                                Toast.LENGTH_SHORT).show();
-//                    }
-//                });
+
+                //update data di firestore
                 db.collection("Member").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        //akan balik ke halaman sebelumnya
                         finish();
                     }
                 });
-//                User dataUpdateUser = new User();
-//                dataUpdateUser.setFullName(edt_nama.getText().toString());
-//            //    dataUpdateUser.setAge(edt_age.getText().toString());
-//                dataUpdateUser.setEmail(edt_email.getText().toString());
-//                updateData(dataUpdateUser);
-
-//                db.collection("Owner").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
 
             }
         });
@@ -167,6 +204,13 @@ public class UpdateProfileActivity extends AppCompatActivity {
             }
         });
 
+        btn_set_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(UpdateProfileActivity.this, MapsProfileUserActivity.class);
+                startActivity(i);
+            }
+        });
 
     }
 
@@ -181,6 +225,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //update email
     public void dialogUpdateEmail() {
 
         dialog = new AlertDialog.Builder(UpdateProfileActivity.this);
@@ -255,6 +300,7 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
     }
 
+    //ganti password
     private void dialogChangePassword() {
 
         dialog = new AlertDialog.Builder(UpdateProfileActivity.this);
@@ -319,6 +365,12 @@ public class UpdateProfileActivity extends AppCompatActivity {
 
         dialog.show();
     }
+
+
+
+
+
+
 
 
 }

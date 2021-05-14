@@ -146,12 +146,21 @@
                 app:layout_constraintHorizontal_bias="0.504"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/loginBox" />
+            <TextView
+                android:id="@+id/login_user"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:text="Login As Member."
+                android:textColor="#000000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginBox" />
 
             <LinearLayout
                 android:layout_width="300dp"
                 android:orientation="horizontal"
-
-
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/dont_have_acc_tv"

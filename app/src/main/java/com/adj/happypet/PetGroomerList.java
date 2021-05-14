@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -131,15 +132,20 @@ public class PetGroomerList extends AppCompatActivity {
         //SearchView
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                searchPetgrooming(s); //function call with string entered in searchview as parameter
+
+
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String s) {
+                searchPetgrooming(s); //function call with string entered in searchview as parameter
+//                petGroomerListAdapter.getFilter().filter(s);
                 return false;
             }
         });
