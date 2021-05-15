@@ -42,6 +42,7 @@
         <activity
             android:name=".Admin.DetailPetshopDataAdminActivity"
             android:parentActivityName=".Admin.AdminHome" />
+        <activity android:name=".ArticleDetailActivity" />
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".UpdateEmail" />

@@ -39,4 +39,10 @@ public class ArtikelModel {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getArtikel_id() {return artikel_id;};
+
+    public void setArtikel_id(String artikel_id) {
+        this.artikel_id = artikel_id;
+    }
 }

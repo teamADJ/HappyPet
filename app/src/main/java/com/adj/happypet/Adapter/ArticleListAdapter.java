@@ -1,5 +1,6 @@
 package com.adj.happypet.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adj.happypet.ArticleDetailActivity;
+import com.adj.happypet.DetailPetshopUserActivity;
 import com.adj.happypet.HomeFragment;
 import com.adj.happypet.Model.ArtikelModel;
 import com.adj.happypet.R;
@@ -21,6 +24,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private ArrayList<ArtikelModel> dataArtikelList;
     private RowOptionClickListener rowOptionClickListener;
+    private String artikel_id;
 
     public ArticleListAdapter(HomeFragment homeFragment, ArrayList<ArtikelModel> dataArtikelList){
         this.dataArtikelList = dataArtikelList;
@@ -37,6 +41,17 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ArticleListViewHolder holder, int position) {
         holder.article_title.setText(dataArtikelList.get(position).getTitle());
+
+        holder.setItemClickListener(new RowOptionClickListener() {
+            @Override
+            public void optionClicked(View view, int position) {
+                artikel_id = dataArtikelList.get(position).getArtikel_id();
+                Intent dataArticle = new Intent(view.getContext(), ArticleDetailActivity.class);
+                dataArticle.putExtra("artikel_id", artikel_id);
+                view.getContext().startActivity(dataArticle);
+            }
+        });
+
     }
 
     @Override
@@ -47,6 +62,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     public class ArticleListViewHolder extends RecyclerView.ViewHolder {
         private TextView article_title;
         private LinearLayout article_list;
+        RowOptionClickListener rowOptionClickListener;
         public ArticleListViewHolder(@NonNull View itemView) {
             super(itemView);
             article_title = itemView.findViewById(R.id.article_title);
@@ -60,6 +76,15 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                     }
                 }
             });
+        }
+
+        public void onClick(View view) {
+            this.rowOptionClickListener.optionClicked(view, getLayoutPosition());
+        }
+
+        public void setItemClickListener(RowOptionClickListener rowOptionClickListener) {
+            this.rowOptionClickListener = rowOptionClickListener;
+
         }
 
 
