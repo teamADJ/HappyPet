@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MapsDetailPetshopActivity"></activity>
+        <activity android:name=".AboutUsActivity"></activity>
+        <activity android:name=".MapsDetailPetshopActivity" />
         <activity
             android:name=".MapsProfileOwnerActivity"
             android:parentActivityName=".Owner.UpdateOwnerProfileActivity" />

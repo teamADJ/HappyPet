@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adj.happypet.AboutUsActivity;
 import com.adj.happypet.LoginActivity;
 import com.adj.happypet.Model.Option_list;
 import com.adj.happypet.R;
@@ -67,6 +68,11 @@ public class OptionListAdapter extends RecyclerView.Adapter<OptionListAdapter.Op
                     if(getPosition() == 0){
                         Intent updateProfile = new Intent(v.getContext(), UpdateProfileActivity.class);
                         v.getContext().startActivity(updateProfile);
+                    }
+
+                    if (getPosition() == 1) {
+                        Intent aboutUs = new Intent(v.getContext(), AboutUsActivity.class);
+                        v.getContext().startActivity(aboutUs);
                     }
                     if(getAdapterPosition() == 2){
                         FirebaseAuth.getInstance().signOut();
