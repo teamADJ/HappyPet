@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.adj.happypet.Adapter.ArticleListAdapter;
 import com.adj.happypet.Adapter.PetshopListUserAdapter;
+import com.adj.happypet.Model.ArtikelModel;
 import com.adj.happypet.Model.PetGroomingListUser;
 import com.adj.happypet.Model.PetGrooming_list;
 import com.adj.happypet.Model.User;
@@ -80,10 +83,12 @@ public class HomeFragment extends Fragment {
     private DocumentReference documentReference;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-    private RecyclerView recyclerViewListGroomingUser;
+    private RecyclerView recyclerViewListGroomingUser, recyclerViewListArtikel;
 
     private PetshopListUserAdapter petshopListUserAdapter;
     private ArrayList<PetGroomingListUser> petGroomingListUsers;
+    private ArrayList<ArtikelModel> artikelModels;
+    private ArticleListAdapter articleListAdapter;
 
 
     public static Fragment newInstance(String param1, String param2) {
@@ -112,6 +117,7 @@ public class HomeFragment extends Fragment {
 
         db = FirebaseFirestore.getInstance();
         petGroomingListUsers = new ArrayList<>();
+        artikelModels = new ArrayList<>();
         email_dialog = new AlertDialog.Builder(getActivity());
         inflater = this.getLayoutInflater();
 
@@ -179,6 +185,14 @@ public class HomeFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+//        cardlist artikel
+        recyclerViewListArtikel = v.findViewById(R.id.recyclerViewListArtikel);
+        RecyclerView.LayoutManager layoutManagerArtikel = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        articleListAdapter = new ArticleListAdapter(this, artikelModels);
+        recyclerViewListArtikel.setLayoutManager(layoutManagerArtikel);
+        recyclerViewListArtikel.setAdapter(articleListAdapter);
+        showDataArtikel();
 
 //        cardlist petshop
         recyclerViewListGroomingUser = v.findViewById(R.id.recyclerViewListGroomingUser);
@@ -316,6 +330,38 @@ public class HomeFragment extends Fragment {
                 }
 
                 petshopListUserAdapter.notifyDataSetChanged();
+
+
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(getContext(), "Oppsss.... something wrong ", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void showDataArtikel() {
+
+        db.collection("Artikel").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                artikelModels.clear();
+
+                for(DocumentSnapshot documentSnapshot :task.getResult()){
+
+                    ArtikelModel artikel_list = new ArtikelModel(documentSnapshot.getString("artikel_id"),
+                           documentSnapshot.getString("description"),
+                            documentSnapshot.getString("source"),
+                            documentSnapshot.getString("title")
+                    );
+                    //add model to list
+                    artikelModels.add(artikel_list);
+                }
+
+                articleListAdapter.notifyDataSetChanged();
 
 
 

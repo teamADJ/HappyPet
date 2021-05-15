@@ -141,6 +141,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/happy_pet_banner" />
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewListArtikel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal"
+            tools:listitem="@layout/row_list_artikel"
+            android:orientation = "horizontal"
+
+            />
         <TextView
             android:id="@+id/fullname_home"
             android:layout_width="300dp"
