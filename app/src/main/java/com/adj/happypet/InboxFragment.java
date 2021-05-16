@@ -110,7 +110,7 @@ public class InboxFragment extends Fragment {
         //        toolbar
         Toolbar inbox_toolbar = v.findViewById(R.id.inbox_toolbar);
         ((BottomNavigationActivity)getActivity()).setSupportActionBar(inbox_toolbar);
-        ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
+        ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());

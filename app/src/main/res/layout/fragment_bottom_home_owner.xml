@@ -43,7 +43,8 @@
             android:id="@+id/recyclerViewListClient"
             tools:listitem="@layout/row_client_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

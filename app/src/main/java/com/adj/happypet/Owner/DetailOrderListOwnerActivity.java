@@ -100,6 +100,10 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
                     }
 
+                    if(order_status.getText().toString().equals("Success")){
+                        btn_finish_order.setVisibility(View.GONE);
+                    }
+
                 }
             }
         });

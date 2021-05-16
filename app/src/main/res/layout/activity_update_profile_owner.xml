@@ -193,7 +193,7 @@
                     android:id="@+id/btn_change_pass"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="36dp"
+                    android:layout_marginTop="20dp"
                     android:background="#FFE5C0"
                     android:text="Change Password"
                     android:textColor="#A36831"

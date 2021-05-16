@@ -78,7 +78,7 @@ public class HomeOwnerFragment extends Fragment {
         //        toolbar
         Toolbar home_owner_toolbar = v.findViewById(R.id.home_owner_toolbar);
         ((BottomNavigationOwnerActivity)getActivity()).setSupportActionBar(home_owner_toolbar);
-        ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
+        ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Orders For You");
 
         adapter = new HomeOwnerAdapter(this, clientList);
         rvClientList.setAdapter(adapter);

@@ -30,7 +30,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
     private String ownerId, groomingshopname, contact, address, description;
     private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status;
-    private Button btn_order, btn_chat ;
+    private Button btn_order, btn_chat, btn_view_loc ;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -79,6 +79,14 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
             }
         });
 
+        btn_view_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailPetshopUserActivity.this, MapsDetailPetshopActivity.class);
+                i.putExtra("ownerId", ownerId);
+                startActivity(i);
+            }
+        });
 
 
     }
@@ -116,6 +124,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
         tv_detail_owner_name = findViewById(R.id.tv_detail_owner_name);
         btn_order = findViewById(R.id.btn_order);
         btn_chat = findViewById(R.id.btn_chat_with_owner);
+        btn_view_loc = findViewById(R.id.btn_view_loc);
 
     }
 

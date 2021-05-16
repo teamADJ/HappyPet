@@ -102,7 +102,7 @@ public class InboxOwnerFragment extends Fragment {
         //        toolbar
         Toolbar inbox_owner_toolbar = v.findViewById(R.id.inbox_owner_toolbar);
         ((BottomNavigationOwnerActivity)getActivity()).setSupportActionBar(inbox_owner_toolbar);
-        ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Inbox");
+        ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".AboutUsActivity"></activity>
-        <activity android:name=".MapsDetailPetshopActivity" />
+        <activity android:name=".MapsDetailPetshopActivity"
+            android:parentActivityName=".DetailPetshopUserActivity"/>
         <activity
             android:name=".MapsProfileOwnerActivity"
             android:parentActivityName=".Owner.UpdateOwnerProfileActivity" />
@@ -26,7 +27,8 @@
         <activity
             android:name=".OrderActivity"
             android:parentActivityName=".DetailPetshopUserActivity" />
-        <activity android:name=".Owner.DetailOrderListOwnerActivity" />
+        <activity android:name=".Owner.DetailOrderListOwnerActivity"
+            android:parentActivityName=".Owner.BottomNavigationOwnerActivity"/>
         <activity
             android:name=".ChatInOwner"
             android:parentActivityName=".Owner.BottomNavigationOwnerActivity" />

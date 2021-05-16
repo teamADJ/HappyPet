@@ -204,7 +204,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn"
                 android:layout_margin="20dp"
-                android:text="Pesan Jasa Petshop"
+                android:text="Lihat Lokasi"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />
