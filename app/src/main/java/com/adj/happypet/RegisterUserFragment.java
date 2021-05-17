@@ -112,6 +112,7 @@ public class RegisterUserFragment extends Fragment {
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
 
+                                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                         currentUser = mAuth.getCurrentUser();
                                         //unik id
                                         final String currentUserId = currentUser.getUid();
@@ -128,8 +129,13 @@ public class RegisterUserFragment extends Fragment {
                                         db.collection("Member").document(currentUserId).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
-                                                Toast.makeText(getActivity(), "Register berhasil", Toast.LENGTH_SHORT).show();
+                                                Intent i = new Intent(getContext(), LoginActivity.class);
+                                                startActivity(i);
+                                                Toast.makeText(getActivity(), "Register berhasil, cek email untuk verifikasi", Toast.LENGTH_SHORT).show();
+                                                firebaseUser.sendEmailVerification();
+
                                     }
+
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {

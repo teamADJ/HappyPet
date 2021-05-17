@@ -118,7 +118,7 @@ public class LoginOwner extends AppCompatActivity {
                                 });
 
                                 } else {
-                                    firebaseUser.sendEmailVerification();
+//                                    firebaseUser.sendEmailVerification();
                                     Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                 }

@@ -150,14 +150,13 @@ public class LoginActivity extends AppCompatActivity {
 
                                                 }
 
-
                                             }
                                         }
                                     });
 
 
                                 } else {
-                                    firebaseUser.sendEmailVerification();
+//                                    firebaseUser.sendEmailVerification();
                                     Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adj.happypet.LoginActivity;
+import com.adj.happypet.LoginOwner;
 import com.adj.happypet.Model.Owner;
 import com.adj.happypet.Model.User;
 import com.adj.happypet.R;
@@ -130,6 +131,8 @@ public class RegisterOwnerFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if(task.isSuccessful()){
+
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                                 currentUser = mAuth.getCurrentUser();
 
                                 final String currentOwnerId = currentUser.getUid();
@@ -148,7 +151,10 @@ public class RegisterOwnerFragment extends Fragment {
                                 db.collection("Owner").document(currentOwnerId).set(ownerMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(getActivity(), "Register berhasil", Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(getContext(), LoginOwner.class);
+                                        startActivity(i);
+                                        Toast.makeText(getActivity(), "Register berhasil, cek email untuk verifikasi", Toast.LENGTH_SHORT).show();
+                                        firebaseUser.sendEmailVerification();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
