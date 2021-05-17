@@ -138,9 +138,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 DocumentSnapshot doc = task.getResult();
                                                 String getEmail = doc.getString("email");
 
-                                                if(getEmail == null){
-                                                    Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
-                                                }else{
+                                                if(getEmail != null){
                                                     if(getEmail.equals(edt_email_login.getText().toString().trim())){
                                                         Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
                                                         startActivity(i);
@@ -148,6 +146,8 @@ public class LoginActivity extends AppCompatActivity {
                                                         finish();
                                                     }
 
+                                                }else{
+                                                    Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
                                                 }
 
                                             }

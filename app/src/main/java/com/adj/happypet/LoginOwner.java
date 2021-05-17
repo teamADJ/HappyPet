@@ -103,13 +103,17 @@ public class LoginOwner extends AppCompatActivity {
                                             DocumentSnapshot doc = task.getResult();
                                             String getEmail = doc.getString("email");
 
-                                            if(getEmail == null){
-                                                Toast.makeText(LoginOwner.this, "Invalid", Toast.LENGTH_SHORT).show();
+                                            if(getEmail != null){
+
+                                                if(getEmail.equals(edt_email_login.getText().toString().trim())){
+                                                    Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
+                                                    startActivity(i);
+                                                    Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
+                                                    finish();
+                                                }
+
                                             }else{
-                                                Intent i = new Intent(LoginOwner.this, BottomNavigationOwnerActivity.class);
-                                                startActivity(i);
-                                                Toast.makeText(LoginOwner.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
-                                                finish();
+                                                Toast.makeText(LoginOwner.this, "Invalid", Toast.LENGTH_SHORT).show();
                                             }
 
 

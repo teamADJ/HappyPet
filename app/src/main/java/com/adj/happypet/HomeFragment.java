@@ -142,7 +142,7 @@ public class HomeFragment extends Fragment {
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
         //  tv_age = v.findViewById(R.id.tv_age_home);
-        tv_email = v.findViewById(R.id.tv_email_home);
+//        tv_email = v.findViewById(R.id.tv_email_home);
         banner = v.findViewById(R.id.happy_pet_banner);
 
         db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -151,7 +151,7 @@ public class HomeFragment extends Fragment {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }
                 }
             }
@@ -201,32 +201,7 @@ public class HomeFragment extends Fragment {
         petshopListUserAdapter = new PetshopListUserAdapter(this, petGroomingListUsers);
         recyclerViewListGroomingUser.setAdapter(petshopListUserAdapter);
         showData();
-        //get user profile from realtime database
-//        userDBRef.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//
-//                User userPofile = dataSnapshot.getValue(User.class);
-//
-//                if(userPofile != null){
-//                    String fullname = userPofile.getFullName();
-//                   // String age = userPofile.getAge();
-//                    String email = userPofile.getEmail();
-//
-//                    banner.setText("Welcome " + fullname + "!");
-//                    tv_nama.setText(fullname);
-//                  //  tv_age.setText(age);
-//                    tv_email.setText(email);
-//
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                Toast.makeText(getActivity(), "Something Wrong", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+
 
 
         btn_logout.setOnClickListener(new View.OnClickListener() {
@@ -308,6 +283,7 @@ public class HomeFragment extends Fragment {
 
         return v;
     }
+
 
     private void showData() {
 

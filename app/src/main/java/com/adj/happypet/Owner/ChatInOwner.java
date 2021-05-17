@@ -1,4 +1,4 @@
-package com.adj.happypet;
+package com.adj.happypet.Owner;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.adj.happypet.Adapter.ChatAdapter;
 import com.adj.happypet.Model.Chat;
+import com.adj.happypet.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

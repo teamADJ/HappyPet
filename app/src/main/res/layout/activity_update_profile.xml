@@ -96,21 +96,21 @@
                 android:layout_height="wrap_content"
                 android:hint="Full Name" />
 
-            <TextView
-                android:textSize="16dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:textStyle="bold"
-                android:text="Age"
-                android:layout_marginTop="15dp"
-                />
+<!--            <TextView-->
+<!--                android:textSize="16dp"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:textStyle="bold"-->
+<!--                android:text="Age"-->
+<!--                android:layout_marginTop="15dp"-->
+<!--                />-->
 
-            <EditText
-                android:id="@+id/et_update_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Age" />
+<!--            <EditText-->
+<!--                android:id="@+id/et_update_age"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:hint="Age" />-->
 
 
             <Button

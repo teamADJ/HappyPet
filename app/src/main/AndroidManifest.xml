@@ -17,7 +17,7 @@
         <activity android:name=".MapsDetailPetshopActivity"
             android:parentActivityName=".DetailPetshopUserActivity"/>
         <activity
-            android:name=".MapsProfileOwnerActivity"
+            android:name=".Owner.MapsProfileOwnerActivity"
             android:parentActivityName=".Owner.UpdateOwnerProfileActivity" />
         <activity
             android:name=".MapsProfileUserActivity"
@@ -30,7 +30,7 @@
         <activity android:name=".Owner.DetailOrderListOwnerActivity"
             android:parentActivityName=".Owner.BottomNavigationOwnerActivity"/>
         <activity
-            android:name=".ChatInOwner"
+            android:name=".Owner.ChatInOwner"
             android:parentActivityName=".Owner.BottomNavigationOwnerActivity" />
         <activity
             android:name=".ChatInUser"
@@ -61,7 +61,6 @@
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        <activity android:name=".UpdateActivity" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateVisible|adjustPan">

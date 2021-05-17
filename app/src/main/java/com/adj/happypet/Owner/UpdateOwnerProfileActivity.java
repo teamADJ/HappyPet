@@ -16,10 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.adj.happypet.MapsProfileOwnerActivity;
-import com.adj.happypet.Model.Owner;
 import com.adj.happypet.R;
-import com.adj.happypet.UpdateProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

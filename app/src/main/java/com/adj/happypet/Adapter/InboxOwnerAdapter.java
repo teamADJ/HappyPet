@@ -7,11 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.adj.happypet.ChatInOwner;
-import com.adj.happypet.ChatInUser;
+import com.adj.happypet.Owner.ChatInOwner;
 import com.adj.happypet.Model.ClientInfoModel;
-import com.adj.happypet.Model.GroomingOwnerInfoModel;
-import com.adj.happypet.Model.User;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
 

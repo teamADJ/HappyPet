@@ -102,10 +102,7 @@ public class RegisterUserFragment extends Fragment {
                     pass_regis.requestFocus();
                     return;
                 } else {
-                    // mengambil doc ref nya
-                    documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+
                             //create account using email and password
                             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
@@ -129,19 +126,19 @@ public class RegisterUserFragment extends Fragment {
                                         db.collection("Member").document(currentUserId).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
+
                                                 Intent i = new Intent(getContext(), LoginActivity.class);
                                                 startActivity(i);
-                                                Toast.makeText(getActivity(), "Register berhasil, cek email untuk verifikasi", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "Register berhasil, silahkan cek email untuk verifikasi", Toast.LENGTH_SHORT).show();
                                                 firebaseUser.sendEmailVerification();
+                                         }
 
-                                    }
-
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getActivity(), "Register gagal coba cek lagi ", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                         }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(getContext(), "Register gagal!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
 
 
                                     }
@@ -150,19 +147,11 @@ public class RegisterUserFragment extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "Failed to Register, Try Again!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Email sudah terdaftar!", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Gagal atau sudah registrasi!", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
-
-                }
 
 
             }

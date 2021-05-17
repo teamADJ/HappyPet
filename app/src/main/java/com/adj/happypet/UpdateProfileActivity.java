@@ -131,7 +131,7 @@ public class UpdateProfileActivity extends AppCompatActivity{
 
         btn_update_email = findViewById(R.id.btn_update_email);
         edt_nama = findViewById(R.id.et_update_name);
-        edt_age = findViewById(R.id.et_update_age);
+//        edt_age = findViewById(R.id.et_update_age);
         edt_email = findViewById(R.id.tv_update_email);
 
         btn_update = findViewById(R.id.btn_update);
