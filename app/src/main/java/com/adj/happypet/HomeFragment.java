@@ -287,7 +287,7 @@ public class HomeFragment extends Fragment {
 
     private void showData() {
 
-        db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Owner").whereEqualTo("status", "Recommended").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 petGroomingListUsers.clear();

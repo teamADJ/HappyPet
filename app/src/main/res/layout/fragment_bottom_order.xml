@@ -36,7 +36,10 @@
             android:clipToPadding="false"
             android:id="@+id/recyclerViewListOrder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            tools:listitem="@layout/row_order_list"
+            android:layout_weight="2"
+            android:layout_marginBottom="50dp"/>
 
     </LinearLayout>
 

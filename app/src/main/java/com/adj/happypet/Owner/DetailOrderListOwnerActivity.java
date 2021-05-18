@@ -1,5 +1,6 @@
 package com.adj.happypet.Owner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -28,7 +29,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
     private TextView order_name, phone_number_order, order_status, time_start, order_address, petshop_status;
     private String ownerId, groomingshopname, contact, address, description;
-    private Button btn_finish_order;
+    private Button btn_finish_order, btn_cancel_order, btn_accept_order;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -59,6 +60,46 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
             getGroomingIndo(ownerId);
         }
 
+        btn_accept_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //update order
+                db.collection("Order").document(ownerId).update(
+
+                        "status", "Waiting"
+
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
+                        startActivity(i);
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+            }
+        });
+
+        btn_cancel_order.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //update order
+                db.collection("Order").document(ownerId).update(
+
+                        "status", "Cancelled"
+
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
+                        startActivity(i);
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                });
+            }
+        });
+
 
         btn_finish_order.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +112,10 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                       ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
+                        startActivity(i);
                         Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-
+                        finish();
                     }
                 });
 
@@ -102,6 +145,17 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
                     if(order_status.getText().toString().equals("Success")){
                         btn_finish_order.setVisibility(View.GONE);
+                        btn_accept_order.setVisibility(View.GONE);
+                        btn_cancel_order.setVisibility(View.GONE);
+                    }else if(order_status.getText().toString().equals("Waiting")){
+                        btn_accept_order.setVisibility(View.GONE);
+                        btn_cancel_order.setVisibility(View.GONE);
+                    }else if(order_status.getText().toString().equals("Pending")){
+                        btn_finish_order.setVisibility(View.GONE);
+                    }else if(order_status.getText().toString().equals("Cancelled")){
+                        btn_finish_order.setVisibility(View.GONE);
+                        btn_accept_order.setVisibility(View.GONE);
+                        btn_cancel_order.setVisibility(View.GONE);
                     }
 
                 }
@@ -117,6 +171,9 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
         order_status = findViewById(R.id.order_status);
 
         btn_finish_order = findViewById(R.id.btn_finish_order);
+        btn_accept_order = findViewById(R.id.btn_accept_order);
+        btn_cancel_order = findViewById(R.id.btn_cancel_order);
 
     }
+
 }

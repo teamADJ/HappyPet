@@ -66,8 +66,59 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
+
+            <TextView
                 android:id="@+id/edt_name_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/petshop_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Nama Petshop"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="179dp"
+                tools:layout_editor_absoluteY="217dp" />
+
+
+            <TextView
+                android:id="@+id/edt_petshop_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/owner_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:text="Nama Owner"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="179dp"
+                tools:layout_editor_absoluteY="217dp" />
+
+
+            <TextView
+                android:id="@+id/edt_owner_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -90,7 +141,7 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edt_owner_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,7 +166,7 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edt_jam_mulai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,7 +192,7 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edt_order_address"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -168,7 +219,7 @@
                 tools:layout_editor_absoluteX="179dp"
                 tools:layout_editor_absoluteY="217dp" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edt_status_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,24 +229,34 @@
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/btn_accept"
+                android:id="@+id/btn_show_loc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:background="@drawable/btn"
-                android:text="PESANAN DITERIMA"
+                android:text="View Location"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/btn_reject"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:background="@drawable/btn"
-                android:text="PESANAN DITOLAK"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+<!--            <Button-->
+<!--                android:id="@+id/btn_accept"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:background="@drawable/btn"-->
+<!--                android:text="PESANAN DITERIMA"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/btn_reject"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="20dp"-->
+<!--                android:background="@drawable/btn"-->
+<!--                android:text="PESANAN DITOLAK"-->
+<!--                android:textColor="@color/white"-->
+<!--                android:textStyle="bold" />-->
 
 
         </LinearLayout>

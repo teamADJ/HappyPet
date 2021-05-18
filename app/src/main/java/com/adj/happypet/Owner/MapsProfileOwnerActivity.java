@@ -234,6 +234,7 @@ public class MapsProfileOwnerActivity extends AppCompatActivity implements OnMap
                             @SuppressLint("WrongConstant")
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(activity, "Location saved!", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

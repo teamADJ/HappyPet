@@ -52,7 +52,6 @@ import java.util.List;
 
 public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
 
-    private Button btn_save_loc;
     private MapView mapView;
     private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
@@ -85,7 +84,7 @@ public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMa
         //        toolbar
         Toolbar update_profile_toolbar = findViewById(R.id.maps_detail_petshop_toolbar);
         setSupportActionBar(update_profile_toolbar);
-        getSupportActionBar().setTitle("Set Your Location");
+        getSupportActionBar().setTitle("View Location");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
@@ -171,7 +170,6 @@ public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMa
         private final WeakReference<MapsDetailPetshopActivity> activityWeakReference;
         private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        String uid = firebaseUser.getUid();
         private FirebaseFirestore db = FirebaseFirestore.getInstance();
         private Double getLat, getLng;
 
@@ -224,7 +222,7 @@ public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMa
                                 activity.mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
 
                             }else{
-
+                                Toast.makeText(activity, "Location not set", Toast.LENGTH_SHORT).show();
                             }
 
 

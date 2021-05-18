@@ -121,7 +121,7 @@ public class OrderActivity extends AppCompatActivity {
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);
-            hashMap.put("status", "Waiting");
+            hashMap.put("status", "Pending");
             hashMap.put("userId", userId);
             hashMap.put("ownerId", ownerId);
 
@@ -129,7 +129,10 @@ public class OrderActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        Intent i = new Intent(OrderActivity.this, BottomNavigationActivity.class);
+                        startActivity(i);
                         Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
+                        finish();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {

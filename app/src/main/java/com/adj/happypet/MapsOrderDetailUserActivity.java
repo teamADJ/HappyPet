@@ -4,18 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -34,6 +29,8 @@ import com.mapbox.android.core.permissions.PermissionsListener;
 import com.mapbox.android.core.permissions.PermissionsManager;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.MarkerOptions;
+import com.mapbox.mapboxsdk.camera.CameraPosition;
+import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.location.LocationComponent;
 import com.mapbox.mapboxsdk.location.LocationComponentActivationOptions;
@@ -44,46 +41,48 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.localization.LocalizationPlugin;
-import com.mapbox.mapboxsdk.utils.BitmapUtils;
 
 import java.lang.ref.WeakReference;
-import java.util.HashMap;
 import java.util.List;
 
-public class MapsProfileUserActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener{
+public class MapsOrderDetailUserActivity extends AppCompatActivity implements OnMapReadyCallback, PermissionsListener {
 
-    private Button btn_save_loc;
     private MapView mapView;
     private MapboxMap mapboxMap;
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
+    private String ownerId, orderId;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private MapsProfileUserActivityLocationCallback callback =
-            new MapsProfileUserActivityLocationCallback(this);
+    private MapsDetailUserActivityLocationCallback callback = new MapsDetailUserActivityLocationCallback(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Mapbox.getInstance(this, "pk.eyJ1Ijoiam9jZTltYXJpZSIsImEiOiJja29kbjdoZDEwM2VvMndxcDJ0N2I2Z3ViIn0.sIMtIjGjCC8g4n89ZVZ_-Q");
-        setContentView(R.layout.activity_maps_profile_user);
-
-        btn_save_loc = findViewById(R.id.btn_save_loc);
+        setContentView(R.layout.activity_maps_order_detail_user);
 
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
-
         //untuk munculin petanya
         mapView.getMapAsync(this);
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null){
+            orderId = bundle.getString("orderId");
+
+        }else{
+
+        }
+
         //        toolbar
-        Toolbar update_profile_toolbar = findViewById(R.id.maps_user_profile_toolbar);
+        Toolbar update_profile_toolbar = findViewById(R.id.maps_detail_order_toolbar);
         setSupportActionBar(update_profile_toolbar);
-        getSupportActionBar().setTitle("Set Your Location");
+        getSupportActionBar().setTitle("View Petshop Location");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-
     }
 
     //nampilin map dan set style
@@ -115,13 +114,13 @@ public class MapsProfileUserActivity extends AppCompatActivity implements OnMapR
 
     //untuk user location
     private void enableLocationComponent(Style loadedMapStyle) {
-        if(PermissionsManager.areLocationPermissionsGranted(MapsProfileUserActivity.this)){
+        if(PermissionsManager.areLocationPermissionsGranted(MapsOrderDetailUserActivity.this)){
             // Get an instance of the component
             LocationComponent locationComponent = mapboxMap.getLocationComponent();
 
             // Activate with options
             locationComponent.activateLocationComponent(
-                    LocationComponentActivationOptions.builder(MapsProfileUserActivity.this, loadedMapStyle).build());
+                    LocationComponentActivationOptions.builder(MapsOrderDetailUserActivity.this, loadedMapStyle).build());
 
             // Enable to make component visible
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -162,99 +161,81 @@ public class MapsProfileUserActivity extends AppCompatActivity implements OnMapR
         locationEngine.getLastLocation(callback);
     }
 
-    private static class MapsProfileUserActivityLocationCallback
-            implements LocationEngineCallback<LocationEngineResult> {
+    private static class MapsDetailUserActivityLocationCallback implements LocationEngineCallback<LocationEngineResult>{
 
-        private final WeakReference<MapsProfileUserActivity> activityWeakReference;
+        private final WeakReference<MapsOrderDetailUserActivity> activityWeakReference;
         private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         private FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        String uid = firebaseUser.getUid();
         private FirebaseFirestore db = FirebaseFirestore.getInstance();
         private Double getLat, getLng;
+        private String ownerId;
 
-
-        MapsProfileUserActivityLocationCallback(MapsProfileUserActivity activity) {
+        MapsDetailUserActivityLocationCallback(MapsOrderDetailUserActivity activity){
             this.activityWeakReference = new WeakReference<>(activity);
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location has changed.
-         *
-         * @param result the LocationEngineResult object which has the last known location within it.
-         */
         @Override
         public void onSuccess(LocationEngineResult result) {
-            MapsProfileUserActivity activity = activityWeakReference.get();
+            MapsOrderDetailUserActivity activity = activityWeakReference.get();
 
-            if (activity != null) {
-                Location location = result.getLastLocation();
+            db.collection("Order").document(activity.orderId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    ownerId = snapshot.getString("ownerId");
 
-                if (location == null) {
-                    return;
-                }
+                    //show marker
+                    db.collection("Owner").document(ownerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if(task.isSuccessful()){
 
-                db.collection("Member").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-                            DocumentSnapshot snapshot = task.getResult();
-                            getLat = snapshot.getDouble("location_lat");
-                            getLng = snapshot.getDouble("location_lng");
+                                DocumentSnapshot snapshot = task.getResult();
+                                getLat = snapshot.getDouble("location_lat");
+                                getLng = snapshot.getDouble("location_lng");
 
-                            if(getLat != null && getLng != null){
-                                activity.mapboxMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(
-                                                getLat,
-                                                getLng
-                                        ))
-                                );
-                            }else{
-                                activity.mapboxMap.addMarker(new MarkerOptions()
-                                        .position(new LatLng(
-                                                result.getLastLocation().getLatitude(),
-                                                result.getLastLocation().getLongitude()
-                                        ))
-                                );
+                                //show marker with getLat GetLng
+                                if(getLat != null && getLng != null){
+                                    activity.mapboxMap.addMarker(new MarkerOptions()
+                                            .position(new LatLng(
+                                                    getLat,
+                                                    getLng
+                                            ))
+                                    );
+
+                                    CameraPosition position = new CameraPosition.Builder()
+                                            .target(new LatLng(
+                                                    getLat,
+                                                    getLng
+                                            ))
+                                            .zoom(14)
+                                            .build();
+                                    activity.mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position), 1000);
+
+                                }else{
+                                    Toast.makeText(activity, "Location not set", Toast.LENGTH_SHORT).show();
+                                }
+
+
+
                             }
-
                         }
-                    }
-                });
-
-                HashMap<String, Double> loc = new HashMap<>();
-                loc.put("location_lat", result.getLastLocation().getLatitude());
-                loc.put("location_lng", result.getLastLocation().getLongitude());
-
-
-
-                activity.btn_save_loc.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        db.collection("Member").document(uid).set(loc, SetOptions.merge()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @SuppressLint("WrongConstant")
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(activity, "Location saved!", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
-
-                // Pass the new location to the Maps SDK's LocationComponent
-                if (activity.mapboxMap != null && result.getLastLocation() != null) {
-                    activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());
+                    });
                 }
+            });
+
+
+
+            // Pass the new location to the Maps SDK's LocationComponent
+            if (activity.mapboxMap != null && result.getLastLocation() != null) {
+                activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());
             }
+
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location can't be captured
-         *
-         * @param exception the exception message
-         */
         @Override
         public void onFailure(@NonNull Exception exception) {
-            MapsProfileUserActivity activity = activityWeakReference.get();
+            MapsOrderDetailUserActivity activity = activityWeakReference.get();
             if (activity != null) {
                 Toast.makeText(activity, exception.getLocalizedMessage(),
                         Toast.LENGTH_SHORT).show();
@@ -287,6 +268,15 @@ public class MapsProfileUserActivity extends AppCompatActivity implements OnMapR
             Toast.makeText(this, R.string.user_location_permission_not_granted, Toast.LENGTH_LONG).show();
             finish();
         }
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = super.getParentActivityIntent();
+        //here you put the data that you want to send back - could be Serializable/Parcelable, etc
+        intent.putExtra("orderId", orderId);
+        setResult(RESULT_OK, intent);
 
     }
 
@@ -337,4 +327,10 @@ public class MapsProfileUserActivity extends AppCompatActivity implements OnMapR
         mapView.onDestroy();
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        onBackPressed();
+
+        return true;
+    }
 }

@@ -4,9 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,9 +22,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 public class OrderDetailActivity extends AppCompatActivity {
 
-    private EditText edt_nama_pemesan,edt_contact,edt_jam,edt_address,edt_status;
+    private TextView edt_nama_pemesan,edt_contact,edt_jam,edt_address,edt_status, edt_owner_name, edt_petshop_name;
     private String orderId ;
-    private Button btn_acc,btn_reject;
+    private Button btn_show_loc;
 
     private FirebaseUser fOrder;
     private FirebaseFirestore db;
@@ -45,6 +49,15 @@ public class OrderDetailActivity extends AppCompatActivity {
             orderId = bundle.getString("orderId");
             getDetailOrder(orderId);
         }
+
+        btn_show_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(OrderDetailActivity.this, MapsOrderDetailUserActivity.class);
+                i.putExtra("orderId", orderId);
+                startActivity(i);
+            }
+        });
     }
 
     private void getDetailOrder(String orderId) {
@@ -59,7 +72,23 @@ public class OrderDetailActivity extends AppCompatActivity {
                         edt_address.setText(snapshot.getString("alamat"));
                         edt_status.setText(snapshot.getString("status"));
 
+                        String ownerId = snapshot.getString("ownerId");
+
+                        db.collection("Owner").document(ownerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                if(task.isSuccessful()){
+                                    DocumentSnapshot documentSnapshot = task.getResult();
+
+                                    edt_owner_name.setText(documentSnapshot.getString("fullname"));
+                                    edt_petshop_name.setText(documentSnapshot.getString("groomingshopname"));
+                                }
+                            }
+                        });
+
                     }
+
+
                 }
             }
         });
@@ -71,9 +100,22 @@ public class OrderDetailActivity extends AppCompatActivity {
         edt_jam = findViewById(R.id.edt_jam_mulai);
         edt_address = findViewById(R.id.edt_order_address);
         edt_status = findViewById(R.id.edt_status_order);
-        btn_acc = findViewById(R.id.btn_order);
-        btn_reject = findViewById(R.id.btn_reject);
+        btn_show_loc = findViewById(R.id.btn_show_loc);
+        edt_owner_name = findViewById(R.id.edt_owner_name);
+        edt_petshop_name = findViewById(R.id.edt_petshop_name);
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("orderId", orderId);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String ownerId = savedInstanceState.getString("orderId");
+        edt_nama_pemesan.setText(ownerId);
+    }
 
 }

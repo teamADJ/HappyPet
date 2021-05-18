@@ -151,6 +151,17 @@
                 android:layout_marginRight="20dp" />
 
             <Button
+                android:id="@+id/btn_accept_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn"
+                android:text="Accept" />
+
+            <Button
                 android:id="@+id/btn_finish_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,6 +171,17 @@
                 android:layout_marginRight="20dp"
                 android:background="@drawable/btn"
                 android:text="Finish" />
+
+            <Button
+                android:id="@+id/btn_cancel_order"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/btn"
+                android:text="Cancel" />
 
 
         </LinearLayout>

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Adapter.OrderListAdapter;
+import com.adj.happypet.Model.GroomingOwnerInfoModel;
 import com.adj.happypet.Model.Order_list;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -73,9 +74,6 @@ public class OrderFragment extends Fragment {
 
 
         orderArrayList = new ArrayList<>();
-//        orderArrayList.add(new Order_list("PhetShop name 1", "Acc"));
-//        orderArrayList.add(new Order_list("PhetShop name 2", "Rejected"));
-//        orderArrayList.add(new Order_list("PhetShop name 3", "Acc"));
 
         recyclerViewOrderOptions = v.findViewById(R.id.recyclerViewListOrder);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -96,38 +94,34 @@ public class OrderFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 orderArrayList.clear();
 
-                for(DocumentSnapshot snapshot: task.getResult()){
-                    //ambil nama petshop dari Owner Collection
-                    ownerId = snapshot.getString("ownerId");
+                    for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        Order_list orderList = new Order_list(documentSnapshot.getString("orderId"),
+                                documentSnapshot.getString("userId"),
+                                documentSnapshot.getString("ownerId"),
+                                documentSnapshot.getString("nama_owner"),
+                                documentSnapshot.getString("alamat"),
+                                documentSnapshot.getString("contact"),
+                                documentSnapshot.getString("jam_mulai"),
+                                documentSnapshot.getString("status")
+                        );
+                        orderArrayList.add(orderList);
+                    }
 
+                    orderListAdapter.notifyDataSetChanged();
                     //ambil data dr owner
-                    db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
-                            for(DocumentSnapshot documentSnapshot: task.getResult()){
-                                Order_list orderList = new Order_list(documentSnapshot.getString("ownerId"),
-                                        documentSnapshot.getString("groomingshopname"),
-                                        documentSnapshot.getString("fullname"),
-                                        documentSnapshot.getString("status"));
-
-                                orderArrayList.add(orderList);
-                            }
-                            orderListAdapter.notifyDataSetChanged();
-
-                        }
-                    });
+//                    db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//
+//
+//
+//                        }
+//                    });
 
                 }
-//                    if(snapshot.exists()){
 //
-//
-//
-//
-//
-//                    }
 
-            }
+
         });
 
     }
