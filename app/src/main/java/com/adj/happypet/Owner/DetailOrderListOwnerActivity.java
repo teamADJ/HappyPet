@@ -149,7 +149,6 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                         btn_cancel_order.setVisibility(View.GONE);
                     }else if(order_status.getText().toString().equals("Waiting")){
                         btn_accept_order.setVisibility(View.GONE);
-                        btn_cancel_order.setVisibility(View.GONE);
                     }else if(order_status.getText().toString().equals("Pending")){
                         btn_finish_order.setVisibility(View.GONE);
                     }else if(order_status.getText().toString().equals("Cancelled")){
