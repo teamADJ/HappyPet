@@ -38,7 +38,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
     private DatabaseReference userDBRef;
 
     private FirebaseFirestore db;
-    private TextView btn_update_email, tv_email;
+    private TextView btn_update_email, tv_email, tv_rating;
     private FirebaseUser fOwner;
     private String ownerID;
     private static final String fullname = "fullname";
@@ -70,6 +70,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         edt_desc = findViewById(R.id.et_update_description);
         edt_status = findViewById(R.id.et_update_status);
         tv_email = findViewById(R.id.tv_update_email);
+        tv_rating = findViewById(R.id.tv_rating);
 
         btn_update = findViewById(R.id.btn_update);
         btn_change_pass = findViewById(R.id.btn_change_pass);
@@ -102,6 +103,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         edt_desc.setText((CharSequence) documentSnapshot.get("description"));
                         edt_status.setText((CharSequence) documentSnapshot.get("status"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
+                        tv_rating.setText((CharSequence) documentSnapshot.get("rating"));
                     }
                 }
             }

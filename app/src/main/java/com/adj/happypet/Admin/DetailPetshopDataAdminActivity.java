@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class DetailPetshopDataAdminActivity extends AppCompatActivity {
-    private EditText petshop_name, petshop_owner_name, petshop_contact, petshop_address, petshop_description, petshop_status;
+    private EditText petshop_name, petshop_owner_name, petshop_contact, petshop_address, petshop_description, petshop_status, edt_detail_rating;
     private String ownerId, groomingshopname, contact, address, description;
     private Button btn_update;
 
@@ -65,6 +65,7 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                 String petGroomingAddressUpdate = petshop_address.getText().toString().trim();
                 String petGroomingDescUpdate = petshop_description.getText().toString().trim();
                 String petGroomingStatusUpdate = petshop_status.getText().toString().trim();
+                String ratingUpdate = edt_detail_rating.getText().toString().trim();
 
 
                 //update profile owner
@@ -74,7 +75,8 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                         "status", petGroomingStatusUpdate,
                         "description", petGroomingDescUpdate,
                         "address", petGroomingAddressUpdate,
-                        "contact", phoneUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        "contact", phoneUpdate,
+                        "rating", ratingUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(DetailPetshopDataAdminActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
@@ -119,6 +121,6 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
         petshop_contact = findViewById(R.id.edt_detail_contact);
         petshop_status = findViewById(R.id.edt_detail_status);
         btn_update = findViewById(R.id.btn_update);
-
+        edt_detail_rating = findViewById(R.id.edt_detail_rating);
     }
 }

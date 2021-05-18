@@ -29,7 +29,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
 
 
     private String ownerId, groomingshopname, contact, address, description;
-    private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status;
+    private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status, tv_detail_rating;
     private Button btn_order, btn_chat, btn_view_loc ;
 
     private FirebaseAuth mAuth;
@@ -104,6 +104,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
                         tv_detail_address.setText(snapshot.getString("address"));
                         tv_detail_desc.setText(snapshot.getString("description"));
                         tv_detail_contact.setText(snapshot.getString("contact"));
+                        tv_detail_rating.setText(snapshot.getString("rating"));
                         tv_detail_status.setText(snapshot.getString("status"));
                     }
 
@@ -125,6 +126,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
         btn_order = findViewById(R.id.btn_order);
         btn_chat = findViewById(R.id.btn_chat_with_owner);
         btn_view_loc = findViewById(R.id.btn_view_loc);
+        tv_detail_rating = findViewById(R.id.tv_detail_rating);
 
     }
 

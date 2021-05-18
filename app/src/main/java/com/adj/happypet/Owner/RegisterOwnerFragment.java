@@ -144,7 +144,9 @@ public class RegisterOwnerFragment extends Fragment {
                                 ownerMap.put("contact","");
                                 ownerMap.put("address","");
                                 ownerMap.put("description","");
+                                ownerMap.put("rating", "-");
                                 ownerMap.put("status","Pending");
+
 
                                 db.collection("Owner").document(currentOwnerId).set(ownerMap).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
