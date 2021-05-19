@@ -3,20 +3,17 @@ package com.adj.happypet;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adj.happypet.Admin.BottomNavigationAdminActivity;
-import com.adj.happypet.Owner.BottomNavigationOwnerActivity;
+import com.adj.happypet.Owner.LoginOwner;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,15 +22,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.Collections;
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView sign_up_tv_btn, login_owner_tv , btn_admin;
+    private TextView sign_up_tv_btn, login_owner_tv, btn_admin;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
@@ -47,9 +39,6 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-    private Dialog initDialogCantLogin;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,14 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         //find ID
         findID();
 
-        //button direct ke register
-//        btn_regis.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent move = new Intent(LoginActivity.this,RegisterActivity.class);
-//                startActivity(move);
-//            }
-//        });
+
 
         if (currentUser != null) {
             // User is signed in
@@ -84,15 +66,8 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        btn_admin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent move = new Intent(LoginActivity.this, AdminRegisterActivity.class);
-//                startActivity(move);
-//            }
-//        });
 
-        //button login
+        //button login Member
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                                 String id = firebaseUser.getUid();
 
                                 if (firebaseUser.isEmailVerified()) {
-                                    //redirect ke home
+                                    //read data from db
                                     db.collection("Member").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                                         @Override
                                         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -138,22 +113,21 @@ public class LoginActivity extends AppCompatActivity {
                                                 DocumentSnapshot doc = task.getResult();
                                                 String getEmail = doc.getString("email");
 
-                                                if(getEmail != null){
-                                                    if(getEmail.equals(edt_email_login.getText().toString().trim())){
+                                                if (getEmail != null) {
+                                                    if (getEmail.equals(edt_email_login.getText().toString().trim())) {
                                                         Intent i = new Intent(LoginActivity.this, BottomNavigationActivity.class);
                                                         startActivity(i);
                                                         Toast.makeText(LoginActivity.this, "Logged In as Member!", Toast.LENGTH_SHORT).show();
                                                         finish();
                                                     }
 
-                                                }else{
+                                                } else {
                                                     Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
                                                 }
 
                                             }
                                         }
                                     });
-
 
                                 } else {
 //                                    firebaseUser.sendEmailVerification();
@@ -166,101 +140,11 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
 
-
-//                    db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot doc : task.getResult()) {
-//
-//                                    String a = doc.getString("email");
-//                                    String b = doc.getString("password");
-//
-//                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
-//
-//                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                                if (task.isSuccessful()) {
-//
-//                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//
-//                                                    //redirect ke home
-//                                                    Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
-//                                                    startActivity(i);
-//                                                    Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
-//                                                    finish();
-//
-//
-//                                                }
-////                                                else {
-////                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-////                                                }
-//                                            }
-//                                        });
-//
-//
-//                                    } else {
-////                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                    });
-
-                    //Login Owner
-//                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                            if (task.isSuccessful()) {
-//                                for (QueryDocumentSnapshot doc : task.getResult()) {
-//
-//                                    String a = doc.getString("email");
-//                                    String b = doc.getString("password");
-//
-//                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
-//
-//                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-//                                            @Override
-//                                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                                if (task.isSuccessful()) {
-//
-//                                                    //verifikasi email
-//                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                                    if (firebaseUser.isEmailVerified()) {
-//                                                        //redirect ke home
-//                                                        Intent i = new Intent(LoginActivity.this, BottomNavigationOwnerActivity.class);
-//                                                        startActivity(i);
-//                                                        Toast.makeText(LoginActivity.this, "Logged In as Owner!", Toast.LENGTH_SHORT).show();
-//                                                        finish();
-//                                                    } else {
-//                                                        firebaseUser.sendEmailVerification();
-//                                                        Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
-//                                                        progressBar.setVisibility(View.GONE);
-//                                                    }
-//
-//
-//                                                }
-////                                                else {
-////                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-////                                                }
-//                                            }
-//                                        });
-//                                    } else {
-////                                        cantLoginDialog();
-////                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-//                                    }
-//
-//                                }
-//                            }
-//                        }
-//                    });
-
                 }
             }
         });
 
+        // Login Owner
         login_owner_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -269,6 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Login Admin
         btn_admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,7 +162,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        // Direct ke forget Password
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,17 +170,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(move);
             }
         });
-    }
-
-
-
-    private void cantLoginDialog() {
-        initDialogCantLogin = new Dialog(LoginActivity.this);
-        initDialogCantLogin.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        initDialogCantLogin.setContentView(R.layout.cant_login);
-        initDialogCantLogin.setCancelable(true);
-        initDialogCantLogin.setCanceledOnTouchOutside(true);
-        initDialogCantLogin.show();
     }
 
 
