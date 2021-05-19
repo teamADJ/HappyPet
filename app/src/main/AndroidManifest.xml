@@ -56,7 +56,6 @@
         <activity android:name=".ArticleDetailActivity" />
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".UpdateEmail" />
         <activity android:name=".Admin.AdminHome" />
         <activity android:name=".BottomNavigationActivity" />
         <activity android:name=".Owner.BottomNavigationOwnerActivity" />
