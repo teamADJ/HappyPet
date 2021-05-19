@@ -33,7 +33,7 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private TextView sign_up_tv_btn, login_owner_tv;
+    private TextView sign_up_tv_btn, login_owner_tv , btn_admin;
     private TextView forgetPass;
     private EditText edt_email_login;
     private EditText edt_pass_login;
@@ -167,47 +167,47 @@ public class LoginActivity extends AppCompatActivity {
                     });
 
 
-                    db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot doc : task.getResult()) {
-
-                                    String a = doc.getString("email");
-                                    String b = doc.getString("password");
-
-                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
-
-                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
-
-                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                                                    //redirect ke home
-                                                    Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
-                                                    startActivity(i);
-                                                    Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
-                                                    finish();
-
-
-                                                }
-//                                                else {
-//                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                    db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                            if (task.isSuccessful()) {
+//                                for (QueryDocumentSnapshot doc : task.getResult()) {
+//
+//                                    String a = doc.getString("email");
+//                                    String b = doc.getString("password");
+//
+//                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
+//
+//                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                            @Override
+//                                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                                if (task.isSuccessful()) {
+//
+//                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//                                                    //redirect ke home
+//                                                    Intent i = new Intent(LoginActivity.this, BottomNavigationAdminActivity.class);
+//                                                    startActivity(i);
+//                                                    Toast.makeText(LoginActivity.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
+//                                                    finish();
+//
+//
 //                                                }
-                                            }
-                                        });
-
-
-                                    } else {
-//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-                                    }
-
-                                }
-                            }
-                        }
-                    });
+////                                                else {
+////                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+////                                                }
+//                                            }
+//                                        });
+//
+//
+//                                    } else {
+////                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+//                                    }
+//
+//                                }
+//                            }
+//                        }
+//                    });
 
                     //Login Owner
 //                    db.collection("Owner").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -269,6 +269,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        btn_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent move = new Intent(LoginActivity.this, LoginAdmin.class);
+                startActivity(move);
+            }
+        });
+
 
         forgetPass.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,6 +308,7 @@ public class LoginActivity extends AppCompatActivity {
         forgetPass = findViewById(R.id.forget_pass);
         btn_login_admin = findViewById(R.id.btn_admin_login);
         login_owner_tv = findViewById(R.id.login_owner);
+        btn_admin = findViewById(R.id.btn_admin);
         db = FirebaseFirestore.getInstance();
     }
 }
