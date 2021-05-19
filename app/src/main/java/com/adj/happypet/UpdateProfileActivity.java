@@ -253,7 +253,6 @@ public class UpdateProfileActivity extends AppCompatActivity{
                 fUser.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
                         final String emailUpdate = email.getText().toString().trim();
 
                         DocumentReference updateData = db.collection("Member").document(userID);
@@ -261,18 +260,13 @@ public class UpdateProfileActivity extends AppCompatActivity{
                         updateData.update(email_email, emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
+                                fUser.sendEmailVerification();
+                                Toast.makeText(UpdateProfileActivity.this, "Email Updated, resent email verification!",
                                         Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
 
-                        db.collection("Owner").document(userID).update("email", emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateProfileActivity.this, "Updated Successfully",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
 
 
                     }

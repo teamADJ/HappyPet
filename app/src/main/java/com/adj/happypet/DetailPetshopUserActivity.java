@@ -108,6 +108,12 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
                         tv_detail_status.setText(snapshot.getString("status"));
                     }
 
+                    if(tv_detail_status.getText().toString().equals("Pending") || tv_detail_status.getText().toString().equals("Banned")){
+                        btn_chat.setVisibility(View.GONE);
+                        btn_order.setVisibility(View.GONE);
+                        btn_view_loc.setVisibility(View.GONE);
+                    }
+
                 }
             }
         });

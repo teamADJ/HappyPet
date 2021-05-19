@@ -206,21 +206,15 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         Toast.makeText(UpdateOwnerProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
                         final String emailUpdate = email.getText().toString().trim();
 
-                        DocumentReference updateData = db.collection("Owner").document(ownerID);
 
-                        updateData.update(email_email, emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
 
                         db.collection("Owner").document(ownerID).update("email", emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
+                                fOwner.sendEmailVerification();
                                 Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
                                         Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
 
