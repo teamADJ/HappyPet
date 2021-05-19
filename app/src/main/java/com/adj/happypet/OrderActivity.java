@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class OrderActivity extends AppCompatActivity {
-    private String ownerId, userId;
+    private String ownerId, userId, ownerName, petshopname;
     private Button btn_order;
     private EditText edt_nama_pemesan, edt_contact, edt_jam, edt_address;
     private FirebaseAuth mAuth;
@@ -56,6 +56,8 @@ public class OrderActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             ownerId = bundle.getString("ownerId");
+            ownerName = bundle.getString("ownerName");
+            petshopname = bundle.getString("petshopname");
             btn_order.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -118,6 +120,8 @@ public class OrderActivity extends AppCompatActivity {
 
             hashMap.put("orderId", orderId);
             hashMap.put("nama_owner", nama_owner);
+            hashMap.put("petshopname", petshopname);
+            hashMap.put("owner_petshop", ownerName);
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);

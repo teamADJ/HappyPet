@@ -40,7 +40,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.tvOwnerName.setText(list.get(position).getNama_owner());
+        holder.tvPetshopName.setText(list.get(position).getPetshopname());
         holder.tvStatus.setText(list.get(position).getStatus());
 //        holder.itemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -79,14 +79,14 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView tvOwnerName, tvStatus;
+        TextView tvPetshopName, tvStatus;
         RowOptionClickListener rowOptionClickListener;
         LinearLayout petshop_list_container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvOwnerName = itemView.findViewById(R.id.owner_name_tv);
+            tvPetshopName = itemView.findViewById(R.id.owner_name_tv);
             tvStatus = itemView.findViewById(R.id.status_tv);
             petshop_list_container = itemView.findViewById(R.id.card_layout_order_click);
 

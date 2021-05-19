@@ -1,20 +1,38 @@
 package com.adj.happypet.Model;
 
 public class Order_list {
-    private String orderId, userId, ownerId, nama_owner, alamat, contact, jam_mulai, status;
+    private String orderId, userId, ownerId, nama_owner, petshopname, owner_petshop, alamat, contact, jam_mulai, status;
 
     public Order_list() {
     }
 
-    public Order_list(String orderId, String userId, String ownerId, String nama_owner, String alamat, String contact, String jam_mulai, String status) {
+    public Order_list(String orderId, String userId, String ownerId, String nama_owner, String petshopname, String owner_petshop, String alamat, String contact, String jam_mulai, String status) {
         this.orderId = orderId;
         this.userId = userId;
         this.ownerId = ownerId;
         this.nama_owner = nama_owner;
+        this.petshopname = petshopname;
+        this.owner_petshop = owner_petshop;
         this.alamat = alamat;
         this.contact = contact;
         this.jam_mulai = jam_mulai;
         this.status = status;
+    }
+
+    public String getPetshopname() {
+        return petshopname;
+    }
+
+    public void setPetshopname(String petshopname) {
+        this.petshopname = petshopname;
+    }
+
+    public String getOwner_petshop() {
+        return owner_petshop;
+    }
+
+    public void setOwner_petshop(String owner_petshop) {
+        this.owner_petshop = owner_petshop;
     }
 
     public String getOrderId() {

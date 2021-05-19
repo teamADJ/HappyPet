@@ -67,24 +67,13 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if (task.isSuccessful()){
                     for (DocumentSnapshot snapshot : task.getResult()) {
                         edt_nama_pemesan.setText(snapshot.getString("nama_owner"));
+                        edt_owner_name.setText(snapshot.getString("petshopname"));
+                        edt_petshop_name.setText(snapshot.getString("owner_petshop"));
                         edt_contact.setText(snapshot.getString("contact"));
                         edt_jam.setText(snapshot.getString("jam_mulai"));
                         edt_address.setText(snapshot.getString("alamat"));
                         edt_status.setText(snapshot.getString("status"));
 
-                        String ownerId = snapshot.getString("ownerId");
-
-                        db.collection("Owner").document(ownerId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                            @Override
-                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                if(task.isSuccessful()){
-                                    DocumentSnapshot documentSnapshot = task.getResult();
-
-                                    edt_owner_name.setText(documentSnapshot.getString("fullname"));
-                                    edt_petshop_name.setText(documentSnapshot.getString("groomingshopname"));
-                                }
-                            }
-                        });
 
                     }
 

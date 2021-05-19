@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 public class DetailPetshopUserActivity extends AppCompatActivity {
 
 
-    private String ownerId, groomingshopname, contact, address, description;
+    private String ownerId, groomingshopname, contact, address, description, ownerName;
     private TextView tv_detail_name, tv_detail_owner_name, tv_detail_contact ,tv_detail_desc, tv_detail_address, tv_detail_status, tv_detail_rating;
     private Button btn_order, btn_chat, btn_view_loc ;
 
@@ -75,6 +75,8 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailPetshopUserActivity.this,OrderActivity.class);
                 intent.putExtra("ownerId", ownerId);
+                intent.putExtra("ownerName", ownerName);
+                intent.putExtra("petshopname", groomingshopname);
                 startActivity(intent);
             }
         });
@@ -106,6 +108,9 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
                         tv_detail_contact.setText(snapshot.getString("contact"));
                         tv_detail_rating.setText(snapshot.getString("rating"));
                         tv_detail_status.setText(snapshot.getString("status"));
+
+                        ownerName = tv_detail_owner_name.getText().toString().trim();
+                        groomingshopname = tv_detail_name.getText().toString().trim();
                     }
 
                     if(tv_detail_status.getText().toString().equals("Pending") || tv_detail_status.getText().toString().equals("Banned")){
@@ -113,6 +118,7 @@ public class DetailPetshopUserActivity extends AppCompatActivity {
                         btn_order.setVisibility(View.GONE);
                         btn_view_loc.setVisibility(View.GONE);
                     }
+
 
                 }
             }

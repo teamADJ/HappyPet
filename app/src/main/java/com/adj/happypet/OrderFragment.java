@@ -99,6 +99,8 @@ public class OrderFragment extends Fragment {
                                 documentSnapshot.getString("userId"),
                                 documentSnapshot.getString("ownerId"),
                                 documentSnapshot.getString("nama_owner"),
+                                documentSnapshot.getString("petshopname"),
+                                documentSnapshot.getString("owner_petshop"),
                                 documentSnapshot.getString("alamat"),
                                 documentSnapshot.getString("contact"),
                                 documentSnapshot.getString("jam_mulai"),
