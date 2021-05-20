@@ -11,12 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.adj.happypet.LoginActivity;
-import com.adj.happypet.LoginOwner;
-import com.adj.happypet.Model.Owner;
-import com.adj.happypet.Model.User;
 import com.adj.happypet.R;
-import com.adj.happypet.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -24,10 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -77,6 +69,7 @@ public class RegisterOwnerFragment extends Fragment {
         reg_owner_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 createOwner();
             }
         });

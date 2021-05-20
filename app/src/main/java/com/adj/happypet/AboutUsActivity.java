@@ -70,6 +70,9 @@ public class AboutUsActivity extends AppCompatActivity {
         String feedbackId = feedbackRef.getId();
         String emailAdmin = "adminskripsiadj@gmail.com";
 
+        String adminId = "tyZwZwpkr8ei32dUN3DV";
+
+        hashMap.put("adminId",adminId);
         hashMap.put("userId", userId);
         hashMap.put("feedbackId", feedbackId);
         hashMap.put("feedback", isi_feedback);

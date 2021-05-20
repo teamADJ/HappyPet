@@ -6,8 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+<!--    //-->
+
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/inbox_admin_toolbar"
+        android:id="@+id/feedback_admin_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/main_color"
@@ -26,23 +28,12 @@
 
 
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/tvChat"-->
-    <!--        android:layout_width="414dp"-->
-    <!--        android:layout_height="461dp"-->
-    <!--        android:gravity="bottom"-->
-    <!--        android:text="Chat messages will appear here"-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/inbox_toolbar"-->
-    <!--        tools:layout_editor_absoluteX="3dp" />-->
-
-
-
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInbox"
+        android:id="@+id/rvListFeedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/inbox_admin_toolbar"
-        tools:listitem="@layout/row_inbox_user_item"/>
+        app:layout_constraintTop_toBottomOf="@+id/feedback_admin_toolbar"
+        tools:listitem="@layout/row_list_feedback"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

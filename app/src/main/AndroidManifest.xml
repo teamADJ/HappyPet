@@ -27,7 +27,7 @@
         <activity
             android:name=".MapsProfileUserActivity"
             android:parentActivityName=".UpdateProfileActivity" />
-        <activity android:name=".LoginOwner" />
+        <activity android:name=".Owner.LoginOwner" />
         <activity
             android:name=".OrderDetailActivity"
             android:parentActivityName=".BottomNavigationActivity" />
@@ -57,7 +57,6 @@
             android:parentActivityName=".BottomNavigationActivity"/>
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
-        <activity android:name=".UpdateEmail" />
         <activity android:name=".Admin.AdminHome" />
         <activity android:name=".BottomNavigationActivity" />
         <activity android:name=".Owner.BottomNavigationOwnerActivity" />
