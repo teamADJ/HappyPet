@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +34,12 @@ public class ArticleDetailActivity extends AppCompatActivity {
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         artikelId = fUser.getUid();
         db = FirebaseFirestore.getInstance();
+
+        Toolbar detail_petshop_toolbar = findViewById(R.id.detail_petshop_toolbar);
+        setSupportActionBar(detail_petshop_toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {

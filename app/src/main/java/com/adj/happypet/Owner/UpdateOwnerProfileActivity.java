@@ -31,7 +31,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class UpdateOwnerProfileActivity extends AppCompatActivity {
-    private EditText edt_nama, edt_phone, edt_petgrooming_name, edt_address, edt_desc, edt_status;
+    private EditText edt_nama, edt_phone, edt_petgrooming_name, edt_address, edt_desc, edt_status, et_update_city;
     private Button btn_update, btn_back, btn_change_pass, btn_set_loc;
 
     private FirebaseAuth mAuth;
@@ -72,6 +72,8 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
         tv_email = findViewById(R.id.tv_update_email);
         tv_rating = findViewById(R.id.tv_rating);
 
+        et_update_city = findViewById(R.id.et_update_city);
+
         btn_update = findViewById(R.id.btn_update);
         btn_change_pass = findViewById(R.id.btn_change_pass);
         btn_set_loc = findViewById(R.id.btn_set_loc);
@@ -104,6 +106,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         edt_status.setText((CharSequence) documentSnapshot.get("status"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                         tv_rating.setText((CharSequence) documentSnapshot.get("rating"));
+                        et_update_city.setText((CharSequence) documentSnapshot.get("City"));
                     }
                 }
             }
@@ -125,7 +128,8 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 String phoneUpdate = edt_phone.getText().toString().trim();
                 String petGroomingAddressUpdate = edt_address.getText().toString().trim();
                 String petGroomingDescUpdate = edt_desc.getText().toString().trim();
-                String petGroomingStatusUpdate = "Pending";
+                String petGroomingStatusUpdate = edt_status.getText().toString().trim();
+                String petGroomingCity = et_update_city.getText().toString().trim();
 
 
                 //update profile owner
@@ -134,6 +138,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         "groomingshopname", petGroomingNameUpdate,
                         "status", petGroomingStatusUpdate,
                         "description", petGroomingDescUpdate,
+                        "city", petGroomingCity,
                         "address", petGroomingAddressUpdate,
                         "contact", phoneUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
