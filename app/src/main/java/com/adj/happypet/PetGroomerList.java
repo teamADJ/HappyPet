@@ -78,7 +78,7 @@ public class PetGroomerList extends AppCompatActivity {
                             snapshot.getString("fullname"),
                             snapshot.getString("groomingshopname"),
                             snapshot.getString("description"),
-                            snapshot.getString("address")
+                            snapshot.getString("city")
                             );
                     ownerInfoModelList.add(groomingOwnerInfoModel);
                 }
@@ -107,7 +107,7 @@ public class PetGroomerList extends AppCompatActivity {
                             snapshot.getString("fullname"),
                             snapshot.getString("groomingshopname"),
                             snapshot.getString("description"),
-                            snapshot.getString("address")
+                            snapshot.getString("city")
                     );
                     ownerInfoModelList.add(groomingOwnerInfoModel);
                 }

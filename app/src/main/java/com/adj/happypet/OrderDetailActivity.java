@@ -94,8 +94,8 @@ public class OrderDetailActivity extends AppCompatActivity {
                         rating_detail_order_tv.setText((snapshot.getString("rating")));
                     }
 
-                    if(edt_status.getText().toString().equals("Finish") && rating_detail_order_tv.getText().toString().equals("-")){
-                        dialogUpdateEmail();
+                    if(edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("-") || edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("") ){
+                        dialogRatingOrder();
                     }
 
                 }
@@ -115,7 +115,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         rating_detail_order_tv = findViewById(R.id.rating_detail_order_tv);
     }
 
-    public void dialogUpdateEmail() {
+    public void dialogRatingOrder() {
 
         dialog = new AlertDialog.Builder(OrderDetailActivity.this);
         inflater = getLayoutInflater();
