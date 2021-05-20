@@ -68,15 +68,15 @@ public class AboutUsActivity extends AppCompatActivity {
         //udh dapatkan string feedbackId dengan docref
         DocumentReference feedbackRef = db.collection("Feedback").document();
         String feedbackId = feedbackRef.getId();
-        String emailAdmin = "adminskripsiadj@gmail.com";
+//        String emailAdmin = "adminskripsi@gmail.com";
+//
+//        String adminId = "tyZwZwpkr8ei32dUN3DV";
 
-        String adminId = "tyZwZwpkr8ei32dUN3DV";
-
-        hashMap.put("adminId",adminId);
+//        hashMap.put("adminId",adminId);
         hashMap.put("userId", userId);
         hashMap.put("feedbackId", feedbackId);
         hashMap.put("feedback", isi_feedback);
-        hashMap.put("email_admin", emailAdmin);
+//        hashMap.put("email_admin", emailAdmin);
 
         db.collection("Feedback").document(feedbackId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

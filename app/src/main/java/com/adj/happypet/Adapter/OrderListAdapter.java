@@ -42,21 +42,7 @@ public class OrderListAdapter extends RecyclerView.Adapter<OrderListAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.tvPetshopName.setText(list.get(position).getPetshopname());
         holder.tvStatus.setText(list.get(position).getStatus());
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
-//        holder.setItemClickListener(new RowOptionClickListener() {
-//            @Override
-//            public void optionClicked(View view, int position) {
-//                orderId = list.get(position).getId();
-//                Intent detailOrder = new Intent(view.getContext(), OrderDetailActivity.class);
-//                view.getContext().startActivity(detailOrder);
-//            }
-//        });
 
         holder.setItemClickListener(new RowOptionClickListener() {
             @Override

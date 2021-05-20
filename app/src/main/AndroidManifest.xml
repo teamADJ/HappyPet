@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MapsOrderDetailUserActivity"
-            android:parentActivityName=".OrderDetailActivity"></activity>
+        <activity android:name=".Admin.FeedbackDetailActivity"
+            android:parentActivityName=".Admin.BottomNavigationAdminActivity"></activity>
+        <activity
+            android:name=".MapsOrderDetailUserActivity"
+            android:parentActivityName=".OrderDetailActivity" />
         <activity
             android:name=".AboutUsActivity"
             android:parentActivityName=".BottomNavigationActivity" />
@@ -53,8 +56,9 @@
         <activity
             android:name=".Admin.DetailPetshopDataAdminActivity"
             android:parentActivityName=".Admin.AdminHome" />
-        <activity android:name=".ArticleDetailActivity"
-            android:parentActivityName=".BottomNavigationActivity"/>
+        <activity
+            android:name=".ArticleDetailActivity"
+            android:parentActivityName=".BottomNavigationActivity" />
         <activity android:name=".Owner.UpdateOwnerProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".Admin.AdminHome" />

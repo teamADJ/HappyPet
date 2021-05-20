@@ -94,7 +94,8 @@ public class OrderDetailActivity extends AppCompatActivity {
                         rating_detail_order_tv.setText((snapshot.getString("rating")));
                     }
 
-                    if(edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("-") || edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("") ){
+                    if(edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("-")
+                            || edt_status.getText().toString().equals("Success") && rating_detail_order_tv.getText().toString().equals("") ){
                         dialogRatingOrder();
                     }
 

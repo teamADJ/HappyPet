@@ -17,10 +17,13 @@ import com.adj.happypet.Model.Feedback_list;
 import com.adj.happypet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class InboxAdminFragment extends Fragment {
@@ -35,7 +38,9 @@ public class InboxAdminFragment extends Fragment {
     FeedbackListAdapter adapter;
     List<Feedback_list> feedback_lists;
     FirebaseFirestore db;
-    String adminId;
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
+    String adminEmail;
 
     public static Fragment newInstance(String param1, String param2) {
         InboxAdminFragment fragment = new InboxAdminFragment();
@@ -53,6 +58,11 @@ public class InboxAdminFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        adminEmail = firebaseUser.getEmail();
+        db = FirebaseFirestore.getInstance();
     }
 
     @Nullable
@@ -66,12 +76,14 @@ public class InboxAdminFragment extends Fragment {
         ((BottomNavigationAdminActivity) getActivity()).getSupportActionBar().setTitle("Feedback List");
 
         rvFeedbackList = v.findViewById(R.id.rvListFeedback);
+        feedback_lists = new ArrayList<>();
         //set size dari recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvFeedbackList.setLayoutManager(layoutManager);
 
         adapter = new FeedbackListAdapter(this, feedback_lists);
         rvFeedbackList.setAdapter(adapter);
+
 
         showFeedbackList();
         //
@@ -81,18 +93,16 @@ public class InboxAdminFragment extends Fragment {
     }
 
     private void showFeedbackList() {
-        db.collection("Feedback").whereEqualTo("adminId", adminId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Feedback").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 feedback_lists.clear();
 
                 for (DocumentSnapshot snapshot : task.getResult()) {
                     Feedback_list model = new Feedback_list(
-                            snapshot.getString("adminId"),
-                            snapshot.getString("feedbackId"),
-                            snapshot.getString("userId"),
                             snapshot.getString("feedback"),
-                            snapshot.getString("email_admin"));
+                            snapshot.getString("feedbackId"),
+                            snapshot.getString("userId"));
 
                     //add model to list
                     feedback_lists.add(model);

@@ -10,10 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.adj.happypet.Admin.FeedbackDetail;
 import com.adj.happypet.Admin.InboxAdminFragment;
+import com.adj.happypet.Admin.FeedbackDetailActivity;
 import com.adj.happypet.Model.Feedback_list;
-import com.adj.happypet.Owner.DetailOrderListOwnerActivity;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
 
@@ -24,7 +23,6 @@ public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapte
     private InboxAdminFragment fragment;
     private List<Feedback_list> lists;
 
-    String feedbackId;
 
     public FeedbackListAdapter(InboxAdminFragment fragment, List<Feedback_list> lists) {
         this.fragment = fragment;
@@ -33,21 +31,22 @@ public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapte
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FeedbackListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_list_feedback, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Feedback_list list = lists.get(position);
-        holder.tvFeedback.setText(list.getFeedback());
+
+        holder.tvFeedback.setText(lists.get(position).getFeedback());
+
 
         holder.setItemClickListener(new RowOptionClickListener() {
             @Override
             public void optionClicked(View view, int position) {
-                feedbackId = lists.get(position).getFeedbackId();
-                Intent detailFeedback = new Intent(view.getContext(), FeedbackDetail.class);
+                String feedbackId = lists.get(position).getFeedbackId();
+                Intent detailFeedback = new Intent(view.getContext(), FeedbackDetailActivity.class);
                 //pass data orderId
                 detailFeedback.putExtra("feedbackId", feedbackId);
                 view.getContext().startActivity(detailFeedback);

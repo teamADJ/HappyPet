@@ -21,6 +21,8 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:digits="12345"
+        android:maxLength="1"
         android:hint="Rating" />
 
 <!--    <Button-->
