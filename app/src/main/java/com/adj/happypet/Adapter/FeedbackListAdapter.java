@@ -51,6 +51,7 @@ public class FeedbackListAdapter extends RecyclerView.Adapter<FeedbackListAdapte
                 //pass data orderId
                 detailFeedback.putExtra("feedbackId", feedbackId);
                 view.getContext().startActivity(detailFeedback);
+                //
             }
         });
     }
