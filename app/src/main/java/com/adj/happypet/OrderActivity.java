@@ -125,6 +125,7 @@ public class OrderActivity extends AppCompatActivity {
             hashMap.put("contact", contact);
             hashMap.put("jam_mulai", jam_mulai);
             hashMap.put("alamat", address);
+            hashMap.put("rating", "-");
             hashMap.put("status", "Pending");
             hashMap.put("userId", userId);
             hashMap.put("ownerId", ownerId);

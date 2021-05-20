@@ -1,12 +1,18 @@
 package com.adj.happypet.Owner;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,8 +22,10 @@ import com.adj.happypet.Adapter.HomeOwnerAdapter;
 import com.adj.happypet.BottomNavigationActivity;
 import com.adj.happypet.Model.ClientInfoModel;
 import com.adj.happypet.Model.ClientOrderModel;
+import com.adj.happypet.OrderDetailActivity;
 import com.adj.happypet.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,6 +48,11 @@ public class HomeOwnerFragment extends Fragment {
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
     String ownerId;
+    TextView city;
+
+    AlertDialog.Builder dialog;
+    LayoutInflater inflater;
+    View dialogView;
 
     public static Fragment newInstance(String param1, String param2) {
         HomeOwnerFragment fragment = new HomeOwnerFragment();
@@ -71,6 +84,7 @@ public class HomeOwnerFragment extends Fragment {
         View v =  inflater.inflate(R.layout.fragment_bottom_home_owner, viewGroup, false);
 
         rvClientList = v.findViewById(R.id.recyclerViewListClient);
+        city = v.findViewById(R.id.city);
         //set size dari recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvClientList.setLayoutManager(layoutManager);
@@ -83,9 +97,57 @@ public class HomeOwnerFragment extends Fragment {
         adapter = new HomeOwnerAdapter(this, clientList);
         rvClientList.setAdapter(adapter);
 
+
+        db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                        city.setText((CharSequence) documentSnapshot.get("city"));
+//                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+                    }
+
+                    if(city.getText().toString().equals("")){
+                        dialogMoveToUpdateProfile();
+                    }
+                }
+            }
+        });
+
         showClientList();
 
         return v;
+    }
+    public void dialogMoveToUpdateProfile() {
+
+        dialog = new AlertDialog.Builder(getActivity());
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.activity_alert_move_to_update_owner, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setTitle("Alert");
+
+        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(), UpdateOwnerProfileActivity.class);
+                startActivity(intent);
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     private void showClientList() {
