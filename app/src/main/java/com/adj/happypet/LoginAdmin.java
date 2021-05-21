@@ -104,7 +104,7 @@ public class LoginAdmin extends AppCompatActivity {
                                                 String getEmail = snapshot.getString("email");
 
                                                 if(getEmail.equals(email)){
-                                                    Intent i = new Intent(LoginAdmin.this, BottomNavigationActivity.class);
+                                                    Intent i = new Intent(LoginAdmin.this, BottomNavigationAdminActivity.class);
                                                     startActivity(i);
                                                     Toast.makeText(LoginAdmin.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
                                                     finish();
