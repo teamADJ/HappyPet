@@ -88,47 +88,43 @@ public class LoginAdmin extends AppCompatActivity {
                 } else {
                     currentUser = mAuth.getCurrentUser();
 
-                                        db.collection("Admin").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                for (QueryDocumentSnapshot doc : task.getResult()) {
 
-                                    String a = doc.getString("email");
-                                    String b = doc.getString("password");
+                                    //read data from db
 
-                                    if (a.equalsIgnoreCase(email) && b.equalsIgnoreCase(password)) {
+                                db.collection("Admin").whereEqualTo("email", email).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                        if(task.isSuccessful()){
 
-                                        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                                if (task.isSuccessful()) {
+                                            for(DocumentSnapshot snapshot: task.getResult()){
+                                                String getEmail = snapshot.getString("email");
 
-                                                    FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                                                    //redirect ke home
-                                                    Intent i = new Intent(LoginAdmin.this, BottomNavigationAdminActivity.class);
+                                                if(getEmail.equals(email)){
+                                                    Intent i = new Intent(LoginAdmin.this, BottomNavigationActivity.class);
                                                     startActivity(i);
                                                     Toast.makeText(LoginAdmin.this, "Logged In as Admin!", Toast.LENGTH_SHORT).show();
                                                     finish();
-
-
                                                 }
-//                                                else {
-//                                                    Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
-//                                                }
                                             }
-                                        });
 
-
-                                    } else {
-//                                        Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                        }
+                                        else if(task.getResult().size() == 0){
+                                            Toast.makeText(LoginAdmin.this, "Invalid", Toast.LENGTH_SHORT).show();
+                                        }
                                     }
+                                });
 
-                                }
+
+                            } else {
+                                Toast.makeText(LoginAdmin.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
+
                 }
             }
         });
