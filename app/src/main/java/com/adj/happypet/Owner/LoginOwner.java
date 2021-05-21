@@ -127,11 +127,11 @@ public class LoginOwner extends AppCompatActivity {
 
                                 } else {
 //                                    firebaseUser.sendEmailVerification();
-                                    Toast.makeText(LoginOwner.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginOwner.this, "Check your email for verified your account.", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                 }
                             } else {
-                                Toast.makeText(LoginOwner.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginOwner.this, "Incorrect email/password!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

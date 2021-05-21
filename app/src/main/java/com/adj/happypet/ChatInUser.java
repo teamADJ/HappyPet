@@ -84,7 +84,7 @@ public class ChatInUser extends AppCompatActivity {
                     etTypeMsg.getText().clear();
                     sendMessage(fuser.getUid(), ownerId, msg);
                 }else{
-                    Toast.makeText(ChatInUser.this, "Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChatInUser.this, "At least type hello before send", Toast.LENGTH_SHORT).show();
                 }
 
             }

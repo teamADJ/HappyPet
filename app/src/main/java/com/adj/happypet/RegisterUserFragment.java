@@ -129,14 +129,14 @@ public class RegisterUserFragment extends Fragment {
 
                                                 Intent i = new Intent(getContext(), LoginActivity.class);
                                                 startActivity(i);
-                                                Toast.makeText(getActivity(), "Register berhasil, silahkan cek email untuk verifikasi", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getActivity(), "Register Success, please check your email for verification!", Toast.LENGTH_SHORT).show();
                                                 firebaseUser.sendEmailVerification();
                                          }
 
                                          }).addOnFailureListener(new OnFailureListener() {
                                             @Override
                                             public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getContext(), "Register gagal!", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
                                             }
                                         });
 
@@ -147,7 +147,7 @@ public class RegisterUserFragment extends Fragment {
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "Email sudah terdaftar!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getActivity(), "Email is already use", Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }

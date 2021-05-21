@@ -131,11 +131,11 @@ public class LoginActivity extends AppCompatActivity {
 
                                 } else {
 //                                    firebaseUser.sendEmailVerification();
-                                    Toast.makeText(LoginActivity.this, "Cek email anda untuk verifikasi akun!", Toast.LENGTH_LONG).show();
+                                    Toast.makeText(LoginActivity.this, "Check your email for verified your account.", Toast.LENGTH_LONG).show();
                                     progressBar.setVisibility(View.GONE);
                                 }
                             } else {
-                                Toast.makeText(LoginActivity.this, "Incorrect email/password!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Incorrect email/password!", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
