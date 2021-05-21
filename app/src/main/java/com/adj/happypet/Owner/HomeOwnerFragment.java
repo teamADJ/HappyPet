@@ -127,7 +127,7 @@ public class HomeOwnerFragment extends Fragment {
         dialog.setCancelable(true);
         dialog.setTitle("Alert");
 
-        dialog.setPositiveButton("SUBMIT", new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -138,13 +138,6 @@ public class HomeOwnerFragment extends Fragment {
             }
         });
 
-        dialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
 
         dialog.show();
 

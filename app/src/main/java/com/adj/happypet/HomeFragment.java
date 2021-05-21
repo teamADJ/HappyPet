@@ -63,7 +63,7 @@ public class HomeFragment extends Fragment {
     private Button btn_updateProfile;
     TextView btn_findPetGroomer;
 
-    private TextView tv_nama, tv_age, tv_email, banner;
+    private TextView tv_nama, tv_age, tv_email, banner, city;
 
     // Firebase
     private FirebaseUser fUser;
@@ -89,6 +89,10 @@ public class HomeFragment extends Fragment {
     private ArrayList<PetGroomingListUser> petGroomingListUsers;
     private ArrayList<ArtikelModel> artikelModels;
     private ArticleListAdapter articleListAdapter;
+
+    AlertDialog.Builder dialog;
+
+    View dialogView;
 
 
     public static Fragment newInstance(String param1, String param2) {
@@ -138,6 +142,7 @@ public class HomeFragment extends Fragment {
         btn_updateProfile = v.findViewById(R.id.btn_update_profile);
         btn_updateProfile.setVisibility(View.GONE);
         btn_findPetGroomer = v.findViewById(R.id.btn_findPetgroomer);
+        city = v.findViewById(R.id.city);
 
         progressBar = v.findViewById(R.id.progressBar);
         tv_nama = v.findViewById(R.id.tv_fName_home);
@@ -151,7 +156,12 @@ public class HomeFragment extends Fragment {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
+                        city.setText((CharSequence) documentSnapshot.get("city"));
 //                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
+                    }
+
+                    if(city.getText().toString().equals("") || city.getText().toString().equals("-")){
+                        dialogMoveToUpdateProfile();
                     }
                 }
             }
@@ -349,6 +359,31 @@ public class HomeFragment extends Fragment {
 
             }
         });
+    }
+
+    public void dialogMoveToUpdateProfile() {
+
+        dialog = new AlertDialog.Builder(getActivity());
+        inflater = getLayoutInflater();
+        dialogView = inflater.inflate(R.layout.activity_alert_move_to_update_owner, null);
+        dialog.setView(dialogView);
+        dialog.setCancelable(true);
+        dialog.setTitle("Alert");
+
+        dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(getActivity(), UpdateProfileActivity.class);
+                startActivity(intent);
+
+                dialog.dismiss();
+            }
+        });
+
+
+        dialog.show();
+
     }
 }
 

@@ -92,7 +92,7 @@ import java.util.Map;
 
 public class UpdateProfileActivity extends AppCompatActivity{
 
-    private EditText edt_nama, edt_age;
+    private EditText edt_nama, edt_address, et_update_city, edt_phone;
     private Button btn_update, btn_back, btn_change_pass, btn_set_loc;
 
     private FirebaseAuth mAuth;
@@ -133,6 +133,9 @@ public class UpdateProfileActivity extends AppCompatActivity{
         edt_nama = findViewById(R.id.et_update_name);
 //        edt_age = findViewById(R.id.et_update_age);
         edt_email = findViewById(R.id.tv_update_email);
+        edt_address = findViewById(R.id.et_update_address);
+        et_update_city = findViewById(R.id.et_update_city);
+        edt_phone = findViewById(R.id.et_update_phone);
 
         btn_update = findViewById(R.id.btn_update);
         btn_change_pass = findViewById(R.id.btn_change_pass);
@@ -162,6 +165,9 @@ public class UpdateProfileActivity extends AppCompatActivity{
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         edt_nama.setText((CharSequence) documentSnapshot.get("fullname"));
                         edt_email.setText((CharSequence) documentSnapshot.get("email"));
+                        edt_phone.setText((CharSequence) documentSnapshot.get("contact"));
+                        edt_address.setText((CharSequence) documentSnapshot.get("address"));
+                        et_update_city.setText((CharSequence) documentSnapshot.get("city"));
                     }
                 }
             }
@@ -182,9 +188,17 @@ public class UpdateProfileActivity extends AppCompatActivity{
             public void onClick(View v) {
                 //get string dr edittext
                 final String fullnameUpdate = edt_nama.getText().toString().trim();
+                String phoneUpdate = edt_phone.getText().toString().trim();
+                String usercity = et_update_city.getText().toString().trim();
+                String useraddress = edt_address.getText().toString().trim();
 
                 //update data di firestore
-                db.collection("Member").document(userID).update("fullname", fullnameUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                db.collection("Member").document(userID).update(
+                        "fullname", fullnameUpdate,
+                        "contact", phoneUpdate,
+                        "city", usercity,
+                        "address", useraddress
+                ).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
