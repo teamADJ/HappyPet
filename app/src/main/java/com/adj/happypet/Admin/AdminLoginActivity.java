@@ -68,25 +68,25 @@ public class AdminLoginActivity extends AppCompatActivity {
         String password = edt_pass_login.getText().toString().trim();
 
         if(email.isEmpty()){
-            edt_email_login.setError("Email harus diisi !");
+            edt_email_login.setError("Email must be filled !");
             edt_email_login.requestFocus();
             return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            edt_email_login.setError("Email yang diisi format nya harus sesuai");
+            edt_email_login.setError("Email format is not correct");
             edt_email_login.requestFocus();
             return;
         }
 
         if(password.isEmpty()){
-            edt_pass_login.setError("Password harus diisi");
+            edt_pass_login.setError("Password must be filled !");
             edt_pass_login.requestFocus();
             return;
         }
 
         if(password.length() < 6) {
-            edt_pass_login.setError("Password minimal 6 karakter");
+            edt_pass_login.setError("Password minimal 6 character");
             edt_pass_login.requestFocus();
             return;
         }

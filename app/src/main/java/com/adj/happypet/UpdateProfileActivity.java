@@ -192,21 +192,39 @@ public class UpdateProfileActivity extends AppCompatActivity{
                 String usercity = et_update_city.getText().toString().trim();
                 String useraddress = edt_address.getText().toString().trim();
 
-                //update data di firestore
-                db.collection("Member").document(userID).update(
-                        "fullname", fullnameUpdate,
-                        "contact", phoneUpdate,
-                        "city", usercity,
-                        "address", useraddress
-                ).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-                        //akan balik ke halaman sebelumnya
-                        finish();
-                    }
-                });
-
+                if(fullnameUpdate.isEmpty()){
+                    edt_nama.setError("Fullname Must Be Filled");
+                    edt_nama.requestFocus();
+                    return;
+                }else if(phoneUpdate.isEmpty()){
+                    edt_phone.setError("Phone Number Must be filled");
+                    edt_phone.requestFocus();
+                    return;
+                } else if(usercity.isEmpty()){
+                    et_update_city.setError("City Must Be Filled");
+                    et_update_city.requestFocus();
+                    return;
+                }  else if(useraddress.isEmpty()){
+                    edt_address.setError("Addresss must be filled");
+                    edt_address.requestFocus();
+                    return;
+                }
+                else{
+                    //update data di firestore
+                    db.collection("Member").document(userID).update(
+                            "fullname", fullnameUpdate,
+                            "contact", phoneUpdate,
+                            "city", usercity,
+                            "address", useraddress
+                    ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(UpdateProfileActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                            //akan balik ke halaman sebelumnya
+                            finish();
+                        }
+                    });
+                }
             }
         });
 

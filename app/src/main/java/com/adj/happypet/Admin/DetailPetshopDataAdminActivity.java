@@ -66,23 +66,29 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                 String petGroomingDescUpdate = petshop_description.getText().toString().trim();
                 String petGroomingStatusUpdate = petshop_status.getText().toString().trim();
                 String ratingUpdate = edt_detail_rating.getText().toString().trim();
+                int i  = Integer.parseInt(ratingUpdate);
 
+                if(i > 6){
+                    edt_detail_rating.setError("Rating Must between 1 - 5");
+                    edt_detail_rating.requestFocus();
+                    return;
+                }else{
+                    //update profile owner
+                    db.collection("Owner").document(ownerId).update(
+                            "fullname", fullnameUpdate,
+                            "groomingshopname", petGroomingNameUpdate,
+                            "status", petGroomingStatusUpdate,
+                            "description", petGroomingDescUpdate,
+                            "address", petGroomingAddressUpdate,
+                            "contact", phoneUpdate,
+                            "rating", ratingUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(DetailPetshopDataAdminActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
 
-                //update profile owner
-                db.collection("Owner").document(ownerId).update(
-                        "fullname", fullnameUpdate,
-                        "groomingshopname", petGroomingNameUpdate,
-                        "status", petGroomingStatusUpdate,
-                        "description", petGroomingDescUpdate,
-                        "address", petGroomingAddressUpdate,
-                        "contact", phoneUpdate,
-                        "rating", ratingUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(DetailPetshopDataAdminActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
-
-                    }
-                });
+                        }
+                    });
+                }
 
             }
         });

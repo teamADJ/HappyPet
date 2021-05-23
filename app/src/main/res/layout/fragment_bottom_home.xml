@@ -116,30 +116,26 @@
 
 
 
-        <TextView
-            android:id="@+id/happy_pet_banner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Home our Happy Pet"
-            android:textColor="#000000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.563"
-            app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:textColor="@color/black"
+                android:textStyle="bold"
+
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:text="Tambah Pengetahuan Mu!"
+                android:padding="15dp"
 
 
-        <TextView
-            android:id="@+id/happyPetBanner_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Enjoy with us "
-            android:textSize="16sp"
-            android:textStyle="normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/happy_pet_banner" />
+                />
+
+        </LinearLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView

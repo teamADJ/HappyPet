@@ -134,20 +134,22 @@ public class OrderDetailActivity extends AppCompatActivity {
                 if (rating.getText().toString().isEmpty()) {
                     rating.setError("Tidak Boleh Kosong");
                     return;
+                }else{
+                    getRating = rating.getText().toString().trim();
+                    db.collection("Order").document(orderId).update("rating", getRating).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(OrderDetailActivity.this, "Rating Berhasil di input", Toast.LENGTH_SHORT).show();
+                            //akan balik ke halaman sebelumnya
+                            finish();
+                        }
+                    });
+
+
+
+                    dialog.dismiss();
                 }
-                getRating = rating.getText().toString().trim();
-                db.collection("Order").document(orderId).update("rating", getRating).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(OrderDetailActivity.this, "Rating Berhasil di input", Toast.LENGTH_SHORT).show();
-                        //akan balik ke halaman sebelumnya
-                        finish();
-                    }
-                });
 
-
-
-                dialog.dismiss();
             }
         });
 
