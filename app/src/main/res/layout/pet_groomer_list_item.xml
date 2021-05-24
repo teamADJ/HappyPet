@@ -61,7 +61,8 @@
                 android:id="@+id/location_petshop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Pet Grooming Location"
+                android:hint="Location Not Set"
+                android:text="Location Not Set"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
