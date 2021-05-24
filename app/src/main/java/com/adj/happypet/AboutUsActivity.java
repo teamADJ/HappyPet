@@ -78,20 +78,28 @@ public class AboutUsActivity extends AppCompatActivity {
         hashMap.put("feedback", isi_feedback);
 //        hashMap.put("email_admin", emailAdmin);
 
-        db.collection("Feedback").document(feedbackId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()) {
-                    Toast.makeText(AboutUsActivity.this, "Sukses mengirim feedback ", Toast.LENGTH_SHORT).show();
+        if(isi_feedback.isEmpty()){
+            edt_feedback.setError("This field is required");
+            edt_feedback.requestFocus();
+            return;
+        }else{
+            db.collection("Feedback").document(feedbackId).set(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(AboutUsActivity.this, "Send Feedback Success ", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AboutUsActivity.this, "Gagal mengirim ", Toast.LENGTH_SHORT).show();
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(AboutUsActivity.this, "Failed to send feedback", Toast.LENGTH_SHORT).show();
 
-            }
-        });
+                }
+            });
+        }
+
+
 
 
     }
