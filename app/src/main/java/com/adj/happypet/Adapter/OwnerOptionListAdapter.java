@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.LoginActivity;
 import com.adj.happypet.Model.Option_list;
+import com.adj.happypet.Owner.AboutUsOwnerActivity;
 import com.adj.happypet.Owner.UpdateOwnerProfileActivity;
 import com.adj.happypet.R;
 import com.adj.happypet.RowOptionClickListener;
@@ -78,6 +79,12 @@ public class OwnerOptionListAdapter extends RecyclerView.Adapter<OwnerOptionList
                         Intent updateOwnerProfile = new Intent(v.getContext(), UpdateOwnerProfileActivity.class);
                         v.getContext().startActivity(updateOwnerProfile);
 
+                    }
+
+                    //2. About Us Owner
+                    if (getPosition() == 1) {
+                        Intent aboutUs = new Intent(v.getContext(), AboutUsOwnerActivity.class);
+                        v.getContext().startActivity(aboutUs);
                     }
 
                     // 3. logout
