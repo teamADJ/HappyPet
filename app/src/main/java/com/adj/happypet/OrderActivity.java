@@ -136,14 +136,14 @@ public class OrderActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         Intent i = new Intent(OrderActivity.this, BottomNavigationActivity.class);
                         startActivity(i);
-                        Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OrderActivity.this, "Success make an order", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(OrderActivity.this, "Gagal membuat order ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OrderActivity.this, "Failed make an order ", Toast.LENGTH_SHORT).show();
 
                 }
             });

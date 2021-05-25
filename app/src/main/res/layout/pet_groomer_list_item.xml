@@ -63,6 +63,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Location Not Set"
                 android:text="Location Not Set"
+                android:textColorHint="@color/black"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
