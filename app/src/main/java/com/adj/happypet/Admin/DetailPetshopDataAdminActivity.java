@@ -76,8 +76,8 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                     petshop_status.setError("This Field cannot be empty");
                     petshop_status.requestFocus();
                     return;
-                }else if(petGroomingStatusUpdate == "Pending" || petGroomingStatusUpdate == "Verified" ||
-                            petGroomingStatusUpdate == "Recommended" || petGroomingStatusUpdate == "Banned"
+                }else if(!petGroomingStatusUpdate.equals("Pending")|| !petGroomingStatusUpdate.equals("Verified")||
+                            !petGroomingStatusUpdate.equals("Recommended") || !petGroomingStatusUpdate.equals("Banned")
                 ){
                     petshop_status.setError("Status must be Verified, Banned, or Recommendation");
                     petshop_status.requestFocus();
