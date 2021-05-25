@@ -73,7 +73,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
                         startActivity(i);
-                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Order Start", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -93,7 +93,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
                         startActivity(i);
-                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Order Cancelled", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
@@ -114,7 +114,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Intent i = new Intent(DetailOrderListOwnerActivity.this, BottomNavigationOwnerActivity.class);
                         startActivity(i);
-                        Toast.makeText(DetailOrderListOwnerActivity.this, "Updated Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DetailOrderListOwnerActivity.this, "Order Finished", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });

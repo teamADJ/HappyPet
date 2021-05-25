@@ -72,6 +72,16 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                     edt_detail_rating.setError("Rating Must between 1 - 5");
                     edt_detail_rating.requestFocus();
                     return;
+                }else if(petGroomingStatusUpdate.isEmpty()){
+                    petshop_status.setError("This Field cannot be empty");
+                    petshop_status.requestFocus();
+                    return;
+                }else if(petGroomingStatusUpdate == "Pending" || petGroomingStatusUpdate == "Verified" ||
+                            petGroomingStatusUpdate == "Recommended" || petGroomingStatusUpdate == "Banned"
+                ){
+                    petshop_status.setError("Status must be Verified, Banned, or Recommendation");
+                    petshop_status.requestFocus();
+                    return;
                 }else{
                     //update profile owner
                     db.collection("Owner").document(ownerId).update(

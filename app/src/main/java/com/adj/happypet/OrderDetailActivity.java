@@ -132,14 +132,14 @@ public class OrderDetailActivity extends AppCompatActivity {
                 final EditText rating = dialogView.findViewById(R.id.et_update_rating);
 
                 if (rating.getText().toString().isEmpty()) {
-                    rating.setError("Tidak Boleh Kosong");
+                    rating.setError("Rating must be 1 - 5");
                     return;
                 }else{
                     getRating = rating.getText().toString().trim();
                     db.collection("Order").document(orderId).update("rating", getRating).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Toast.makeText(OrderDetailActivity.this, "Rating Berhasil di input", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(OrderDetailActivity.this, "Rating is submitted", Toast.LENGTH_SHORT).show();
                             //akan balik ke halaman sebelumnya
                             finish();
                         }
