@@ -2,6 +2,7 @@ package com.adj.happypet.Owner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,12 +29,13 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
 
 
     private TextView order_name, phone_number_order, order_status, time_start, order_address, petshop_status;
-    private String ownerId, groomingshopname, contact, address, description;
-    private Button btn_finish_order, btn_cancel_order, btn_accept_order;
+    private String orderId, groomingshopname, contact, address, description;
+    private Button btn_finish_order, btn_cancel_order, btn_accept_order, btn_view_loc;
 
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
     private FirebaseUser fOwner;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,20 +53,20 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         fOwner = FirebaseAuth.getInstance().getCurrentUser();
-        ownerId = fOwner.getUid();
+        orderId = fOwner.getUid();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             //get orderId dr intent
-            ownerId = bundle.getString("orderId");
-            getGroomingIndo(ownerId);
+            orderId = bundle.getString("orderId");
+            getGroomingIndo(orderId);
         }
 
         btn_accept_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //update order
-                db.collection("Order").document(ownerId).update(
+                db.collection("Order").document(orderId).update(
 
                         "status", "Waiting"
 
@@ -84,7 +86,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //update order
-                db.collection("Order").document(ownerId).update(
+                db.collection("Order").document(orderId).update(
 
                         "status", "Cancelled"
 
@@ -105,7 +107,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //update order
-                db.collection("Order").document(ownerId).update(
+                db.collection("Order").document(orderId).update(
 
                         "status", "Success"
 
@@ -123,13 +125,20 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
             }
         });
 
-
+        btn_view_loc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(DetailOrderListOwnerActivity.this, MapsOrderDetailOwnerActivity.class);
+                i.putExtra("orderId", orderId);
+                startActivity(i);
+            }
+        });
 
 
     }
 
-    public void getGroomingIndo(String ownerId) {
-        db.collection("Order").whereEqualTo("orderId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    public void getGroomingIndo(String orderId) {
+        db.collection("Order").whereEqualTo("orderId", orderId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -172,7 +181,21 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
         btn_finish_order = findViewById(R.id.btn_finish_order);
         btn_accept_order = findViewById(R.id.btn_accept_order);
         btn_cancel_order = findViewById(R.id.btn_cancel_order);
+        btn_view_loc = findViewById(R.id.btn_view_loc);
 
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        outState.putString("orderId", orderId);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String ownerId = savedInstanceState.getString("orderId");
+        order_name.setText(ownerId);
     }
 
 }
