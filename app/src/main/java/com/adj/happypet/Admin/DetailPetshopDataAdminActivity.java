@@ -79,7 +79,7 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                 }else if(!petGroomingStatusUpdate.equals("Pending")|| !petGroomingStatusUpdate.equals("Verified")||
                             !petGroomingStatusUpdate.equals("Recommended") || !petGroomingStatusUpdate.equals("Banned")
                 ){
-                    petshop_status.setError("Status must be Verified, Banned, or Recommendation");
+                    petshop_status.setError("Status must be Verified, Banned, or Recommended");
                     petshop_status.requestFocus();
                     return;
                 }else{

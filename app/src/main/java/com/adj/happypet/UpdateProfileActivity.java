@@ -293,7 +293,7 @@ public class UpdateProfileActivity extends AppCompatActivity{
                             @Override
                             public void onSuccess(Void aVoid) {
                                 fUser.sendEmailVerification();
-                                Toast.makeText(UpdateProfileActivity.this, "Email Updated, resent email verification!",
+                                Toast.makeText(UpdateProfileActivity.this, "Email Updated, check verification on your new email",
                                         Toast.LENGTH_SHORT).show();
                                 finish();
                             }
@@ -343,7 +343,7 @@ public class UpdateProfileActivity extends AppCompatActivity{
                 final EditText password = dialogView.findViewById(R.id.et_change_pass);
 
                 if (password.getText().toString().isEmpty() || password.length() < 6) {
-                    password.setError("Required Filled and password at least 6");
+                    password.setError("Required Filled and password at least 6 character");
                     return;
                 }
 
