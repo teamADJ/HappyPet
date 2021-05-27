@@ -13,8 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Owner.AboutUsOwnerActivity"
-            android:parentActivityName=".Owner.BottomNavigationOwnerActivity"></activity>
+        <activity android:name=".Owner.MapsOrderDetailOwnerActivity"
+            android:parentActivityName=".Owner.DetailOrderListOwnerActivity"></activity>
+        <activity
+            android:name=".Owner.AboutUsOwnerActivity"
+            android:parentActivityName=".Owner.BottomNavigationOwnerActivity" />
         <activity
             android:name=".Admin.FeedbackDetailActivity"
             android:parentActivityName=".Admin.BottomNavigationAdminActivity" />

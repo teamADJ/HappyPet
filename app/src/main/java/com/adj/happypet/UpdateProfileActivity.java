@@ -241,6 +241,7 @@ public class UpdateProfileActivity extends AppCompatActivity{
             public void onClick(View view) {
                 Intent i = new Intent(UpdateProfileActivity.this, MapsProfileUserActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 

@@ -106,7 +106,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         edt_status.setText((CharSequence) documentSnapshot.get("status"));
                         tv_email.setText((CharSequence) documentSnapshot.get("email"));
                         tv_rating.setText((CharSequence) documentSnapshot.get("rating"));
-                        et_update_city.setText((CharSequence) documentSnapshot.get("City"));
+                        et_update_city.setText((CharSequence) documentSnapshot.get("city"));
                     }
                 }
             }
@@ -165,6 +165,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i = new Intent(UpdateOwnerProfileActivity.this, MapsProfileOwnerActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }

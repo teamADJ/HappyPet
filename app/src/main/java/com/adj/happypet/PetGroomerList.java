@@ -97,7 +97,7 @@ public class PetGroomerList extends AppCompatActivity {
 
     private void searchPetgrooming(String s) {
 
-        db.collection("Owner").whereEqualTo("groomingshopname", s).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("Owner").orderBy("groomingshopname".toLowerCase()).startAt(s).endAt(s + "\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 ownerInfoModelList.clear();

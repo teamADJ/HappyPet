@@ -66,7 +66,11 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                 String petGroomingDescUpdate = petshop_description.getText().toString().trim();
                 String petGroomingStatusUpdate = petshop_status.getText().toString().trim();
                 String ratingUpdate = edt_detail_rating.getText().toString().trim();
-                int i  = Integer.parseInt(ratingUpdate);
+                int i = 0;
+
+                if(i != 0){
+                    Integer.parseInt(ratingUpdate);
+                }
 
                 if(i > 6){
                     edt_detail_rating.setError("Rating Must between 1 - 5");
@@ -76,8 +80,8 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                     petshop_status.setError("This Field cannot be empty");
                     petshop_status.requestFocus();
                     return;
-                }else if(!petGroomingStatusUpdate.equals("Pending")|| !petGroomingStatusUpdate.equals("Verified")||
-                            !petGroomingStatusUpdate.equals("Recommended") || !petGroomingStatusUpdate.equals("Banned")
+                }else if(!(petGroomingStatusUpdate.equals("Pending")|| petGroomingStatusUpdate.equals("Verified")||
+                            petGroomingStatusUpdate.equals("Recommended") || petGroomingStatusUpdate.equals("Banned"))
                 ){
                     petshop_status.setError("Status must be Verified, Banned, or Recommended");
                     petshop_status.requestFocus();
@@ -119,6 +123,7 @@ public class DetailPetshopDataAdminActivity extends AppCompatActivity {
                         petshop_description.setText(snapshot.getString("description"));
                         petshop_contact.setText(snapshot.getString("contact"));
                         petshop_status.setText(snapshot.getString("status"));
+                        edt_detail_rating.setText(snapshot.getString("rating"));
                     }
 
                 }

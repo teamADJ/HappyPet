@@ -7,15 +7,22 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.adj.happypet.MapsProfileUserActivity;
 import com.adj.happypet.R;
+import com.adj.happypet.UpdateProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,6 +79,28 @@ public class MapsProfileOwnerActivity extends AppCompatActivity implements OnMap
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
+        //check location gps off atau on dan munculin alert jika off
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if( !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            new AlertDialog.Builder(MapsProfileOwnerActivity.this)
+                    .setTitle("GPS not found")
+                    .setMessage("Want to enable?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(MapsProfileOwnerActivity.this, UpdateOwnerProfileActivity.class));
+                            finish();
+                        }
+                    })
+                    .show();
+        }
+
         //untuk munculin petanya
         mapView.getMapAsync(this);
 
@@ -99,12 +128,12 @@ public class MapsProfileOwnerActivity extends AppCompatActivity implements OnMap
 //
 
 
-                LocalizationPlugin localizationPlugin =  new LocalizationPlugin(mapView, mapboxMap, style);
-                try {
-                    localizationPlugin.matchMapLanguageWithDeviceDefault();
-                } catch (RuntimeException exception) {
-                    Log.d("error", exception.toString());
-                }
+//                LocalizationPlugin localizationPlugin =  new LocalizationPlugin(mapView, mapboxMap, style);
+//                try {
+//                    localizationPlugin.matchMapLanguageWithDeviceDefault();
+//                } catch (RuntimeException exception) {
+//                    Log.d("error", exception.toString());
+//                }
 
             }
         });

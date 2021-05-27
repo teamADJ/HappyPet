@@ -7,9 +7,13 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -71,6 +75,30 @@ public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMa
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(savedInstanceState);
 
+        //check location off atau on dan munculin alert dialog jika off
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if( !locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && !locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+            new AlertDialog.Builder(MapsDetailPetshopActivity.this)
+                    .setTitle("GPS not found")
+                    .setMessage("Want to enable?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            Intent intent = new Intent(MapsDetailPetshopActivity.this, DetailPetshopUserActivity.class);
+                            intent.putExtra("ownerId", ownerId);
+                            startActivity(intent);
+                            finish();
+                        }
+                    })
+                    .show();
+        }
+
         //untuk munculin petanya
         mapView.getMapAsync(this);
 
@@ -98,19 +126,14 @@ public class MapsDetailPetshopActivity extends AppCompatActivity implements OnMa
             @Override
             public void onStyleLoaded(@NonNull Style style) {
                 enableLocationComponent(style);
-//
-//                Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.ic_place_red_24dp, null);
-//                Bitmap bitmap = BitmapUtils.getBitmapFromDrawable(drawable);
-//                style.addImage("symbolIconId", bitmap);
-//
 
 
-                LocalizationPlugin localizationPlugin =  new LocalizationPlugin(mapView, mapboxMap, style);
-                try {
-                    localizationPlugin.matchMapLanguageWithDeviceDefault();
-                } catch (RuntimeException exception) {
-                    Log.d("error", exception.toString());
-                }
+//                LocalizationPlugin localizationPlugin =  new LocalizationPlugin(mapView, mapboxMap, style);
+//                try {
+//                    localizationPlugin.matchMapLanguageWithDeviceDefault();
+//                } catch (RuntimeException exception) {
+//                    Log.d("error", exception.toString());
+//                }
 
             }
         });
