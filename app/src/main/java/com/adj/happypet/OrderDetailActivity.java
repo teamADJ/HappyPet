@@ -132,7 +132,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 final EditText rating = dialogView.findViewById(R.id.et_update_rating);
 
                 if (rating.getText().toString().isEmpty()) {
-                    rating.setError("Rating must be 1 - 5");
+                    rating.setError("Rating must between 1 - 5");
                     return;
                 }else{
                     getRating = rating.getText().toString().trim();
