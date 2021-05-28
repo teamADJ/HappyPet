@@ -31,8 +31,7 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
 
     private PetGroomerList activity;
     private List<GroomingOwnerInfoModel> ownerInfoModelList;
-    private List<GroomingOwnerInfoModel> ownerInfoModelListFull;
-    private RowOptionClickListener rowOptionClickListener;
+
     private String ownerId;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -42,9 +41,15 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
         this.ownerInfoModelList = ownerInfoModelList;
     }
 
-    PetGroomerListAdapter(List<GroomingOwnerInfoModel> ownerInfoModelList){
-        this.ownerInfoModelList = ownerInfoModelList;
-        ownerInfoModelListFull = new ArrayList<>(ownerInfoModelList);
+
+    // method for filtering our recyclerview items.
+    public void filterList(ArrayList<GroomingOwnerInfoModel> filterList) {
+        // below line is to add our filtered
+        // list in our course array list.
+        ownerInfoModelList = filterList;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -60,8 +65,6 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         holder.petGroomingShopName.setText(ownerInfoModelList.get(position).getGroomingShopName());
-//        holder.petGroomerName.setText(ownerInfoModelList.get(position).getPetGroomerName());
-//        holder.petGroomingDesc.setText(ownerInfoModelList.get(position).getPetGroomerDesc());
         holder.location_petshop.setText(ownerInfoModelList.get(position).getLocation_petshop());
 
 
@@ -72,11 +75,6 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
                 Intent detailPetshopData = new Intent(view.getContext(), DetailPetshopUserActivity.class);
                 detailPetshopData.putExtra("ownerId", ownerId);
                 view.getContext().startActivity(detailPetshopData);
-//        groomingshopname = groomingList.get(position).getGroomingshopname();
-//        contact = groomingList.get(position).getContact();
-//        address = groomingList.get(position).getAddress();
-//        description = groomingList.get(position).getDescription();
-//        getStatus = groomingList.get(position).getStatus();
 
             }
         });
@@ -120,46 +118,5 @@ public class PetGroomerListAdapter extends RecyclerView.Adapter<PetGroomerListAd
         }
     }
 
-    public Filter getFilter(){
-        return filter;
-    }
 
-    private Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence charSequence) {
-            List<GroomingOwnerInfoModel> groomingList = new ArrayList<>();
-
-            if(charSequence == null || charSequence.length() == 0){
-                groomingList.addAll(ownerInfoModelListFull);
-            }else{
-                String filterPattern = charSequence.toString().toLowerCase().trim();
-                for (GroomingOwnerInfoModel item : ownerInfoModelListFull) {
-                    if (item.getGroomingShopName().toLowerCase().trim().contains(filterPattern) ||
-                            item.getLocation_petshop().toLowerCase().trim().contains(filterPattern)) {
-
-                        groomingList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.count = groomingList.size();
-            results.values = filter;
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            ownerInfoModelList.clear();
-//            ownerInfoModelList.addAll((List) filterResults.values);
-            if(filterResults.values instanceof List){
-                for(Object item : (List<Object>) filterResults.values){
-                    if(item instanceof GroomingOwnerInfoModel){
-                        ownerInfoModelList.add((GroomingOwnerInfoModel) item);
-                    }
-                }
-            }
-            notifyDataSetChanged();
-        }
-    };
 }

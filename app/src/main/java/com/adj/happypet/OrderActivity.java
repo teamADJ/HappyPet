@@ -148,14 +148,6 @@ public class OrderActivity extends AppCompatActivity {
                 }
             });
 
-//            db.collection("Order").add(hashMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-//                @Override
-//                public void onComplete(@NonNull Task<DocumentReference> task) {
-//                    if (task.isSuccessful()) {
-//                        Toast.makeText(OrderActivity.this, "Sukses membuat order ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            });
 
         }
     }

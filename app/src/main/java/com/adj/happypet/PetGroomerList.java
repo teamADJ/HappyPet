@@ -41,9 +41,7 @@ public class PetGroomerList extends AppCompatActivity {
         recyclerView = findViewById(R.id.petGroomerList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        LinearLayoutManager layoutManager =new LinearLayoutManager(
-//                PetGroomerList.this,LinearLayoutManager.HORIZONTAL,false
-//        );
+
         LinearLayoutManager layoutManager =new LinearLayoutManager(
                 PetGroomerList.this
         );
@@ -95,33 +93,57 @@ public class PetGroomerList extends AppCompatActivity {
         });
     }
 
-    private void searchPetgrooming(String s) {
+    private void filterSearch(String text){
+        ArrayList<GroomingOwnerInfoModel> filteredList = new ArrayList<>();
 
-        db.collection("Owner").orderBy("groomingshopname".toLowerCase()).startAt(s).endAt(s + "\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                ownerInfoModelList.clear();
-                for(DocumentSnapshot snapshot: task.getResult()){
-                    GroomingOwnerInfoModel groomingOwnerInfoModel = new GroomingOwnerInfoModel(
-                            snapshot.getString("ownerId"),
-                            snapshot.getString("fullname"),
-                            snapshot.getString("groomingshopname"),
-                            snapshot.getString("description"),
-                            snapshot.getString("city")
-                    );
-                    ownerInfoModelList.add(groomingOwnerInfoModel);
-                }
-                petGroomerListAdapter.notifyDataSetChanged();
-
+        // running a for loop to compare elements.
+        for (GroomingOwnerInfoModel item : ownerInfoModelList) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getGroomingShopName().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredList.add(item);
             }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(PetGroomerList.this, "Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        }
+        if (filteredList.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            petGroomerListAdapter.filterList(filteredList);
+        }
     }
+
+//    private void searchPetgrooming(String s) {
+//
+//        db.collection("Owner").orderBy("groomingshopname".toLowerCase()).startAt(s).endAt(s + "\uf8ff").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                ownerInfoModelList.clear();
+//                for(DocumentSnapshot snapshot: task.getResult()){
+//                    GroomingOwnerInfoModel groomingOwnerInfoModel = new GroomingOwnerInfoModel(
+//                            snapshot.getString("ownerId"),
+//                            snapshot.getString("fullname"),
+//                            snapshot.getString("groomingshopname"),
+//                            snapshot.getString("description"),
+//                            snapshot.getString("city")
+//                    );
+//                    ownerInfoModelList.add(groomingOwnerInfoModel);
+//                }
+//                petGroomerListAdapter.notifyDataSetChanged();
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(PetGroomerList.this, "Error", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//    }
+
 
     //menu
     @Override
@@ -144,8 +166,8 @@ public class PetGroomerList extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                searchPetgrooming(s); //function call with string entered in searchview as parameter
-//                petGroomerListAdapter.getFilter().filter(s);
+                //function call with string entered in searchview as parameter
+                filterSearch(s);
                 return false;
             }
         });
