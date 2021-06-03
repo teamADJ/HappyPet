@@ -132,7 +132,6 @@ public class RegisterOwnerFragment extends Fragment {
                                 ownerMap.put("ownerId",currentOwnerId);
                                 ownerMap.put("fullname",fullname);
                                 ownerMap.put("email",email);
-                                ownerMap.put("age","");
                                 ownerMap.put("password",password);
                                 ownerMap.put("contact","");
                                 ownerMap.put("city","");
