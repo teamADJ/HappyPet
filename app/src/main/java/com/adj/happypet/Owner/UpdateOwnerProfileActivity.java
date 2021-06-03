@@ -286,14 +286,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-
-                        db.collection("Owner").document(ownerID).update("password", passUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        
 
 
                     }
