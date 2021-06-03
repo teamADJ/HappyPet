@@ -31,14 +31,14 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class UpdateOwnerProfileActivity extends AppCompatActivity {
-    private EditText edt_nama, edt_phone, edt_petgrooming_name, edt_address, edt_desc, edt_status, et_update_city;
+    private EditText edt_nama, edt_phone, edt_petgrooming_name, edt_address, edt_desc, et_update_city;
     private Button btn_update, btn_back, btn_change_pass, btn_set_loc;
 
     private FirebaseAuth mAuth;
     private DatabaseReference userDBRef;
 
     private FirebaseFirestore db;
-    private TextView btn_update_email, tv_email, tv_rating;
+    private TextView btn_update_email, tv_email, tv_rating, edt_status;
     private FirebaseUser fOwner;
     private String ownerID;
     private static final String fullname = "fullname";
@@ -128,7 +128,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 String phoneUpdate = edt_phone.getText().toString().trim();
                 String petGroomingAddressUpdate = edt_address.getText().toString().trim();
                 String petGroomingDescUpdate = edt_desc.getText().toString().trim();
-                String petGroomingStatusUpdate = edt_status.getText().toString().trim();
                 String petGroomingCity = et_update_city.getText().toString().trim();
 
 
@@ -136,7 +135,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 db.collection("Owner").document(ownerID).update(
                         "fullname", fullnameUpdate,
                         "groomingshopname", petGroomingNameUpdate,
-                        "status", petGroomingStatusUpdate,
                         "description", petGroomingDescUpdate,
                         "city", petGroomingCity,
                         "address", petGroomingAddressUpdate,
@@ -209,7 +207,6 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 fOwner.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateOwnerProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
                         final String emailUpdate = email.getText().toString().trim();
 
 
@@ -218,7 +215,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 fOwner.sendEmailVerification();
-                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
+                                Toast.makeText(UpdateOwnerProfileActivity.this, "Email Updated, check verification on your new email",
                                         Toast.LENGTH_SHORT).show();
                                 finish();
                             }
