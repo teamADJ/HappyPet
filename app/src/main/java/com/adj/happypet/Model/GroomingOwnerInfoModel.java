@@ -1,7 +1,7 @@
 package com.adj.happypet.Model;
 
 public class GroomingOwnerInfoModel {
-    String id, petGroomerName, groomingShopName, petGroomerDesc, location_petshop;
+    String id, petGroomerName, groomingShopName, petGroomerDesc, location_petshop, status;
 
     public GroomingOwnerInfoModel() {
     }
@@ -12,6 +12,15 @@ public class GroomingOwnerInfoModel {
         this.groomingShopName = groomingShopName;
         this.petGroomerDesc = petGroomerDesc;
         this.location_petshop = location_petshop;
+    }
+
+    public GroomingOwnerInfoModel(String id, String petGroomerName, String groomingShopName, String petGroomerDesc, String location_petshop, String status) {
+        this.id = id;
+        this.petGroomerName = petGroomerName;
+        this.groomingShopName = groomingShopName;
+        this.petGroomerDesc = petGroomerDesc;
+        this.location_petshop = location_petshop;
+        this.status = status;
     }
 
     public String getId() {
@@ -52,5 +61,13 @@ public class GroomingOwnerInfoModel {
 
     public void setLocation_petshop(String petGroomerDesc) {
         this.location_petshop = location_petshop;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

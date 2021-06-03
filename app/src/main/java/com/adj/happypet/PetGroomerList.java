@@ -76,9 +76,14 @@ public class PetGroomerList extends AppCompatActivity {
                             snapshot.getString("fullname"),
                             snapshot.getString("groomingshopname"),
                             snapshot.getString("description"),
-                            snapshot.getString("city")
+                            snapshot.getString("city"),
+                            snapshot.getString("status")
                             );
-                    ownerInfoModelList.add(groomingOwnerInfoModel);
+
+                    if(snapshot.getString("status").equals("Recommended") || snapshot.getString("status").equals("Verified")){
+                        ownerInfoModelList.add(groomingOwnerInfoModel);
+                    }
+
                 }
                 petGroomerListAdapter.notifyDataSetChanged();
 
@@ -102,7 +107,10 @@ public class PetGroomerList extends AppCompatActivity {
             if (item.getGroomingShopName().toLowerCase().contains(text.toLowerCase())) {
                 // if the item is matched we are
                 // adding it to our filtered list.
-                filteredList.add(item);
+                if(!item.getGroomingShopName().isEmpty()){
+                    filteredList.add(item);
+                }
+
             }
         }
         if (filteredList.isEmpty()) {
