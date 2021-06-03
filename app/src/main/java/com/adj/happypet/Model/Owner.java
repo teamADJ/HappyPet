@@ -2,17 +2,16 @@ package com.adj.happypet.Model;
 
 public class Owner {
 
-    String fullName,email,password, age;
+    String fullName,email,password;
 
     public Owner(){
 
     }
 
-    public Owner(String fullName, String email, String password, String age) {
+    public Owner(String fullName, String email, String password) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
-        this.age = age;
     }
 
     public String getFullName() {
@@ -39,11 +38,4 @@ public class Owner {
         this.password = password;
     }
 
-    public String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 }
