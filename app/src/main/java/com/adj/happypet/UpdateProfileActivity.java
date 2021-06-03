@@ -355,7 +355,7 @@ public class UpdateProfileActivity extends AppCompatActivity{
                 fUser.updatePassword(getPass).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateProfileActivity.this, "Change Password Succes!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateProfileActivity.this, "Change Password Success!", Toast.LENGTH_SHORT).show();
                         final String newPassword = password.getText().toString().trim();
 
                         DocumentReference updateData = db.collection("Member").document(userID);

@@ -274,7 +274,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                 fOwner.updatePassword(getPassOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(UpdateOwnerProfileActivity.this, "Reset email sent!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Success!", Toast.LENGTH_SHORT).show();
                         final String passUpdate = password.getText().toString().trim();
 
                         DocumentReference updateData = db.collection("Owner").document(ownerID);
@@ -282,7 +282,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                         updateData.update(password_owner, passUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(UpdateOwnerProfileActivity.this, "Updated Successfully",
+                                Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Successfully",
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
