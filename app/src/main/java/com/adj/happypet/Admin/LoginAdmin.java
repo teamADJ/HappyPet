@@ -1,4 +1,4 @@
-package com.adj.happypet;
+package com.adj.happypet.Admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.adj.happypet.Admin.BottomNavigationAdminActivity;
-import com.adj.happypet.Owner.BottomNavigationOwnerActivity;
+import com.adj.happypet.ForgetPassword;
+import com.adj.happypet.LoginActivity;
+import com.adj.happypet.R;
+import com.adj.happypet.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -23,7 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class LoginAdmin extends AppCompatActivity {
