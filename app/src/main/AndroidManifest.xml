@@ -76,7 +76,7 @@
         <activity android:name=".Admin.AdminRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginAdmin" />
+        <activity android:name=".Admin.LoginAdmin" />
         <activity
             android:name=".RegisterActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />

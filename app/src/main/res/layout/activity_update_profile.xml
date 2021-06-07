@@ -163,12 +163,12 @@
 
             <Button
                 android:id="@+id/btn_update"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                android:background="#FFE5C0"
+                android:background="@drawable/btn"
                 android:text="UPDATE USER"
-                android:textColor="#A36831"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,12 +177,12 @@
 
             <Button
                 android:id="@+id/btn_change_pass"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#FFE5C0"
+                android:background="@drawable/btn"
                 android:text="Change Password"
-                android:textColor="#A36831"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -191,12 +191,12 @@
 
             <Button
                 android:id="@+id/btn_set_loc"
-                android:layout_width="300dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:background="#FFE5C0"
+                android:background="@drawable/btn"
                 android:text="SET LOCATION"
-                android:textColor="#A36831"
+                android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="20dp"
