@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,6 +41,7 @@ public class OrderFragment extends Fragment {
     FirebaseUser fuser;
     FirebaseFirestore db;
     String userId, ownerId;
+    private TextView Status;
 
     public static Fragment newInstance(String param1, String param2) {
         OrderFragment fragment = new OrderFragment();
@@ -82,7 +84,9 @@ public class OrderFragment extends Fragment {
         orderListAdapter = new OrderListAdapter(this, orderArrayList);
         recyclerViewOrderOptions.setAdapter(orderListAdapter);
 
+        Status = v.findViewById(R.id.status_tv);
         getOrderList();
+
 
         return v;
     }
@@ -93,23 +97,33 @@ public class OrderFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 orderArrayList.clear();
+                if (task.isSuccessful()){
+                    if (task.getResult().getDocuments().size() > 0){
+                        for(DocumentSnapshot documentSnapshot: task.getResult()){
+                            Order_list orderList = new Order_list(documentSnapshot.getString("orderId"),
+                                    documentSnapshot.getString("userId"),
+                                    documentSnapshot.getString("ownerId"),
+                                    documentSnapshot.getString("nama_owner"),
+                                    documentSnapshot.getString("petshopname"),
+                                    documentSnapshot.getString("owner_petshop"),
+                                    documentSnapshot.getString("alamat"),
+                                    documentSnapshot.getString("contact"),
+                                    documentSnapshot.getString("jam_mulai"),
+                                    documentSnapshot.getString("status")
+                            );
+                            orderArrayList.add(orderList);
+                        }
 
-                    for(DocumentSnapshot documentSnapshot: task.getResult()){
-                        Order_list orderList = new Order_list(documentSnapshot.getString("orderId"),
-                                documentSnapshot.getString("userId"),
-                                documentSnapshot.getString("ownerId"),
-                                documentSnapshot.getString("nama_owner"),
-                                documentSnapshot.getString("petshopname"),
-                                documentSnapshot.getString("owner_petshop"),
-                                documentSnapshot.getString("alamat"),
-                                documentSnapshot.getString("contact"),
-                                documentSnapshot.getString("jam_mulai"),
-                                documentSnapshot.getString("status")
-                        );
-                        orderArrayList.add(orderList);
+
+                    }else{
+                        Status.setVisibility(View.VISIBLE);
+                        Status.setText("Anda belum memiliki histori Order !");
                     }
-
                     orderListAdapter.notifyDataSetChanged();
+
+
+                }
+
                     //ambil data dr owner
 //                    db.collection("Owner").whereEqualTo("ownerId", ownerId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
 //                        @Override
