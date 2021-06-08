@@ -171,10 +171,8 @@ public class HomeFragment extends Fragment {
         search_box.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent toSearchActivity = new Intent(getActivity(), SearchActivity.class);
-
-                startActivity(toSearchActivity);
+                Intent i = new Intent(getActivity(), PetGroomerList.class);
+                startActivity(i);
             }
         });
 
