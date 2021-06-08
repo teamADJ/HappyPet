@@ -98,6 +98,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
+                android:hint="08XXXXX"
                 android:inputType="number" />
 
             <TextView
@@ -109,7 +110,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Jam Mulai"
+                android:text="Time Start"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
@@ -124,8 +125,8 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:gravity="start"
-                android:hint="Jam Mulai"
-                android:inputType="datetime" />
+                android:hint="16:00"
+                android:inputType="text" />
 
             <TextView
                 android:textColor="@color/black"
@@ -150,7 +151,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="20dp"
                 android:gravity="start"
-                android:hint="Address"
+                android:hint="JL. Harapan Baru XXX"
                 android:inputType="textMultiLine" />
 
             <Button
@@ -159,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn"
                 android:layout_margin="20dp"
-                android:text="Pesan"
+                android:text="Order pet grooming"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />
