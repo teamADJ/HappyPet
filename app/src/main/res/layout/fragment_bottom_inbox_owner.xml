@@ -29,14 +29,16 @@
         </androidx.appcompat.widget.Toolbar>
 
 
-        <!--    <TextView-->
-        <!--        android:id="@+id/tvChat"-->
-        <!--        android:layout_width="414dp"-->
-        <!--        android:layout_height="461dp"-->
-        <!--        android:gravity="bottom"-->
-        <!--        android:text="Chat messages will appear here"-->
-        <!--        app:layout_constraintTop_toBottomOf="@+id/inbox_toolbar"-->
-        <!--        tools:layout_editor_absoluteX="3dp" />-->
+        <TextView
+            android:id="@+id/status_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
 
 
         <androidx.recyclerview.widget.RecyclerView

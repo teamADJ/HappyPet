@@ -31,6 +31,17 @@
 
         </androidx.appcompat.widget.Toolbar>
 
+        <TextView
+            android:id="@+id/status_tv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:clipToPadding="false"
             android:id="@+id/recyclerViewListClient"
