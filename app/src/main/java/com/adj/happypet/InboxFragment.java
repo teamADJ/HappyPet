@@ -53,7 +53,7 @@ public class InboxFragment extends Fragment {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     FirebaseUser fuser;
-    TextView tvChat;
+    TextView tvChat, status;
     RecyclerView rvChat, rvInbox;
     EditText etTypeMsg;
     Button sendChatBtn;
@@ -86,20 +86,19 @@ public class InboxFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
 
 
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_bottom_inbox, viewGroup, false);
+        View v = inflater.inflate(R.layout.fragment_bottom_inbox, viewGroup, false);
 
 //        rvChat = v.findViewById(R.id.rvChat);
 //        etTypeMsg = v.findViewById(R.id.etTypeMsg);
 //        sendChatBtn = v.findViewById(R.id.sendChatBtn);
 
         rvInbox = v.findViewById(R.id.rvInbox);
+        status = v.findViewById(R.id.status_tv);
         petGroomingLists = new ArrayList<>();
         chatlists = new ArrayList<>();
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -109,7 +108,7 @@ public class InboxFragment extends Fragment {
 
         //        toolbar
         Toolbar inbox_toolbar = v.findViewById(R.id.inbox_toolbar);
-        ((BottomNavigationActivity)getActivity()).setSupportActionBar(inbox_toolbar);
+        ((BottomNavigationActivity) getActivity()).setSupportActionBar(inbox_toolbar);
         ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
 
@@ -119,9 +118,14 @@ public class InboxFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatlists.clear();
 
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
-                    chatlists.add(chatlist);
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
+                        chatlists.add(chatlist);
+                    }
+                }else{
+                    status.setVisibility(View.VISIBLE);
+                    status.setText("Anda belum memiliki chat dengan owner");
                 }
 
 
@@ -129,7 +133,7 @@ public class InboxFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         petGroomingLists.clear();
-                        for(DocumentSnapshot snapshot: task.getResult()){
+                        for (DocumentSnapshot snapshot : task.getResult()) {
                             PetGrooming_list petGrooming_list = new PetGrooming_list(snapshot.getString("ownerId"),
                                     snapshot.getString("groomingshopname"),
                                     snapshot.getString("contact"),
@@ -137,13 +141,11 @@ public class InboxFragment extends Fragment {
                                     snapshot.getString("description"),
                                     snapshot.getString("status"));
 
-                            for(Chatlist chatlist: chatlists){
-                                if(petGrooming_list.getOwnerId().equals(chatlist.getId())){
+                            for (Chatlist chatlist : chatlists) {
+                                if (petGrooming_list.getOwnerId().equals(chatlist.getId())) {
                                     petGroomingLists.add(petGrooming_list);
                                 }
                             }
-
-
 
 
                         }
