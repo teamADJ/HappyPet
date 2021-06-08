@@ -245,7 +245,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn"
                 android:layout_margin="20dp"
-                android:text="Pesan Jasa Petshop"
+                android:text="ORDER PET GROOMING"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />
@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn"
                 android:layout_margin="20dp"
-                android:text="Lihat Lokasi Pet Shop"
+                android:text="VIEW LOCATIONPET GROOMING"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />

@@ -44,7 +44,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginRight="20dp"
                 android:textSize="14sp"
-                android:text="Order Name"
+                android:text="Customer Name"
                 android:textStyle="bold"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="179dp"
@@ -104,6 +104,29 @@
                 android:inputType="number" />
 
 
+
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:textSize="14sp"
+                android:text="Status"
+                android:textStyle="bold"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="179dp"
+                tools:layout_editor_absoluteY="217dp" />
+
+            <TextView
+                android:id="@+id/order_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="20dp" />
             <TextView
 
                 android:layout_width="wrap_content"
@@ -127,28 +150,6 @@
                 android:gravity="start"
                 android:hint="Address"
                 android:inputType="textMultiLine" />
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:textSize="14sp"
-                android:text="Status"
-                android:textStyle="bold"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="179dp"
-                tools:layout_editor_absoluteY="217dp" />
-
-            <TextView
-                android:id="@+id/order_status"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginRight="20dp" />
 
             <Button
                 android:id="@+id/btn_accept_order"
@@ -200,7 +201,7 @@
                 android:background="@drawable/btn"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:text="LIHAT LOKASI CLIENT" />
+                android:text="View Client Location" />
 
 
         </LinearLayout>

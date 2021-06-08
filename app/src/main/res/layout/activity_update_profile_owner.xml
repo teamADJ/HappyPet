@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/main_color"
+                android:layout_marginBottom="20dp"
                 app:titleTextAppearance="@style/Toolbar.toolbar_title">
 
                 <TextView
@@ -74,7 +75,7 @@
                         android:layout_gravity="right"
                         android:foregroundGravity="right"
                         android:gravity="right"
-                        android:text="Ubah"
+                        android:text="Change"
                         android:textSize="16dp"
                         android:textStyle="bold" />
                 </RelativeLayout>
@@ -212,7 +213,7 @@
                     android:layout_marginTop="36dp"
                     android:background="@drawable/btn"
                     android:text="UPDATE PROFILE OWNER"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -226,7 +227,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/btn"
                     android:text="Change Password"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -240,7 +241,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/btn"
                     android:text="SET LOCATION"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="20dp"

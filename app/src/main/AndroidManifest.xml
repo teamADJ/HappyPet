@@ -36,7 +36,8 @@
         <activity
             android:name=".MapsProfileUserActivity"
             android:parentActivityName=".UpdateProfileActivity" />
-        <activity android:name=".Owner.LoginOwner" />
+        <activity android:name=".Owner.LoginOwner"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity
             android:name=".OrderDetailActivity"
             android:parentActivityName=".BottomNavigationActivity" />
@@ -72,7 +73,8 @@
         <activity android:name=".Owner.BottomNavigationOwnerActivity" />
         <activity android:name=".Admin.BottomNavigationAdminActivity" />
         <activity android:name=".Admin.ForgetPasswordAdmin" />
-        <activity android:name=".Admin.AdminLoginActivity" />
+        <activity android:name=".Admin.AdminLoginActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         <activity android:name=".Admin.AdminRegisterActivity" />
         <activity android:name=".ForgetPassword" />
         <activity android:name=".MainActivity" />
