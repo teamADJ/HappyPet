@@ -48,7 +48,7 @@ public class HomeOwnerFragment extends Fragment {
     FirebaseFirestore db;
     FirebaseUser firebaseUser;
     String ownerId;
-    TextView city;
+    TextView city, status;
 
     AlertDialog.Builder dialog;
     LayoutInflater inflater;
@@ -81,17 +81,18 @@ public class HomeOwnerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_bottom_home_owner, viewGroup, false);
+        View v = inflater.inflate(R.layout.fragment_bottom_home_owner, viewGroup, false);
 
         rvClientList = v.findViewById(R.id.recyclerViewListClient);
         city = v.findViewById(R.id.city);
+        status = v.findViewById(R.id.status_tv);
         //set size dari recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         rvClientList.setLayoutManager(layoutManager);
 
         //        toolbar
         Toolbar home_owner_toolbar = v.findViewById(R.id.home_owner_toolbar);
-        ((BottomNavigationOwnerActivity)getActivity()).setSupportActionBar(home_owner_toolbar);
+        ((BottomNavigationOwnerActivity) getActivity()).setSupportActionBar(home_owner_toolbar);
         ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Orders For You");
 
         adapter = new HomeOwnerAdapter(this, clientList);
@@ -107,7 +108,7 @@ public class HomeOwnerFragment extends Fragment {
 //                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
                     }
 
-                    if(city.getText().toString().equals("")){
+                    if (city.getText().toString().equals("")) {
                         dialogMoveToUpdateProfile();
                     }
                 }
@@ -118,6 +119,7 @@ public class HomeOwnerFragment extends Fragment {
 
         return v;
     }
+
     public void dialogMoveToUpdateProfile() {
 
         dialog = new AlertDialog.Builder(getActivity());
@@ -149,22 +151,36 @@ public class HomeOwnerFragment extends Fragment {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 clientList.clear();
+                if (task.isSuccessful()) {
+                    if (task.getResult().getDocuments().size() > 0) {
 
-                for(DocumentSnapshot snapshot: task.getResult()){
-                    ClientOrderModel model = new ClientOrderModel(snapshot.getString("orderId")
-                            ,snapshot.getString("userId"),
-                            snapshot.getString("nama_owner"),
-                            snapshot.getString("contact"),
-                            snapshot.getString("jam_mulai"),
-                            snapshot.getString("alamat"),
-                            snapshot.getString("status"),
-                            snapshot.getString("ownerId"));
-                    //add model to list
-                    clientList.add(model);
+                        for (DocumentSnapshot snapshot : task.getResult()) {
+                            ClientOrderModel model = new ClientOrderModel(snapshot.getString("orderId")
+                                    , snapshot.getString("userId"),
+                                    snapshot.getString("nama_owner"),
+                                    snapshot.getString("contact"),
+                                    snapshot.getString("jam_mulai"),
+                                    snapshot.getString("alamat"),
+                                    snapshot.getString("status"),
+                                    snapshot.getString("ownerId")
+                            );
+                            //add model to list
+                            clientList.add(model);
+                        }
+
+
+                    }
+                    else {
+                        status.setVisibility(View.VISIBLE);
+                        status.setText("Anda belum memiliki Order !");
+                    }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
+
 
             }
+
+
         });
 
     }

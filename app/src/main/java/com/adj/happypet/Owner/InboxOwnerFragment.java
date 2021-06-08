@@ -53,7 +53,7 @@ public class InboxOwnerFragment extends Fragment {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
     FirebaseUser fuser;
-    TextView tvChat;
+    TextView tvChat,status;
     RecyclerView rvInbox;
     EditText etTypeMsg;
     Button sendChatBtn;
@@ -84,14 +84,16 @@ public class InboxOwnerFragment extends Fragment {
         userId = fuser.getUid();
         db = FirebaseFirestore.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup viewGroup, @Nullable Bundle savedInstanceState) {
-        View v =  inflater.inflate(R.layout.fragment_bottom_inbox_owner, viewGroup, false);
+        View v = inflater.inflate(R.layout.fragment_bottom_inbox_owner, viewGroup, false);
 
         rvInbox = v.findViewById(R.id.rvInboxOwner);
+        status = v.findViewById(R.id.status_tv);
         clientInfoModelList = new ArrayList<>();
         chatlists = new ArrayList<>();
 
@@ -101,7 +103,7 @@ public class InboxOwnerFragment extends Fragment {
 
         //        toolbar
         Toolbar inbox_owner_toolbar = v.findViewById(R.id.inbox_owner_toolbar);
-        ((BottomNavigationOwnerActivity)getActivity()).setSupportActionBar(inbox_owner_toolbar);
+        ((BottomNavigationOwnerActivity) getActivity()).setSupportActionBar(inbox_owner_toolbar);
         ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
@@ -109,22 +111,26 @@ public class InboxOwnerFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatlists.clear();
-
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
-                    chatlists.add(chatlist);
+                if (snapshot.exists()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Chatlist chatlist = dataSnapshot.getValue(Chatlist.class);
+                        chatlists.add(chatlist);
+                    }
+                } else {
+                    status.setVisibility(View.VISIBLE);
+                    status.setText("Anda belum memiliki chat dengan member!");
                 }
 
                 db.collection("Member").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         clientInfoModelList.clear();
-                        for(DocumentSnapshot documentSnapshot: task.getResult()){
+                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
                             ClientInfoModel model = new ClientInfoModel(documentSnapshot.getString("userId"),
                                     documentSnapshot.getString("fullname"),
                                     documentSnapshot.getString("email"));
-                            for(Chatlist chatlist: chatlists){
-                                if(model.getId().equals(chatlist.getId())){
+                            for (Chatlist chatlist : chatlists) {
+                                if (model.getId().equals(chatlist.getId())) {
                                     clientInfoModelList.add(model);
                                 }
                             }
