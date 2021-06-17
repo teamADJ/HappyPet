@@ -80,7 +80,7 @@ public class ChatInOwner extends AppCompatActivity {
                 String msg = etTypeMsg.getText().toString();
                 if(!msg.equals("")){
                     etTypeMsg.getText().clear();
-                    sendMessage(fuser.getUid(), idUser, msg);
+                    sendMessage(ownerId, idUser, msg);
                 }else{
                     Toast.makeText(ChatInOwner.this, "At least type hello before send", Toast.LENGTH_SHORT).show();
                 }
@@ -103,7 +103,7 @@ public class ChatInOwner extends AppCompatActivity {
         databaseReference.child("Chats").push().setValue(hashMap);
 
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(fuser.getUid())
+                .child(ownerId)
                 .child(idUser);
 
 

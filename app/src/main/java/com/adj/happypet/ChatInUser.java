@@ -82,7 +82,7 @@ public class ChatInUser extends AppCompatActivity {
                 String msg = etTypeMsg.getText().toString();
                 if(!msg.equals("")){
                     etTypeMsg.getText().clear();
-                    sendMessage(fuser.getUid(), ownerId, msg);
+                    sendMessage(currentId, ownerId, msg);
                 }else{
                     Toast.makeText(ChatInUser.this, "At least type hello before send", Toast.LENGTH_SHORT).show();
                 }
@@ -103,16 +103,16 @@ public class ChatInUser extends AppCompatActivity {
         databaseReference.child("Chats").push().setValue(hashMap);
 
         final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist")
-                .child(fuser.getUid())
+                .child(currentId)
                 .child(ownerId);
 
         final DatabaseReference chatRefReceiver = FirebaseDatabase.getInstance().getReference("Chatlist")
                 .child(receiver)
-                .child(fuser.getUid());
+                .child(currentId);
         chatRefReceiver.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                chatRefReceiver.child("id").setValue(fuser.getUid());
+                chatRefReceiver.child("id").setValue(currentId);
             }
 
             @Override
