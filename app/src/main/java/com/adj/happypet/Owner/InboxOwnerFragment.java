@@ -57,7 +57,7 @@ public class InboxOwnerFragment extends Fragment {
     RecyclerView rvInbox;
     EditText etTypeMsg;
     Button sendChatBtn;
-    String userId;
+    String ownerId;
     List<ClientInfoModel> clientInfoModelList;
     List<Chatlist> chatlists;
     InboxOwnerAdapter adapter;
@@ -81,7 +81,7 @@ public class InboxOwnerFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         fuser = mAuth.getCurrentUser();
-        userId = fuser.getUid();
+        ownerId = fuser.getUid();
         db = FirebaseFirestore.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
@@ -106,7 +106,7 @@ public class InboxOwnerFragment extends Fragment {
         ((BottomNavigationOwnerActivity) getActivity()).setSupportActionBar(inbox_owner_toolbar);
         ((BottomNavigationOwnerActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(ownerId);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

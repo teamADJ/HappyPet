@@ -112,7 +112,7 @@ public class InboxFragment extends Fragment {
         ((BottomNavigationActivity) getActivity()).getSupportActionBar().setTitle("Chats");
 
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid());
+        databaseReference = FirebaseDatabase.getInstance().getReference("Chatlist").child(userId);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
