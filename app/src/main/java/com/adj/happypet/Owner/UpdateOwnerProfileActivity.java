@@ -194,22 +194,18 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final EditText email = dialogView.findViewById(R.id.et_update_email);
-
+                final String emailUpdate = email.getText().toString().trim();
                 if (email.getText().toString().isEmpty()) {
                     email.setError("Required Filled ");
                     return;
                 }
 
-                getEmail = email.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
                 fOwner = mAuth.getCurrentUser();
 
-                fOwner.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fOwner.updateEmail(emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        final String emailUpdate = email.getText().toString().trim();
-
-
 
                         db.collection("Owner").document(ownerID).update("email", emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
@@ -266,16 +262,15 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                     password.setError("Required Filled and password at least 6");
                     return;
                 }
-
-                getPassOwner = password.getText().toString().trim();
+                final String passUpdate = password.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
                 fOwner = mAuth.getCurrentUser();
 
-                fOwner.updatePassword(getPassOwner).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fOwner.updatePassword(passUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateOwnerProfileActivity.this, "Change Password Success!", Toast.LENGTH_SHORT).show();
-                        final String passUpdate = password.getText().toString().trim();
+
 
                         DocumentReference updateData = db.collection("Owner").document(ownerID);
 
@@ -286,7 +281,7 @@ public class UpdateOwnerProfileActivity extends AppCompatActivity {
                                         Toast.LENGTH_SHORT).show();
                             }
                         });
-                        
+
 
 
                     }

@@ -152,7 +152,6 @@ public class PetGroomerList extends AppCompatActivity {
 //
 //    }
 
-
     //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

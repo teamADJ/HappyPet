@@ -273,20 +273,19 @@ public class UpdateProfileActivity extends AppCompatActivity{
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 final EditText email = dialogView.findViewById(R.id.et_update_email);
-
+                final String emailUpdate = email.getText().toString().trim();
                 if (email.getText().toString().isEmpty()) {
                     email.setError("Required Filled ");
                     return;
                 }
 
-                getEmail = email.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
                 fUser = mAuth.getCurrentUser();
 
-                fUser.updateEmail(getEmail).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fUser.updateEmail(emailUpdate).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        final String emailUpdate = email.getText().toString().trim();
+
 
                         DocumentReference updateData = db.collection("Member").document(userID);
 
@@ -348,15 +347,15 @@ public class UpdateProfileActivity extends AppCompatActivity{
                     return;
                 }
 
-                getPass = password.getText().toString().trim();
+                final String newPassword = password.getText().toString().trim();
                 //send reset link udah tpi DB belum ke update
                 fUser = mAuth.getCurrentUser();
 
-                fUser.updatePassword(getPass).addOnSuccessListener(new OnSuccessListener<Void>() {
+                fUser.updatePassword(newPassword).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(UpdateProfileActivity.this, "Change Password Success!", Toast.LENGTH_SHORT).show();
-                        final String newPassword = password.getText().toString().trim();
+
 
                         DocumentReference updateData = db.collection("Member").document(userID);
 

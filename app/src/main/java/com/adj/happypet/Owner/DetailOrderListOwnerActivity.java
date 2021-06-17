@@ -53,7 +53,7 @@ public class DetailOrderListOwnerActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
         fOwner = FirebaseAuth.getInstance().getCurrentUser();
-        orderId = fOwner.getUid();
+//        orderId = fOwner.getUid();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
