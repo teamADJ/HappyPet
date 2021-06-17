@@ -256,7 +256,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/btn"
                 android:layout_margin="20dp"
-                android:text="VIEW LOCATIONPET GROOMING"
+                android:text="VIEW LOCATION PET GROOMING"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 />

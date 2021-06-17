@@ -35,14 +35,13 @@ public class RegisterOwnerFragment extends Fragment {
     private Button reg_owner_btn;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-    private FirebaseFirestore db ;
+    private FirebaseFirestore db;
     private DocumentReference documentReference;
 
     private TextView age_tv;
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_register_owner, viewGroup, false);
-
 
 
         edt_fullname_owner = v.findViewById(R.id.fName_edt_regis_owner);
@@ -60,9 +59,9 @@ public class RegisterOwnerFragment extends Fragment {
         documentReference = db.collection("Owner").document();
 
         //cek ada akun atau enggak
-        if(currentUser!= null){
+        if (currentUser != null) {
             // User is signed in
-        }else{
+        } else {
             // No user is signed in
         }
 
@@ -78,7 +77,7 @@ public class RegisterOwnerFragment extends Fragment {
         return v;
     }
 
-    private void createOwner(){
+    private void createOwner() {
         final String email = edt_email_owner.getText().toString().trim();
         final String password = edt_pass_owner.getText().toString().trim();
         final String fullname = edt_fullname_owner.getText().toString().trim();
@@ -88,10 +87,7 @@ public class RegisterOwnerFragment extends Fragment {
             edt_fullname_owner.setError("Full Name must be Required!");
             edt_fullname_owner.requestFocus();
             return;
-        }
-
-
-        else if (email.isEmpty()) {
+        } else if (email.isEmpty()) {
             edt_email_owner.setError("Email must be Required!");
             edt_email_owner.requestFocus();
             return;
@@ -101,9 +97,7 @@ public class RegisterOwnerFragment extends Fragment {
             edt_email_owner.setError("Please check your email format");
             edt_email_owner.requestFocus();
             return;
-        }
-
-        else if (password.isEmpty()) {
+        } else if (password.isEmpty()) {
             edt_pass_owner.setError("Password must be Required");
             edt_pass_owner.requestFocus();
             return;
@@ -114,58 +108,56 @@ public class RegisterOwnerFragment extends Fragment {
             edt_pass_owner.setError("Password must be at least 6");
             edt_pass_owner.requestFocus();
             return;
-        }
+        } else {
 
-        else{
+            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
 
-                    mAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
+                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                        currentUser = mAuth.getCurrentUser();
 
-                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                currentUser = mAuth.getCurrentUser();
+                        final String currentOwnerId = currentUser.getUid();
 
-                                final String currentOwnerId = currentUser.getUid();
-
-                                Map<String,Object> ownerMap = new HashMap<>();
-                                ownerMap.put("ownerId",currentOwnerId);
-                                ownerMap.put("fullname",fullname);
-                                ownerMap.put("email",email);
-                                ownerMap.put("password",password);
-                                ownerMap.put("contact","");
-                                ownerMap.put("city","");
-                                ownerMap.put("address","");
-                                ownerMap.put("description","");
-                                ownerMap.put("rating", "-");
-                                ownerMap.put("status","Pending");
+                        Map<String, Object> ownerMap = new HashMap<>();
+                        ownerMap.put("ownerId", currentOwnerId);
+                        ownerMap.put("fullname", fullname);
+                        ownerMap.put("email", email);
+                        ownerMap.put("password", password);
+                        ownerMap.put("contact", "");
+                        ownerMap.put("city", "");
+                        ownerMap.put("address", "");
+                        ownerMap.put("description", "");
+                        ownerMap.put("rating", "-");
+                        ownerMap.put("status", "Pending");
 
 
-                                db.collection("Owner").document(currentOwnerId).set(ownerMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-                                        Intent i = new Intent(getContext(), LoginOwner.class);
-                                        startActivity(i);
-                                        Toast.makeText(getActivity(), "Register Success, please check your email for verification!", Toast.LENGTH_SHORT).show();
-                                        firebaseUser.sendEmailVerification();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                        db.collection("Owner").document(currentOwnerId).set(ownerMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                firebaseUser.sendEmailVerification();
+                                Intent i = new Intent(getContext(), LoginOwner.class);
+                                startActivity(i);
+                                Toast.makeText(getActivity(), "Register Success, please check your email for verification!", Toast.LENGTH_SHORT).show();
+
                             }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Email is already use", Toast.LENGTH_SHORT).show();
-
-                        }
-                    });
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
                 }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity(), "Email is already use", Toast.LENGTH_SHORT).show();
 
+                }
+            });
+        }
 
 
     }
@@ -176,7 +168,8 @@ public class RegisterOwnerFragment extends Fragment {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){}
+        if (currentUser != null) {
+        }
     }
 }
 
