@@ -103,55 +103,55 @@ public class RegisterUserFragment extends Fragment {
                     return;
                 } else {
 
-                            //create account using email and password
-                            mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
+                    //create account using email and password
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
 
-                                        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                        currentUser = mAuth.getCurrentUser();
-                                        //unik id
-                                        final String currentUserId = currentUser.getUid();
+                                FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                                currentUser = mAuth.getCurrentUser();
+                                //unik id
+                                final String currentUserId = currentUser.getUid();
 
-                                        // mengambil data dri edt yg diinputkan
-                                        Map<String, Object> userMap = new HashMap<>();
-                                        userMap.put("userId", currentUserId);
-                                        userMap.put("fullname", fullname);
-                                        userMap.put("email", email);
-                                        userMap.put("password", password);
+                                // mengambil data dri edt yg diinputkan
+                                Map<String, Object> userMap = new HashMap<>();
+                                userMap.put("userId", currentUserId);
+                                userMap.put("fullname", fullname);
+                                userMap.put("email", email);
+                                userMap.put("password", password);
 
-                                        //push data ke collection db nya
+                                //push data ke collection db nya
 
-                                        db.collection("Member").document(currentUserId).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
+                                db.collection("Member").document(currentUserId).set(userMap).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 
-                                                Intent i = new Intent(getContext(), LoginActivity.class);
-                                                startActivity(i);
-                                                Toast.makeText(getActivity(), "Register Success, please check your email for verification!", Toast.LENGTH_SHORT).show();
-                                                firebaseUser.sendEmailVerification();
-                                         }
-
-                                         }).addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
-                                            }
-                                        });
-
+                                        firebaseUser.sendEmailVerification();
+                                        Intent i = new Intent(getContext(), LoginActivity.class);
+                                        startActivity(i);
+                                        Toast.makeText(getActivity(), "Register Success, please check your email for verification!", Toast.LENGTH_SHORT).show();
 
                                     }
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getActivity(), "Email is already use", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                        }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(getContext(), "Register Failed!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
+
+                            }
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Email is already use", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
 
 
             }
