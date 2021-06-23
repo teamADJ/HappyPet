@@ -72,5 +72,15 @@
 
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/lihat_detail_tv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginLeft="60dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/ic_right_arrow"
+        />
 
 </androidx.cardview.widget.CardView>

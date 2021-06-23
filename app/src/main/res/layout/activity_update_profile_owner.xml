@@ -48,8 +48,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="left"
                     android:text="Email Address"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -76,8 +77,9 @@
                         android:foregroundGravity="right"
                         android:gravity="right"
                         android:text="Change"
-                        android:textSize="16dp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black" />
                 </RelativeLayout>
 
                 <TextView
@@ -86,8 +88,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Owner Fullname"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/et_update_Ownername"
@@ -101,8 +104,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Contact Number"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/et_update_phone"
@@ -117,8 +121,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Pet Grooming Name"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/et_petgrooming_name"
@@ -133,8 +138,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="City"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/et_update_city"
@@ -149,8 +155,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Address"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <EditText
                     android:id="@+id/et_update_address"
@@ -166,8 +173,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Description "
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"/>
 
                 <EditText
                     android:id="@+id/et_update_description"
@@ -180,7 +188,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:text="Rating"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
                     android:layout_height="wrap_content"/>
 
                 <TextView
@@ -197,8 +207,9 @@
                     android:layout_gravity="left"
                     android:layout_marginTop="15dp"
                     android:text="Status"
-                    android:textSize="16dp"
-                    android:textStyle="bold" />
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/et_update_status"

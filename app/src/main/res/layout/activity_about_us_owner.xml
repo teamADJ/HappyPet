@@ -21,6 +21,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="50dp"
         android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:textColor="@color/black"
         android:text="Happy Pet merupakan aplikasi yang menyediakan jasa untuk Grooming Hewan. " />
 
     <TextView
@@ -29,6 +31,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:textColor="@color/black"
         android:text="Contact Us : +6289127364" />
 
     <TextView
@@ -37,6 +41,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
+        android:textSize="16dp"
+        android:textColor="@color/black"
         android:text="Send Feedback" />
 
     <EditText

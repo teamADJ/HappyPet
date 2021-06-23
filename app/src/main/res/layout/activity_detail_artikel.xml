@@ -35,13 +35,18 @@
             android:textStyle="bold"
             android:id="@+id/title_artikel"
             android:layout_width="match_parent"
+            android:textSize="24dp"
+            android:textColor="@color/black"
             android:layout_height="wrap_content">
         </TextView>
 
         <TextView
             android:id="@+id/description_artikel"
             android:text="Description"
+            android:textSize="16dp"
+            android:textColor="@color/black"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content">
 
         </TextView>
