@@ -1,10 +1,11 @@
-package com.adj.happypet;
+package com.adj.happypet.Admin;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,7 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.adj.happypet.Adapter.OptionListAdapter;
+import com.adj.happypet.LoginActivity;
 import com.adj.happypet.Model.Option_list;
+import com.adj.happypet.PetGroomerList;
+import com.adj.happypet.R;
+import com.adj.happypet.RowOptionClickListener;
+import com.adj.happypet.UpdateProfileActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class ProfileFragment extends Fragment implements RowOptionClickListener{
+public class ProfileAdminFragment extends Fragment{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     // TODO: Rename and change types of parameters
@@ -35,10 +41,11 @@ public class ProfileFragment extends Fragment implements RowOptionClickListener{
     private FirebaseFirestore db;
     private String userID;
     private TextView tv_nama, tv_email;
+    LinearLayout btn_logout_admin;
     private FirebaseAuth mAuth;
 
     public static Fragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
+        ProfileAdminFragment fragment = new ProfileAdminFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,60 +60,32 @@ public class ProfileFragment extends Fragment implements RowOptionClickListener{
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        mAuth = FirebaseAuth.getInstance();
-        db = FirebaseFirestore.getInstance();
-        userID = mAuth.getUid();
+
     }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup viewGroup, Bundle savedInstanceState){
-        View v = inflater.inflate(R.layout.fragment_bottom_user, viewGroup, false);
+        View v = inflater.inflate(R.layout.fragment_bottom_profile_admin, viewGroup, false);
+        btn_logout_admin = v.findViewById(R.id.btn_logout_admin);
+        btn_logout_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent keLogin = new Intent(v.getContext(), LoginActivity.class);
+                keLogin.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                v.getContext().startActivity(keLogin);
+            }
+        });
 
-//        cardview list option
-
-        optionArrayList = new ArrayList<>();
-        optionArrayList.add(new Option_list("Profile"));
-        optionArrayList.add(new Option_list("About"));
-        optionArrayList.add(new Option_list("Logout"));
-
-        recyclerViewListOption = v.findViewById(R.id.recyclerViewListOption);
-        optionListAdapter = new OptionListAdapter(optionArrayList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerViewListOption.setLayoutManager(layoutManager);
-        recyclerViewListOption.setAdapter(optionListAdapter);
-
-
-//        get data from firebase
-        tv_nama = v.findViewById(R.id.name);
-        tv_email = v.findViewById(R.id.email);
-
-        
         return v;
 
 
     }
 
 
-    @Override
-    public void optionClicked(View view, int position) {
-        if(position == 0){
-            Intent updateProfile = new Intent(getActivity(), UpdateProfileActivity.class);
-            startActivity(updateProfile);
-        }
-    }
 
     @Override
     public void onResume() {
         super.onResume();
-        db.collection("Member").whereEqualTo("userId", userID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()){
-                    for (DocumentSnapshot documentSnapshot: task.getResult()){
-                        tv_nama.setText((CharSequence) documentSnapshot.get("fullname"));
-                        tv_email.setText((CharSequence) documentSnapshot.get("email"));
-                    }
-                }
-            }
-        });
+
     }
 }

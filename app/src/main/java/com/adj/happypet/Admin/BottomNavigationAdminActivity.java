@@ -48,7 +48,7 @@ public class BottomNavigationAdminActivity extends AppCompatActivity {
                             openFragment(InboxAdminFragment.newInstance("", ""));
                             return true;
                         case R.id.profile_admin:
-                            openFragment(ProfileFragment.newInstance("", ""));
+                            openFragment(ProfileAdminFragment.newInstance("", ""));
                             return true;
                     }
                     return false;
